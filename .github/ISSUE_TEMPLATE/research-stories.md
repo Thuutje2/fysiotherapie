@@ -2,7 +2,7 @@
 name: Research Stories
 about: Research Stories Template
 title: Als {team} willen we {kennis}, zodat {keuze ten gunste van ander verhaal}
-labels: ''
+labels: Research Stories
 assignees: ''
 
 ---
