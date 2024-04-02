@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 
 # Lees het CSV-bestand in
-df = pd.read_csv("csv/mediapipe_body_3d_xyz.csv", sep=';')
+df = pd.read_csv("csv/mediapipe_body_3d_xyz.csv", sep=',')
 
 # Initialiseer de Dash-applicatie
 app = dash.Dash(__name__)

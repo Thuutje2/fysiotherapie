@@ -11,7 +11,7 @@ def clean_column_names(columns):
 
 
 # Lees het Excel-bestand in met het juiste scheidingsteken (;)
-df = pd.read_csv("csv/mediapipe_body_3d_xyz.csv", sep=';')
+df = pd.read_csv("csv/mediapipe_body_3d_xyz.csv", sep=',')
 
 # Initialiseer de Tkinter-applicatie
 root = tk.Tk()
