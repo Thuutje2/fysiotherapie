@@ -1,60 +1,76 @@
-import tkinter as tk
-from tkinter import ttk
+import dash
+from dash import dcc, html
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import plotly.express as px
+
+# Lees het CSV-bestand in
+df = pd.read_csv("csv/mediapipe_body_3d_xyz.csv", sep=',')
+
+# Initialiseer de Dash-applicatie
+app = dash.Dash(__name__)
+app.title = "Mijn Dashboard Applicatie"
 
 
 # Functie om de kolomnamen op te schonen
 def clean_column_names(columns):
-    return ' '.join(columns).replace("'", "").replace(",", "")
+    return [col.replace("'", "").replace(",", "") for col in columns]
 
 
-# Lees het Excel-bestand in met het juiste scheidingsteken (;)
-df = pd.read_csv("csv/mediapipe_body_3d_xyz.csv", sep=',')
+# Opties voor dropdown-menu
+options = [{'label': col, 'value': col} for col in clean_column_names(df.columns)]
 
-# Initialiseer de Tkinter-applicatie
-root = tk.Tk()
-root.title("Mijn Dashboard Applicatie")
+# Layout van de app
+app.layout = html.Div([
+    # Sidebar met menu
+    html.Div([
+        html.H2("Menu", className="display-4"),
+        html.Hr(),
+        html.P("Welkom, Gebruiker!"),
+        html.Hr(),
+        html.H5("Informatie:"),
+        html.P("Hier komt informatie voor de gebruiker."),
+    ],
+        style={
+            "position": "fixed",
+            "top": 0,
+            "left": 0,
+            "bottom": 0,
+            "width": "15%",
+            "padding": "10px",
+            "background-color": "#f8f9fa",
+        }),
+
+    # Hoofdinhoud met dropdown en grafiek
+    html.Div([
+        html.H2("Dashboard", className="display-4"),
+        html.Hr(),
+        html.Label("Selecteer een kolom:"),
+        dcc.Dropdown(
+            id='column-dropdown',
+            options=options,
+            value=options[0]['value']
+        ),
+        html.Div(id='graph-container')
+    ],
+        style={"margin-left": "15%", "padding": "20px"}),
+])
 
 
-# Functie om de grafiek bij te werken
-def update_graph(event=None):
-    selected_column = combo_box.get().strip()  # Verwijder extra spaties
-
-    # Maak een figuur en assen-object aan om de grootte van de afbeelding te kunnen aanpassen
-    fig, ax = plt.subplots(figsize=(10, 6))  # Pas de grootte van de afbeelding aan
-
-    ax.plot(df.index, df[selected_column])  # Plot geselecteerde kolom tegen index
-
-    ax.set_xlabel('Index')  # X-as label
-    ax.set_ylabel(selected_column)  # Y-as label
-    ax.set_title(f"Grafiek van {selected_column}")  # Titel
-
-    # Maak een FigureCanvasTkAgg object aan en voeg het toe aan het Tkinter-venster
-    canvas = FigureCanvasTkAgg(fig, master=root)
-    canvas.draw()
-    canvas.get_tk_widget().grid(row=2, columnspan=2, padx=10, pady=10)  # Plaats de grafiek in het venster
+# Callback functie om de grafiek bij te werken
+@app.callback(
+    dash.dependencies.Output('graph-container', 'children'),
+    [dash.dependencies.Input('column-dropdown', 'value')]
+)
+def update_graph(selected_column):
+    # Maak een figuur met Plotly Express
+    fig = px.line(df, x=df.index, y=selected_column, title=f"Grafiek van {selected_column}")
+    # Maak een dcc.Graph object en geef het terug
+    return dcc.Graph(figure=fig)
 
 
-# Beschikbare kolommen zonder aanhalingstekens en komma's
-cleaned_columns = clean_column_names(df.columns)
-
-# Label
-label = ttk.Label(root, text="Selecteer een kolom:")
-label.grid(row=0, column=0, padx=10, pady=10)
-
-# Dropdown-menu
-combo_box = ttk.Combobox(root, values=cleaned_columns)
-combo_box.grid(row=0, column=1, padx=10, pady=10)
-combo_box.bind("<<ComboboxSelected>>", update_graph)
-
-# Knop
-button = ttk.Button(root, text="Toon grafiek", command=update_graph)
-button.grid(row=1, columnspan=2, padx=10, pady=10)
-
-# Start de Tkinter event loop
-root.mainloop()
+# Start de Dash-applicatie
+if __name__ == '__main__':
+    app.run_server(debug=True)
 
 
 
