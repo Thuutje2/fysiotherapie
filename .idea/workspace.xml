@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Eerste opzet website">
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/images/RunningMan.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +54,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "17-opzet-maken-voor-website",
-    "last_opened_file_path": "C:/Users/daanf/code/TODSS/Github/fysiotherapie",
+    "last_opened_file_path": "C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend/src/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -65,7 +65,14 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global\images" />
+      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global" />
+      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components" />
+      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
       <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\src\main\fysiotherapie\csv" />
     </key>
   </component>
@@ -109,7 +116,8 @@
       <workItem from="1712749108009" duration="509000" />
       <workItem from="1712749654600" duration="697000" />
       <workItem from="1712750364625" duration="267000" />
-      <workItem from="1712773275038" duration="3384000" />
+      <workItem from="1712773275038" duration="3506000" />
+      <workItem from="1712830069286" duration="2822000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />

@@ -16,9 +16,8 @@
 body {
   display: grid;
   grid-template-columns: 200px auto;
-  grid-gap: 20px;
+  grid-gap: 10px;
   margin: 0;
-  min-width: 500px;
 }
 
 #app {
