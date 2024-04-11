@@ -82,7 +82,7 @@ class SidebarComponent extends LitElement {
                     <!--PATIËNT-->
                     <!-- en dan hier moet iets komen van als je patient bent dan zie je deze links-->
                     <a href="/patient-information" @click="${this.handleLinkClick}">Mijn gegevens</a>
-                    <a href="/#" @click="${this.handleLinkClick}">Historie</a>
+                    <a href="/patient-history" @click="${this.handleLinkClick}">Historie</a>
                 </div>
 
                 <a id="logout-btn" href="#" @click="${this.handleLogout}">
