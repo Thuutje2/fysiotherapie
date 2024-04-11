@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Eerste opzet website">
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/images/RunningMan.png" afterDir="false" />
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="fixed sidebar, added logo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +115,7 @@
       <workItem from="1712749654600" duration="697000" />
       <workItem from="1712750364625" duration="267000" />
       <workItem from="1712773275038" duration="3506000" />
-      <workItem from="1712830069286" duration="2822000" />
+      <workItem from="1712830069286" duration="4064000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -151,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712750136585</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fixed sidebar, added logo">
+      <created>1712833318223</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833318223</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +177,7 @@
     <MESSAGE value="floenk" />
     <MESSAGE value="Update github" />
     <MESSAGE value="Eerste opzet website" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eerste opzet website" />
+    <MESSAGE value="fixed sidebar, added logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed sidebar, added logo" />
   </component>
 </project>
