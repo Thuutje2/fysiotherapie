@@ -8,8 +8,14 @@ const router = new Router(outlet)
 router.setRoutes([
     {
         path: "/",
-        component: "patient-information"
+        component: "patient-hoofdpagina"
+    },
+
+    {
+        path: "/patient-information",
+        component: "patient-information",
     }
 ]).then(() => {
     console.log('Routes mapped successfully');
 });
+
