@@ -1,6 +1,7 @@
 import "./components/patient-hoofdpagina.js";
 import "./components/patient-information.js";
 import "./components/patient-history.js";
+import "./components/activity-walk.js";
 
 import {Router} from "@vaadin/router";
 
@@ -21,6 +22,10 @@ router.setRoutes([
     {
         path: "/patient-history",
         component: "patient-history",
+    },
+    {
+        path: "/activity-walk",
+        component: "activity-walk",
     }
 ]).then(() => {
     console.log('Routes mapped successfully');

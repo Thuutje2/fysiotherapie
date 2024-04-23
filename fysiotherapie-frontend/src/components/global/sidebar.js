@@ -14,7 +14,7 @@ class SidebarComponent extends LitElement {
             color: white;
             overflow-y: hidden;
             text-align: center;
-            position: relative; /* Hiermee kunnen we de position: absolute van de #logout-btn relatief aan de .sidebar maken */
+            position: relative;
           }
 
           .sidebar .image-sidebar {
@@ -117,7 +117,7 @@ class SidebarComponent extends LitElement {
                     <a href="/patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
                     <a @click="${this.toggleDropdown}">Activiteit <img src="../../../public/sort-down.png" width="15" height="15" class="dropdown-image"> </a>
                     <ul class="dropdown-menu" ?hidden="${!this.isDropdownVisible}">
-                        <li><a href="/#" @click="${this.handleLinkClick}">Lopen</a></li>
+                        <li><a href="/activity-walk" @click="${this.handleLinkClick}">Lopen</a></li>
                         <li><a href="/#" @click="${this.handleLinkClick}">Gooien</a></li>
                         <li><a href="/#" @click="${this.handleLinkClick}">Rennen</a></li>
                     </ul>
