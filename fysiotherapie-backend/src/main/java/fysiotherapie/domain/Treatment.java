@@ -1,15 +1,25 @@
 package fysiotherapie.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity(name = "treatments")
 public class Treatment {
+    @Id
+    @GeneratedValue
+    private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
     private String condition;
+    @OneToMany
+    @JoinColumn(name = "treatment_id")
     private List<Appointment> appointments = new ArrayList<>();
+
+    public Treatment(){}
 
     public Treatment(LocalDate startDate, LocalDate endDate, String condition) {
         this.startDate = startDate;

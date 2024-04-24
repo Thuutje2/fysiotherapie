@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class FysioApplication {
-    public static void mai(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(FysioApplication.class, args);
     }
 }

@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="floenk">
-      <change beforePath="$PROJECT_DIR$/.idea/fysiotherapie.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fysiotherapie.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="floenk" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,8 +45,9 @@
     "Python.test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "26-eerste-versie-domeinklassen-maken-in-java",
-    "last_opened_file_path": "C:/Users/daanf/freemocap/freemocap",
+    "git-widget-placeholder": "31-methoden-in-service-en-endpoint-voor-aanmaken-patiënt",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -94,7 +91,6 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
         <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
       </set>
     </attachedChunks>
@@ -111,6 +107,7 @@
       <workItem from="1712163884667" duration="336000" />
       <workItem from="1712246708393" duration="168000" />
       <workItem from="1712749031258" duration="68000" />
+      <workItem from="1713970252485" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
