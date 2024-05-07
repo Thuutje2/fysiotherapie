@@ -1,4 +1,4 @@
-import "./components/patient-hoofdpagina.js";
+import "./components/patient-mainpage.js";
 import "./components/patient-information.js";
 import "./components/patient-history.js";
 

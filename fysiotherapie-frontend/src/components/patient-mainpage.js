@@ -1,6 +1,6 @@
 import {css, html, LitElement} from "lit";
 
-class PatientHoofdpagina extends LitElement {
+class PatientMainpage extends LitElement {
     static get styles() {
         return css`
             :host {
@@ -18,4 +18,4 @@ class PatientHoofdpagina extends LitElement {
     }
 }
 
-customElements.define('patient-hoofdpagina', PatientHoofdpagina);
+customElements.define('patient-hoofdpagina', PatientMainpage);
