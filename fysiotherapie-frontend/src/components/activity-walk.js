@@ -40,7 +40,21 @@ class ActivityWalk extends LitElement {
             width: 400px !important;
             height: 190px !important;
           }
-    `;
+
+          .header {
+            display: flex;
+            align-items: center; 
+          }
+
+          .title {
+            margin-right: 20px; 
+          }
+          
+          input[type="file"] {
+            margin-left: auto;
+          }
+
+        `;
     }
 
     constructor() {
@@ -107,12 +121,16 @@ class ActivityWalk extends LitElement {
 
     render() {
         return html`
+        <div class="header">
             <h1 class="title">Lopen
                 <div class="line"></div>
             </h1>
-            <div class="chart-container"></div>
-        `;
+            <input type="file">
+        </div>
+        <div class="chart-container"></div>
+    `;
     }
+
 }
 
 customElements.define('activity-walk', ActivityWalk);
