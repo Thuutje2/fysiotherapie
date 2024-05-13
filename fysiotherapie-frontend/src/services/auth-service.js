@@ -10,12 +10,12 @@ export default class AuthService {
 
     // Only shows navbar when user is logged in
     static handleNavbarVisibility() {
-        const navbar = document.querySelector("navbar-component");
+        const sidebar = document.querySelector("sidebar-component");
 
-        if (navbar) {
-            navbar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
-            navbar._isAdmin = this.isAdmin(); // Update the property to show manager links
-            navbar._isUser = this.isUser(); // Update the property to show manager links
+        if (sidebar) {
+            sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
+            sidebar._isAdmin = this.isAdmin(); // Update the property to show manager links
+            sidebar._isUser = this.isUser(); // Update the property to show manager links
         }
     }
 

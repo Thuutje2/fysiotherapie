@@ -1,4 +1,5 @@
 import {css, html, LitElement} from "lit";
+// import LoginService from "../services/login-service.js";
 
 class LoginForm extends LitElement {
     static properties = {
@@ -17,53 +18,45 @@ class LoginForm extends LitElement {
         align-items: center;
         justify-content: center;
         min-height: 100vh;
-        background-color: var(--kpn-achtergrond-lichtblauw);
         height: 100%;
         width: 100%;
       }
 
       #content-container {
         display: grid;
-        grid-template-rows: auto auto; /* Twee rijen, één voor titel en één voor formulier */
-        grid-gap: 10px; /* Ruimte tussen de rijen */
+        grid-template-rows: auto auto; 
+        grid-gap: 10px; 
         justify-content: center;
         max-width: 900px;
         min-width: 20%;
         padding: 25px;
       }
-
-      #titel-container h1 {
-        margin-top: 0px;
-        margin-bottom: 10px;
-        color: var(--kpn-groen);
-      }
-
+      
       #form-container {
-        width: 100%;
-        background-color: var(--kpn-wit);
+        width: 600px;
         padding: 25px;
         box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
+        border: 3px solid #3297DF;
       }
 
-      #form-container h3 {
+      #form-container h2 {
         margin-top: 5px;
-        color: var(--kpn-zwart);
+        color: #3297DF;
       }
 
       #form-container label {
         display: block;
         margin-bottom: 5px;
-        color: var(--kpn-zwart);
       }
 
       #form-container input {
+        background-color: white;
         display: block;
         margin-bottom: 10px;
-        color: var(--kpn-zwart);
         width: 98%;
         padding: 5px;
-        border: 1px solid #000;
+        border: 1px solid #3297DF;
         border-radius: 3px;
         height: 40px;
         font-size: 16px;
@@ -71,13 +64,13 @@ class LoginForm extends LitElement {
 
       #form-container button {
         display: block;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-left: auto;
-        background-color: var(--kpn-groen);
-        color: var(--kpn-wit);
-        border: none;
+        color: black;
         padding: 10px;
         border-radius: 5px;
+        background-color: white;
+        border: 1px solid #3297DF;
       }
 
       #form-container button:hover {
@@ -92,13 +85,12 @@ class LoginForm extends LitElement {
 
       #form-container a {
         font-style: italic;
-        color: var(--kpn-zwart);
+        color: black;
         text-decoration: none;
         position: absolute;
       }
 
       #form-container a:hover {
-        color: var(--kpn-groen);
         text-decoration: underline;
       }
 
@@ -113,16 +105,35 @@ class LoginForm extends LitElement {
         border-radius: 10px;
         display: none;
       }
+
+      #login-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px; 
+        width: 100%;
+      }
+
+      .image-sidebar {
+        margin-right: auto; 
+      }
+
+      .login-text {
+        margin-right: 250px;
+      }
+
+
+
     `;
 
     render() {
         return html`
             <div id="content-container">
-                <div id="titel-container">
-                    <h1><strong>Aanmelden</strong></h1>
-                </div>
                 <div id="form-container">
-                    <h3><strong>Welkom terug!</strong></h3>
+                    <div id="login-header">
+                        <img src="../../public/RunningMan.png" alt="Logo" width="75" height="75" class="image-sidebar">
+                        <h2 class="login-text">Inloggen</h2>
+                    </div>
                     <form @submit=${this.onSubmit} id="loginform">
                         <label for="emailInput"><strong>Gebruikersaccount:</strong></label>
                         <input
@@ -158,7 +169,7 @@ class LoginForm extends LitElement {
                                     type="submit"
                                     aria-label="Knop om in te loggen"
                             >
-                                verzend
+                                Login
                             </button>
                         </div>
                         <div id="errorMessage">

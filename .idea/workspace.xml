@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/services/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/services/auth-service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +125,8 @@
       <workItem from="1715081807784" duration="1715000" />
       <workItem from="1715600449873" duration="2376000" />
       <workItem from="1715604643157" duration="600000" />
-      <workItem from="1715615921797" duration="270000" />
+      <workItem from="1715615921797" duration="644000" />
+      <workItem from="1715620174318" duration="2522000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
