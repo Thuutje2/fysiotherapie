@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="image working">
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" afterDir="false" />
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added login">
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/mockUsers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/userRoles.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/services/auth-service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/services/login-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +125,8 @@
       <workItem from="1713339467336" duration="339000" />
       <workItem from="1713341215333" duration="2402000" />
       <workItem from="1715081807784" duration="1715000" />
-      <workItem from="1715600449873" duration="1423000" />
+      <workItem from="1715600449873" duration="2376000" />
+      <workItem from="1715604643157" duration="600000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -169,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712834523298</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added login">
+      <created>1715601936414</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1715601936414</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +204,7 @@
     <MESSAGE value="Eerste opzet website" />
     <MESSAGE value="fixed sidebar, added logo" />
     <MESSAGE value="fixed sidebar, padding deleted in sidebar" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed sidebar, padding deleted in sidebar" />
+    <MESSAGE value="Added login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added login" />
   </component>
 </project>

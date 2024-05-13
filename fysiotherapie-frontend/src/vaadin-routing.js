@@ -36,3 +36,20 @@ router.setRoutes([
     console.log('Routes mapped successfully');
 });
 
+async function protectedContentRedirect(commands, allowedRoles) {
+    try {
+        // get current logged in status and role
+        const userRole = AuthService.getUserRole();
+        const loggedIn = AuthService.isLoggedIn();
+        AuthService.handleNavbarVisibility();
+
+
+        if (!loggedIn || !allowedRoles.includes(userRole)) {
+            return commands.redirect("/login");
+        }
+    } catch (error) {
+        console.error("Authentication error:", error);
+        return commands.redirect("./login");
+    }
+}
+

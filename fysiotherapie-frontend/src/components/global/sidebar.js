@@ -1,6 +1,14 @@
 import {css, html, LitElement} from "lit";
+import AuthService from "../../services/auth-service.js";
 
 class SidebarComponent extends LitElement {
+    static get properties() {
+        return {
+            _isAdmin: {type: Boolean},
+            _isUser: {type: Boolean},
+            _isLoggedIn: {type: Boolean},
+        };
+    }
     static get styles() {
 
         return css`
@@ -97,6 +105,8 @@ class SidebarComponent extends LitElement {
     constructor() {
         super();
         this.isDropdownVisible = false;
+        this._isAdmin = AuthService.isAdmin();
+        this._isUser = AuthService.isUser();
     }
 
     render() {
@@ -106,7 +116,7 @@ class SidebarComponent extends LitElement {
                 <h1><a href="/">Dashboard</a></h1>
                 <div class="line"></div>
 
-                <div class="links-container">
+                <div class="links-container" .hidden=${!this._isLoggedIn}>
                     <!-- .hidden=!this._isLoggedIn -->
                     <!--PATIËNT-->
                     <!-- en dan hier moet iets komen van als je patient bent dan zie je deze links-->
@@ -140,6 +150,11 @@ class SidebarComponent extends LitElement {
     toggleDropdown() {
         this.isDropdownVisible = !this.isDropdownVisible;
         this.requestUpdate();
+    }
+
+    handleLogout() {
+        const authService = new AuthService();
+        authService.logout();
     }
 }
 
