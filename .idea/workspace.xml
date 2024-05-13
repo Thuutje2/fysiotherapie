@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="floenk" />
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="floenk">
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/PatientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/PhysiotherapistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/PhysiotherapistService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/exception/PatientNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/PatientNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/exception/PhysiotherapistNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/PhysiotherapistNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/data/PatientRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/data/PatientRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/data/PhysiotherapistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/data/PhysiotherapistRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Appointment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/Joint.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Joint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/Physiotherapist.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Physiotherapist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Treatment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/enums/ActivityType.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/enums/ActivityType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/domain/enums/JointType.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/enums/JointType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/presentation/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/PatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/presentation/dto/request/NewPatient.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/dto/request/NewPatient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/presentation/dto/response/PatientInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/dto/response/PatientInfo.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,9 +65,9 @@
     "Python.test.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "31-methoden-in-service-en-endpoint-voor-aanmaken-patiënt",
+    "git-widget-placeholder": "38-inloggen-en-uitloggen-als-patiënt",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-backend",
+    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -108,6 +128,8 @@
       <workItem from="1712246708393" duration="168000" />
       <workItem from="1712749031258" duration="68000" />
       <workItem from="1713970252485" duration="13000" />
+      <workItem from="1715587672398" duration="35000" />
+      <workItem from="1715603170939" duration="24000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
