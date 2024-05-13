@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("physiotherapists/{id}/patients")
+@RequestMapping("physiotherapists/patients")
 public class PatientController {
     private final PatientService patientService;
 
