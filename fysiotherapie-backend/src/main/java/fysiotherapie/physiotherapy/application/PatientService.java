@@ -1,6 +1,7 @@
 package fysiotherapie.physiotherapy.application;
 
 import fysiotherapie.physiotherapy.application.exception.PatientNotFoundException;
+import fysiotherapie.physiotherapy.application.exception.PatientNotUniqueException;
 import fysiotherapie.physiotherapy.data.PatientRepository;
 import fysiotherapie.physiotherapy.domain.Patient;
 import fysiotherapie.physiotherapy.domain.Physiotherapist;
@@ -26,8 +27,25 @@ public class PatientService {
                 new PatientNotFoundException("Patient does not exist by given id"));
     }
 
+    private Patient tryFindingPatientByEmail(String email) {
+        return patientRepository.findByEmail(email).orElseThrow(()->
+                new PatientNotFoundException("Patient does not exist by given email"));
+    }
+
+    private boolean isPatientUnique(String email) {
+        try {
+            tryFindingPatientByEmail(email);
+            throw new PatientNotUniqueException("Patient already exists with given email address");
+        }
+        catch (PatientNotFoundException pnfe) {
+            return true;
+        }
+    }
+
     private void savePatient(Patient patient) {
-        patientRepository.save(patient);
+        if (isPatientUnique(patient.getEmail())) {
+            patientRepository.save(patient);
+        }
     }
 
     public PatientInfo addPatient(String physiotherapistEmail, String firstName, String lastName, String emailAddress, LocalDate dateOfBirth,
