@@ -1,5 +1,5 @@
 import {css, html, LitElement} from "lit";
-import AuthService from "../../services/auth-service.js";
+import AuthService from "../../service/auth-service.js";
 
 class SidebarComponent extends LitElement {
     static get properties() {

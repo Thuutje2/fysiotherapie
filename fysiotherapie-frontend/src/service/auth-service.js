@@ -12,6 +12,8 @@ export default class AuthService {
     static handleNavbarVisibility() {
         const sidebar = document.querySelector("sidebar-component");
 
+        console.log(sidebar)
+
         if (sidebar) {
             sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
             sidebar._isAdmin = this.isAdmin(); // Update the property to show manager links
@@ -35,6 +37,7 @@ export default class AuthService {
 
     static generateToken(role) {
         const prefix = role === "admin" ? ADMIN_ROLE : USER_ROLE;
+        console.log(`${prefix}.token.${Date.now().toString()}`)
         return `${prefix}.token.${Date.now().toString()}`;
     }
 

@@ -1,5 +1,5 @@
 import {css, html, LitElement} from "lit";
-// import LoginService from "../services/login-service.js";
+import LoginService from "../service/login-service.js";
 
 class LoginForm extends LitElement {
     static properties = {
@@ -194,15 +194,19 @@ class LoginForm extends LitElement {
         if (this.isValidEmail(email)) {
             try {
                 const authService = new LoginService();
+                console.log("Password:", password);
                 const token = await authService.authenticateUser(email, password);
+
+                //Authentication error: Illegal arguments: string, undefined login-form.js:207:24
 
                 // store the token
                 sessionStorage.setItem("jwtToken", token);
 
-                // User gets redirected to after succesful login
-                window.location.href = "./travel-form";
+                // User gets redirected to after successful login
+                window.location.href = "./patient";
             } catch (error) {
                 console.error("Authentication error:", error.message);
+                console.log(error)
                 errorMessage.style.display = "block";
 
                 setTimeout(() => {
