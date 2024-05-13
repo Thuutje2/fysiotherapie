@@ -14,7 +14,7 @@ const router = new Router(outlet)
 router.setRoutes([
     {
         path: "/login",
-        component: "login-form"
+        component: "login-form",
     },
 
     ////////////////////////////////////////////////////////////////////////

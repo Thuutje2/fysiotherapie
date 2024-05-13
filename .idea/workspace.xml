@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/mockUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/mockUsers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/services/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/auth-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/services/login-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/login-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/auth-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="39-inlog-pagina" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +53,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "39-inlog-pagina",
+    "git-widget-placeholder": "FE-dev",
     "last_opened_file_path": "C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

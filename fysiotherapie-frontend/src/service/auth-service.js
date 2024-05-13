@@ -14,11 +14,15 @@ export default class AuthService {
 
         console.log(sidebar)
 
-        if (sidebar) {
-            sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
-            sidebar._isAdmin = this.isAdmin(); // Update the property to show manager links
-            sidebar._isUser = this.isUser(); // Update the property to show manager links
+        if(this.isLoggedIn()) {
+            sidebar.style.display = 'visible'
         }
+
+        // if (sidebar) {
+        //     sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
+        //     sidebar._isAdmin = this.isAdmin(); // Update the property to show admin links
+        //     sidebar._isUser = this.isUser(); // Update the property to show patient links
+        // }
     }
 
     static isAdmin() {

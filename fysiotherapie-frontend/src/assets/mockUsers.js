@@ -9,12 +9,12 @@ const mockUsers =
         },
         {
             username: "patient@fysio.nl",
-            hashedPassword: " $2a$10$HsDwuBB9kKHO1hx2jUnnluyN6mZnAzKg1ZXth.A9CgN2JR4SBPhQ.",
+            hashedPassword: "$2a$10$HsDwuBB9kKHO1hx2jUnnluyN6mZnAzKg1ZXth.A9CgN2JR4SBPhQ.",
             role: USER_ROLE
         },
         {
             username: "admin@fysio.nl",
-            hashedPassword: " $2a$10$rrtWNEvtQQRrtf3c7fR7HOYzZHbhFS.zJsry0PjnoXC.SPKmLJEcG",
+            hashedPassword: "$2a$10$rrtWNEvtQQRrtf3c7fR7HOYzZHbhFS.zJsry0PjnoXC.SPKmLJEcG",
             role: ADMIN_ROLE
         }
     ]

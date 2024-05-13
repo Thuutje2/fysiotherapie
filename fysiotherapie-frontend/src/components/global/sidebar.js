@@ -23,6 +23,7 @@ class SidebarComponent extends LitElement {
             overflow-y: hidden;
             text-align: center;
             position: relative;
+              visibility: hidden;
           }
 
           .sidebar .image-sidebar {
