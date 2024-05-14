@@ -60,6 +60,7 @@ class LoginForm extends LitElement {
         border-radius: 3px;
         height: 40px;
         font-size: 16px;
+        color: black;
       }
 
       #form-container button {
