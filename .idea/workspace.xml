@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="w">
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-history.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/activity-walk.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/activity-walk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physiotherapist-history.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="34-bestand-toevoegen-om-grafieken-te-maken" />
+        <entry key="$PROJECT_DIR$" value="29-overzicht-historie-traject" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
