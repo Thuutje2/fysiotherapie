@@ -26,7 +26,6 @@ public class PhysiotherapistController {
     public void uploadCsvFile(@RequestParam("file") MultipartFile file) {
         // TODO: Schrijf een for loop die van elke string in de juiste column plaatst (in de service)
         physiotherapistService.parseCsvToCorrectFormat(file);
-
     }
 
 
