@@ -1,4 +1,4 @@
-import {css, html, LitElement} from "lit";
+import { css, html, LitElement } from "lit";
 
 class PhysioHistory extends LitElement {
     static get styles() {
@@ -17,20 +17,30 @@ class PhysioHistory extends LitElement {
                 border: 1px solid #dddddd;
                 text-align: left;
                 padding: 8px;
-                width: 150px
-
+                width: 150px;
+                position: relative; 
             }
 
             th {
                 background-color: #f2f2f2;
             }
+
+            .popup {
+                position: absolute;
+                background-color: #f9f9f9;
+                border: 1px solid #ccc;
+                padding: 3px; 
+                border-radius: 3px; 
+                font-size: 0.7em; 
+                z-index: 1;
+                color: black;
         `;
     }
 
     render() {
         const measurements = [
             {
-                id: 1234,
+                id: 8368642237,
                 patient: "12345678",
                 date: "16-04-2024",
                 time: "10:00",
@@ -40,7 +50,7 @@ class PhysioHistory extends LitElement {
                 video: "123"
             },
             {
-                id: 123,
+                id: 9374957201,
                 patient: "12345678",
                 date: "16-04-2024",
                 time: "10:00",
@@ -66,7 +76,14 @@ class PhysioHistory extends LitElement {
                 </tr>
                 ${measurements.map(measurement => html`
                     <tr>
-                        <td>${measurement.id}</td>
+                        <td>
+                            <a href="#" 
+                               @click="${() => this.showGraphics(measurement)}"
+                               @mouseover="${this.showPopup}"
+                               @mouseout="${this.hidePopup}">
+                               ${measurement.id}
+                            </a>
+                        </td>
                         <td>${measurement.patient}</td>
                         <td>${measurement.date}</td>
                         <td>${measurement.time}</td>
@@ -74,7 +91,6 @@ class PhysioHistory extends LitElement {
                         <td>${measurement.treatment}</td>
                         <td>${measurement.file}</td>
                         <td>${measurement.video}</td>
-                        </td>
                     </tr>
                 `)}
             </table>
@@ -83,10 +99,21 @@ class PhysioHistory extends LitElement {
 
     showGraphics(appointment) {
         console.log("Grafieken weergeven voor:", appointment.activity);
+    }
+
+    showPopup(event) {
+        const popup = document.createElement('div');
+        popup.textContent = "Klik om de meetresultaten in te zien";
+        popup.classList.add('popup');
+        event.target.appendChild(popup);
+    }
+
+    hidePopup(event) {
+        const popup = event.target.querySelector('.popup');
+        if (popup) {
+            popup.remove();
+        }
+    }
 }
 
-
-
-
-}
 customElements.define('physio-history', PhysioHistory);
