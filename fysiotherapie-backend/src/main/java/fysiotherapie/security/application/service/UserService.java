@@ -32,6 +32,7 @@ public class UserService implements UserDetailsService {
         if (this.userRepository.findByUsername(username).isPresent()) {
             throw new UsernameNotUniqueException("Username already exists, choose another one");
         }
+
         User user = new User(username, encodedPassword, firstName, lastName, role);
         this.userRepository.save(user);
     }

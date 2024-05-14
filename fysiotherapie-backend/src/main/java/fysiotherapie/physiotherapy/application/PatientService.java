@@ -43,21 +43,19 @@ public class PatientService {
     }
 
     private void savePatient(Patient patient) {
-        if (isPatientUnique(patient.getEmail())) {
-            patientRepository.save(patient);
-        }
+        patientRepository.save(patient);
     }
 
     public PatientInfo addPatient(String physiotherapistEmail, String firstName, String lastName, String emailAddress, LocalDate dateOfBirth,
                            int age, double length, double weight) {
 
         Patient patient = new Patient(firstName, lastName, emailAddress, dateOfBirth, age, length, weight);
-
         Physiotherapist physiotherapist = physiotherapistService.getPhysiotherapistByEmail(physiotherapistEmail);
-        physiotherapist.addPatient(patient);
 
-        savePatient(patient);
-
+        if (isPatientUnique(patient.getEmail())) {
+            physiotherapist.addPatient(patient);
+            savePatient(patient);
+        }
         return new PatientInfo(patient);
     }
 

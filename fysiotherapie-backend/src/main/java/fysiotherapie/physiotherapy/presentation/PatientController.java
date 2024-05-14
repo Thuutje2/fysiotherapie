@@ -4,7 +4,9 @@ import fysiotherapie.physiotherapy.application.PatientService;
 import fysiotherapie.physiotherapy.presentation.dto.request.NewPatient;
 import fysiotherapie.physiotherapy.presentation.dto.response.PatientInfo;
 import fysiotherapie.security.domain.UserProfile;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,7 +21,7 @@ public class PatientController {
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
     }
-
+    
     @PostMapping
     public ResponseEntity<PatientInfo> createPatient(Authentication authentication, @RequestBody NewPatient newPatient) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
