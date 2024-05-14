@@ -122,9 +122,6 @@ class LoginForm extends LitElement {
       .login-text {
         margin-right: 250px;
       }
-
-
-
     `;
 
     render() {
