@@ -1,6 +1,6 @@
 package fysiotherapie.security.application.service;
 
-import fysiotherapie.physiotherapy.application.PhysiotherapistService;
+import fysiotherapie.physiotherapy.application.service.PhysiotherapistService;
 import fysiotherapie.physiotherapy.domain.Physiotherapist;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetailsService;

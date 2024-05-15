@@ -1,4 +1,4 @@
-package fysiotherapie.physiotherapy.application;
+package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.exception.PatientNotFoundException;
 import fysiotherapie.physiotherapy.application.exception.PatientNotUniqueException;
@@ -27,36 +27,31 @@ public class PatientService {
                 new PatientNotFoundException("Patient does not exist by given id"));
     }
 
-    private Patient tryFindingPatientByEmail(String email) {
-        return patientRepository.findByEmail(email).orElseThrow(()->
-                new PatientNotFoundException("Patient does not exist by given email"));
-    }
-
-    private boolean isPatientUnique(String email) {
-        try {
-            tryFindingPatientByEmail(email);
-            throw new PatientNotUniqueException("Patient already exists with given email address");
-        }
-        catch (PatientNotFoundException pnfe) {
-            return true;
+    private void isPatientUnique(String email) {
+        if (patientRepository.existsByEmail(email)) {
+            throw new PatientNotUniqueException("Patient already exists by given email address");
         }
     }
 
-    private void savePatient(Patient patient) {
+    public void savePatient(Patient patient) {
         patientRepository.save(patient);
     }
 
-    public PatientInfo addPatient(String physiotherapistEmail, String firstName, String lastName, String emailAddress, LocalDate dateOfBirth,
+    public long addPatient(String physiotherapistEmail, String firstName, String lastName, String email, LocalDate dateOfBirth,
                            int age, double length, double weight) {
 
-        Patient patient = new Patient(firstName, lastName, emailAddress, dateOfBirth, age, length, weight);
+        Patient patient = new Patient(firstName, lastName, email, dateOfBirth, age, length, weight);
         Physiotherapist physiotherapist = physiotherapistService.getPhysiotherapistByEmail(physiotherapistEmail);
 
-        if (isPatientUnique(patient.getEmail())) {
-            physiotherapist.addPatient(patient);
-            savePatient(patient);
-        }
-        return new PatientInfo(patient);
+        isPatientUnique(email);
+        physiotherapist.addPatient(patient);
+        savePatient(patient);
+
+        return patient.getId();
+    }
+
+    public Patient getPatient(long id) {
+        return tryFindingPatientById(id);
     }
 
     public PatientInfo getPatientInfo(long id) {

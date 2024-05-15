@@ -1,4 +1,4 @@
-package fysiotherapie.physiotherapy.application;
+package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.exception.PhysiotherapistNotFoundException;
 import fysiotherapie.physiotherapy.data.PhysiotherapistRepository;

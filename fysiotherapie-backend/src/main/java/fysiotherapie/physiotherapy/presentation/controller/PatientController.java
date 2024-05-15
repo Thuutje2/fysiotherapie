@@ -1,12 +1,10 @@
-package fysiotherapie.physiotherapy.presentation;
+package fysiotherapie.physiotherapy.presentation.controller;
 
-import fysiotherapie.physiotherapy.application.PatientService;
+import fysiotherapie.physiotherapy.application.service.PatientService;
 import fysiotherapie.physiotherapy.presentation.dto.request.NewPatient;
 import fysiotherapie.physiotherapy.presentation.dto.response.PatientInfo;
 import fysiotherapie.security.domain.UserProfile;
-import jakarta.annotation.security.RolesAllowed;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -23,18 +21,18 @@ public class PatientController {
     }
     
     @PostMapping
-    public ResponseEntity<PatientInfo> createPatient(Authentication authentication, @RequestBody NewPatient newPatient) {
+    public ResponseEntity<String> addPatient(Authentication authentication, @RequestBody NewPatient newPatient) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
 
-        PatientInfo patientInfo = patientService.addPatient(profile.getUsername(),
+        long id = patientService.addPatient(profile.getUsername(),
                 newPatient.firstName, newPatient.lastName, newPatient.email,
                 newPatient.dateOfBirth, newPatient.age, newPatient.length, newPatient.weight);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(patientInfo)
+                .buildAndExpand(id)
                 .toUri();
-        return ResponseEntity.created(location).body(patientInfo);
+        return ResponseEntity.created(location).body("Patient created with id " + id);
     }
 
     @GetMapping("{id}")

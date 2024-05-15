@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "treatments")
+//@Table(uniqueConstraints = {
+//        @UniqueConstraint(columnNames = {"patient_id", "startDate", "endDate", "condition"})})
 public class Treatment {
     @Id
     @GeneratedValue
@@ -17,7 +19,7 @@ public class Treatment {
     private String condition;
     @OneToMany
     @JoinColumn(name = "treatment_id")
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<Activity> activities = new ArrayList<>();
 
     public Treatment(){}
 
@@ -27,12 +29,28 @@ public class Treatment {
         this.condition = condition;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
+    public Long getId() {
+        return id;
     }
 
-    public void addAppointment(Appointment appointment) {
-        appointments.add(appointment);
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
     }
 
     @Override

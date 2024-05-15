@@ -1,8 +1,6 @@
 package fysiotherapie.physiotherapy.presentation.exception;
 
-import fysiotherapie.physiotherapy.application.exception.PatientNotFoundException;
-import fysiotherapie.physiotherapy.application.exception.PatientNotUniqueException;
-import fysiotherapie.physiotherapy.application.exception.PhysiotherapistNotFoundException;
+import fysiotherapie.physiotherapy.application.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +16,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PhysiotherapistNotFoundException.class)
     public ResponseEntity<String> handlePhysiotherapistNotFoundException(PhysiotherapistNotFoundException pnfe) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(pnfe.getMessage());
+    }
+
+    @ExceptionHandler(TreatmentNotFoundException.class)
+    public ResponseEntity<String> handleTreatmentNotFoundException(TreatmentNotFoundException tnfe) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(tnfe.getMessage());
+    }
+
+    @ExceptionHandler(TreatmentNotUniqueException.class)
+    public ResponseEntity<String> handleTreatmentNotUniqueException(TreatmentNotUniqueException tnue) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(tnue.getMessage());
     }
 
     @ExceptionHandler(PatientNotUniqueException.class)
