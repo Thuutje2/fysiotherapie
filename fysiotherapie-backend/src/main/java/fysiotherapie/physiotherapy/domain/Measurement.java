@@ -3,6 +3,7 @@ package fysiotherapie.physiotherapy.domain;
 import fysiotherapie.physiotherapy.domain.enums.ActivityType;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class Measurement {
     @Id
     @GeneratedValue
     private Long id;
+    private LocalDate date;
     @Enumerated(EnumType.STRING)
     private ActivityType type;
     @OneToMany
