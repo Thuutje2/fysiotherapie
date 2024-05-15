@@ -19,7 +19,7 @@ public class Treatment {
     private String condition;
     @OneToMany
     @JoinColumn(name = "treatment_id")
-    private List<Activity> activities = new ArrayList<>();
+    private List<Measurement> activities = new ArrayList<>();
 
     public Treatment(){}
 
@@ -45,11 +45,11 @@ public class Treatment {
         return condition;
     }
 
-    public List<Activity> getActivities() {
+    public List<Measurement> getActivities() {
         return activities;
     }
 
-    public void addActivity(Activity activity) {
+    public void addActivity(Measurement activity) {
         activities.add(activity);
     }
 
