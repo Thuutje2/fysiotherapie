@@ -1,5 +1,6 @@
 import {css, html, LitElement} from "lit";
 import LoginService from "../service/login-service.js";
+import AuthService from "../service/auth-service.js";
 
 class LoginForm extends LitElement {
     static properties = {
@@ -200,8 +201,14 @@ class LoginForm extends LitElement {
                 // store the token
                 sessionStorage.setItem("jwtToken", token);
 
-                // User gets redirected to after successful login
-                window.location.href = "./patient-hoofdpagina.js";
+                if (AuthService.isAdmin()) {
+                    window.location.href = "physio-hoofdpagina";
+                }
+
+                if (AuthService.isUser()) {
+                    // User gets redirected to after successful login
+                    window.location.href = "patient-hoofdpagina";
+                }
             } catch (error) {
                 console.error("Authentication error:", error.message);
                 console.log(error)

@@ -3,6 +3,7 @@ import "./components/patient-information.js";
 import "./components/patient-history.js";
 import "./components/activity-walk.js";
 import "./components/login-form.js";
+import "./components/physio-hoofdpagina.js";
 
 import {Router} from "@vaadin/router";
 import AuthService from "./service/auth-service.js";
@@ -53,7 +54,13 @@ router.setRoutes([
     ////////////////////////////////////////////////////////////////////////
     //    ADMIN = INGELOGD                                                //
     ////////////////////////////////////////////////////////////////////////
-
+    {
+        path: "/physio-hoofdpagina",
+        component: "physio-hoofdpagina",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+        }
+    },
 
 
 
