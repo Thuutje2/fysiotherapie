@@ -19,11 +19,12 @@ class SidebarComponent extends LitElement {
           .sidebar {
             height: 100vh; 
             background-color: #3297DF;
+              
             color: white;
             overflow-y: hidden;
             text-align: center;
             position: relative;
-              visibility: hidden;
+            visibility: hidden;  
           }
 
           .sidebar .image-sidebar {
@@ -112,7 +113,7 @@ class SidebarComponent extends LitElement {
 
     render() {
         return html`
-            <div class="sidebar">
+            <div class="sidebar" style="${this._isLoggedIn ? 'visibility: visible;' : 'visibility: hidden;'}">
                 <img src="../../../public/RunningMan.png" alt="Logo" width="75" height="75" class="image-sidebar">
                 <h1><a href="/">Dashboard</a></h1>
                 <div class="line"></div>

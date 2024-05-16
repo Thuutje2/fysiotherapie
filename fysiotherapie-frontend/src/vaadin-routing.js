@@ -21,7 +21,7 @@ router.setRoutes([
     //    PATIENT = INGELOGD                                              //
     ////////////////////////////////////////////////////////////////////////
     {
-        path: "/patient",
+        path: "/patient-hoofdpagina",
         component: "patient-hoofdpagina",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);

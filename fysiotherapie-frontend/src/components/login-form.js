@@ -201,7 +201,7 @@ class LoginForm extends LitElement {
                 sessionStorage.setItem("jwtToken", token);
 
                 // User gets redirected to after successful login
-                window.location.href = "./patient";
+                window.location.href = "./patient-hoofdpagina.js";
             } catch (error) {
                 console.error("Authentication error:", error.message);
                 console.log(error)

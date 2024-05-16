@@ -11,19 +11,28 @@ export default class AuthService {
     // Only shows navbar when user is logged in
     static handleNavbarVisibility() {
         const sidebar = document.querySelector("sidebar-component");
-
-        console.log(sidebar)
-
-        if(this.isLoggedIn()) {
-            sidebar.style.display = 'visible'
+        if (sidebar) {
+            sidebar._isLoggedIn = AuthService.isLoggedIn();
         }
-
-        // if (sidebar) {
-        //     sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
-        //     sidebar._isAdmin = this.isAdmin(); // Update the property to show admin links
-        //     sidebar._isUser = this.isUser(); // Update the property to show patient links
-        // }
     }
+
+    // static handleNavbarVisibility() {
+    //     const sidebar = document.querySelector("sidebar-component");
+    //
+    //     console.log(sidebar)
+    //
+    //     if(this.isLoggedIn()) {
+    //         sidebar.style.display = 'visible'
+    //     }
+    //
+    //     console.log(sidebar.style)
+    //
+    //     // if (sidebar) {
+    //     //     sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
+    //     //     sidebar._isAdmin = this.isAdmin(); // Update the property to show admin links
+    //     //     sidebar._isUser = this.isUser(); // Update the property to show patient links
+    //     // }
+    // }
 
     static isAdmin() {
         return this.getUserRole() === ADMIN_ROLE;

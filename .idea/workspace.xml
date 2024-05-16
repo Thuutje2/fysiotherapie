@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added login">
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="component geadd voor meting aanmaken">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/auth-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" afterDir="false" />
     </list>
@@ -27,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="39-inlog-pagina" />
+        <entry key="$PROJECT_DIR$" value="43-meting-maken-pagina" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,42 +41,44 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2eaWexNhThslJBwwLrY67Z2Va4K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.installer.executor": "Run",
-    "Python.plot.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "FE-dev",
-    "last_opened_file_path": "C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend/public",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.installer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;17-opzet-maken-voor-website&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\public" />
       <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\fysiotherapie-frontend\src\service" />
       <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\public" />
       <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global\images" />
       <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global" />
       <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components" />
+      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
     </key>
   </component>
   <component name="RunManager">
@@ -121,11 +125,9 @@
       <workItem from="1712830069286" duration="4914000" />
       <workItem from="1713339467336" duration="339000" />
       <workItem from="1713341215333" duration="2402000" />
-      <workItem from="1715081807784" duration="1715000" />
-      <workItem from="1715600449873" duration="2376000" />
-      <workItem from="1715604643157" duration="600000" />
-      <workItem from="1715615921797" duration="644000" />
-      <workItem from="1715620174318" duration="2522000" />
+      <workItem from="1715590828038" duration="378000" />
+      <workItem from="1715604371482" duration="4859000" />
+      <workItem from="1715853682891" duration="1344000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -173,14 +175,7 @@
       <option name="project" value="LOCAL" />
       <updated>1712834523298</updated>
     </task>
-    <task id="LOCAL-00007" summary="Added login">
-      <created>1715601936414</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1715601936414</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,7 +198,6 @@
     <MESSAGE value="Eerste opzet website" />
     <MESSAGE value="fixed sidebar, added logo" />
     <MESSAGE value="fixed sidebar, padding deleted in sidebar" />
-    <MESSAGE value="Added login" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added login" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed sidebar, padding deleted in sidebar" />
   </component>
 </project>
