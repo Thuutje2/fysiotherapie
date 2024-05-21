@@ -1,9 +1,12 @@
-import "./components/patient-hoofdpagina.js";
+import "./components/patient-mainpage.js";
 import "./components/patient-information.js";
 import "./components/patient-history.js";
 import "./components/activity-walk.js";
 import "./components/login-form.js";
 import "./components/physio-hoofdpagina.js";
+import "./components/physio-history.js";
+import "./components/physio-measurement.js";
+import "./components/patient-overview.js";
 
 import {Router} from "@vaadin/router";
 import AuthService from "./service/auth-service.js";
@@ -81,6 +84,18 @@ router.setRoutes([
         name: "catchall", // doet niks impliciet
         path: "/******************************************", // 404 must be last in this file
         component: "not-found",
+    },
+    {
+        path: "/physio-history",
+        component: "physio-history",
+    },
+    {
+        path: "/physio-measurement",
+        component: "physio-measurement",
+    },
+    {
+        path: "/patient-overview",
+        component: "patient-overview",
     },
 
 ]).then(() => {

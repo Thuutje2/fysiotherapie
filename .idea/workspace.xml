@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="component geadd voor meting aanmaken">
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +26,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="43-meting-maken-pagina" />
+        <entry key="$PROJECT_DIR$" value="29-overzicht-historie-traject" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,26 +56,22 @@
     &quot;git-widget-placeholder&quot;: &quot;17-opzet-maken-voor-website&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend/public&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;26-eerste-versie-domeinklassen-maken-in-java&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/daanf/freemocap/freemocap&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\public" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\public" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global\images" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
+      <recent name="C:\Users\marit\Documents\GitHub\fysiotherapie\fysiotherapie-backend\src\main\java" />
+      <recent name="C:\Users\marit\Documents\GitHub\fysiotherapie\fysiotherapie-backend" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\src\main\fysiotherapie\csv" />
     </key>
   </component>
   <component name="RunManager">
@@ -125,6 +122,9 @@
       <workItem from="1715604371482" duration="4859000" />
       <workItem from="1715853682891" duration="1344000" />
       <workItem from="1715881331484" duration="875000" />
+      <workItem from="1713343160165" duration="650000" />
+      <workItem from="1713875666455" duration="295000" />
+      <workItem from="1715080520950" duration="1018000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -142,37 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712749055632</updated>
     </task>
-    <task id="LOCAL-00003" summary="Update github">
+    <task id="LOCAL-00003" summary="update">
       <option name="closed" value="true" />
-      <created>1712749360849</created>
+      <created>1716290211054</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1712749360849</updated>
+      <updated>1716290211054</updated>
     </task>
-    <task id="LOCAL-00004" summary="Eerste opzet website">
-      <option name="closed" value="true" />
-      <created>1712750136585</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1712750136585</updated>
-    </task>
-    <task id="LOCAL-00005" summary="fixed sidebar, added logo">
-      <created>1712833318223</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1712833318223</updated>
-    </task>
-    <task id="LOCAL-00006" summary="fixed sidebar, padding deleted in sidebar">
-      <created>1712834523298</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1712834523298</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,10 +169,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="floenk" />
-    <MESSAGE value="Update github" />
-    <MESSAGE value="Eerste opzet website" />
-    <MESSAGE value="fixed sidebar, added logo" />
-    <MESSAGE value="fixed sidebar, padding deleted in sidebar" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed sidebar, padding deleted in sidebar" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/fysiotherapie$plot.coverage" NAME="plot Coverage Results" MODIFIED="1712146520374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
+    <SUITE FILE_PATH="coverage/fysiotherapie$test.coverage" NAME="test Coverage Results" MODIFIED="1712149024200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
+    <SUITE FILE_PATH="coverage/fysiotherapie$installer.coverage" NAME="installer Coverage Results" MODIFIED="1712164086849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie/installer" />
   </component>
 </project>
