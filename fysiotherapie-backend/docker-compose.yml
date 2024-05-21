@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  db:
+    build: development/db
+    ports:
+      - "15432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - DB_APP_NAME=todds-fysiotherapie
+      - DB_APP_USER=todds-fysiotherapie
+      - DB_APP_PASS=todds-fysiotherapie
+    volumes:
+      - "./data:/var/data/db"
