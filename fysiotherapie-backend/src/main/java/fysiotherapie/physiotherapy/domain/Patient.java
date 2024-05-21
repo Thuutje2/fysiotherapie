@@ -23,6 +23,10 @@ public class Patient {
     @JoinColumn(name = "patient_id")
     private List<Treatment> treatments = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "patient_id")
+    private List<Joint> jointsPoints = new ArrayList<>();
+
     public Patient(){}
 
     public Patient(String firstName, String lastName, String email, LocalDate dateOfBirth, int age, double length, double weight) {
@@ -84,5 +88,13 @@ public class Patient {
 
         Patient patient = (Patient) o;
         return Objects.equals(email, patient.email);
+    }
+
+    public List<Joint> getJointsPoints() {
+        return jointsPoints;
+    }
+
+    public void setJointsPoints(List<Joint> jointsPoints) {
+        this.jointsPoints = jointsPoints;
     }
 }

@@ -1,8 +1,10 @@
 package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.exception.PhysiotherapistNotFoundException;
+import fysiotherapie.physiotherapy.data.PatientRepository;
 import fysiotherapie.physiotherapy.data.PhysiotherapistRepository;
 import fysiotherapie.physiotherapy.domain.Joint;
+import fysiotherapie.physiotherapy.domain.Patient;
 import fysiotherapie.physiotherapy.domain.Physiotherapist;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,18 +14,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @Transactional
 public class PhysiotherapistService {
     private final PhysiotherapistRepository physiotherapistRepository;
+    private final PatientRepository patientRepository;
+    Patient test_patient = new Patient("Daan", "test", "test@daan.nl", LocalDate.now(), 21, 195, 95);
 
-    public PhysiotherapistService(PhysiotherapistRepository physiotherapistRepository) {
+    public PhysiotherapistService(PhysiotherapistRepository physiotherapistRepository, PatientRepository patientRepository) {
         this.physiotherapistRepository = physiotherapistRepository;
+        this.patientRepository = patientRepository;
     }
 
     private Physiotherapist tryFindingPhysiotherapistById(long id) {
@@ -51,6 +54,10 @@ public class PhysiotherapistService {
                             lineCount++;
                         }
                         List<Joint> joints = dataProcessor(dataList);
+
+                        test_patient.setJointsPoints(joints);
+
+                        patientRepository.save(test_patient);
                     }
                 }
             } catch (IOException e) {

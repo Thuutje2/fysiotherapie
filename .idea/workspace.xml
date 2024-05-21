@@ -5,23 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="floenk">
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/setup/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_05_2024_13_13__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_05_2024_13_13__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/service/PhysiotherapistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/service/PhysiotherapistService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PatientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PhysiotherapistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PhysiotherapistController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/application/exception/UsernameNotUniqueException.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/application/exception/UsernameNotUniqueException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/application/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/application/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/data/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/data/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/controller/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/controller/RegistrationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/data-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/data-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Joint.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Joint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Patient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +120,7 @@
       <workItem from="1713970252485" duration="13000" />
       <workItem from="1716290209704" duration="83000" />
       <workItem from="1716292637908" duration="7000" />
-      <workItem from="1716301682225" duration="5194000" />
+      <workItem from="1716301682225" duration="5787000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
