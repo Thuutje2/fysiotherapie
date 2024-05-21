@@ -1,10 +1,9 @@
 package fysiotherapie.application;
 
-import fysiotherapie.application.exception.PhysiotherapistNotFoundException;
-import fysiotherapie.data.PhysiotherapistRepository;
-import fysiotherapie.domain.Joint;
-import fysiotherapie.domain.Physiotherapist;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
+import fysiotherapie.physiotherapy.application.exception.PhysiotherapistNotFoundException;
+import fysiotherapie.physiotherapy.data.PhysiotherapistRepository;
+import fysiotherapie.physiotherapy.domain.Joint;
+import fysiotherapie.physiotherapy.domain.Physiotherapist;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

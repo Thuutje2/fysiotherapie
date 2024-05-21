@@ -1,14 +1,12 @@
-package fysiotherapie.presentation;
+package fysiotherapie.physiotherapy.presentation.controller;
 
 import fysiotherapie.application.PhysiotherapistService;
-import fysiotherapie.domain.Joint;
-import fysiotherapie.presentation.dto.response.PatientInfo;
+
+import fysiotherapie.physiotherapy.domain.Joint;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
