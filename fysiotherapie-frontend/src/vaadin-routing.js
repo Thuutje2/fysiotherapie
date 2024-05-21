@@ -6,7 +6,6 @@ import "./components/login-form.js";
 import "./components/physio-hoofdpagina.js";
 import "./components/physio-history.js";
 import "./components/physio-measurement.js";
-import "./components/patient-overview.js";
 
 import {Router} from "@vaadin/router";
 import AuthService from "./service/auth-service.js";
@@ -31,7 +30,6 @@ router.setRoutes([
             return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
         },
     },
-
     {
         path: "/patient-information",
         component: "patient-information",
@@ -39,17 +37,9 @@ router.setRoutes([
             return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
         },
     },
-
     {
         path: "/patient-history",
         component: "patient-history",
-        action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
-        },
-    },
-    {
-        path: "/activity-walk",
-        component: "activity-walk",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
         },
@@ -63,6 +53,27 @@ router.setRoutes([
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ADMIN_ROLE]);
         }
+    },
+    {
+        path: "/physio-history",
+        component: "physio-history",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+        }
+    },
+    {
+        path: "/physio-measurement",
+        component: "physio-measurement",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+        }
+    },
+    {
+        path: "/activity-walk",
+        component: "activity-walk",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+        },
     },
 
 
