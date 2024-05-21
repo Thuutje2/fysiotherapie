@@ -3,6 +3,8 @@ package fysiotherapie.physiotherapy.presentation.controller;
 
 import fysiotherapie.physiotherapy.application.service.PhysiotherapistService;
 import fysiotherapie.physiotherapy.domain.Joint;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,9 +23,9 @@ public class PhysiotherapistController {
         this.physiotherapistService = physiotherapistService;
     }
 
-    @PostMapping("/fileupload")
-    public ResponseEntity<List<Joint>> uploadCsvFile(@RequestParam("file") MultipartFile file) {
-        List<Joint> joints = physiotherapistService.parseCsvToCorrectFormat(file);
-        return ResponseEntity.ok().body(joints);
+    @PostMapping(value = "/fileupload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void uploadCsvFile(MultipartFile file, HttpServletRequest request) {
+        System.out.println("Content-Type: " + request.getContentType());
+        physiotherapistService.parseCsvToCorrectFormat(file);
     }
 }

@@ -1,3 +1,4 @@
+/*
 package fysiotherapie.security;
 
 import fysiotherapie.security.domain.Role;
@@ -76,3 +77,4 @@ public class SecurityConfig {
     }
 }
 
+*/

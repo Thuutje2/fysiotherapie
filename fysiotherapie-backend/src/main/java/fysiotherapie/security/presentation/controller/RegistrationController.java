@@ -1,3 +1,4 @@
+/*
 package fysiotherapie.security.presentation.controller;
 
 import org.springframework.validation.annotation.Validated;
@@ -35,3 +36,4 @@ public class RegistrationController {
                 registration.lastName);
     }
 }
+*/
