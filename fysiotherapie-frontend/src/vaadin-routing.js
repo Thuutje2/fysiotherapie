@@ -4,8 +4,7 @@ import "./components/patient-history.js";
 import "./components/activity-walk.js";
 import "./components/physio-history.js";
 import "./components/physio-measurement.js";
-
-
+import "./components/patient-overview.js";
 
 import {Router} from "@vaadin/router";
 
@@ -39,6 +38,10 @@ router.setRoutes([
         path: "/physio-measurement",
         component: "physio-measurement",
     },
+    {
+        path: "/patient-overview",
+        component: "patient-overview",
+    }
 
 ]).then(() => {
     console.log('Routes mapped successfully');
