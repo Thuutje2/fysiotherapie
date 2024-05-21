@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="floenk">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-hoofdpagina.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-hoofdpagina.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="10-kijken-of-het-mogelijk-is-om-een-applicatie-werkend-te-krijgen-via-de-browser" />
+        <entry key="$PROJECT_DIR$" value="35-een-back-end-mogelijkheid-maken-om-csv-bestanden-op-te-slaan-en-op-te-halen" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,9 +49,10 @@
     &quot;Python.test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;35-een-back-end-mogelijkheid-maken-om-csv-bestanden-op-te-slaan-en-op-te-halen&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;45-een-koppeling-maken-tussen-de-fileupload-in-de-frontend-en-de-backend&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/daanf/code/TODSS/Github/fysiotherapie&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -66,7 +68,20 @@
       <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\src\main\fysiotherapie\csv" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.FysioApplication">
+    <configuration name="FysioApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fysiotherapie.FysioApplication" />
+      <module name="fysiotherapie" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fysiotherapie.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="fysiotherapie" />
       <option name="ENV_FILES" value="" />
@@ -111,6 +126,8 @@
       <workItem from="1712246708393" duration="168000" />
       <workItem from="1712749031258" duration="68000" />
       <workItem from="1713970252485" duration="13000" />
+      <workItem from="1716290209704" duration="83000" />
+      <workItem from="1716292637908" duration="7000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -128,7 +145,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712749055632</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="data service aangemaakt">
+      <option name="closed" value="true" />
+      <created>1716289497300</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1716289497300</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,11 +172,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="floenk" />
-    <option name="LAST_COMMIT_MESSAGE" value="floenk" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/fysiotherapie$plot.coverage" NAME="plot Coverage Results" MODIFIED="1712146520374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
-    <SUITE FILE_PATH="coverage/fysiotherapie$test.coverage" NAME="test Coverage Results" MODIFIED="1712149024200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
-    <SUITE FILE_PATH="coverage/fysiotherapie$installer.coverage" NAME="installer Coverage Results" MODIFIED="1712164086849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie/installer" />
+    <MESSAGE value="data service aangemaakt" />
+    <option name="LAST_COMMIT_MESSAGE" value="data service aangemaakt" />
   </component>
 </project>

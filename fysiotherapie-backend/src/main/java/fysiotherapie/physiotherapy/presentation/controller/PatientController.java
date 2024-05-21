@@ -13,7 +13,6 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("physiotherapists/patients")
-@RequestMapping("/patients")
 public class PatientController {
     private final PatientService patientService;
 
