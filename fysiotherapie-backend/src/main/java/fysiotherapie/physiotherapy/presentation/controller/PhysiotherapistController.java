@@ -28,4 +28,18 @@ public class PhysiotherapistController {
         System.out.println("Content-Type: " + request.getContentType());
         physiotherapistService.parseCsvToCorrectFormat(file);
     }
+
+    @GetMapping(value = "/getgraph/{joint}")
+    public ResponseEntity<List<Joint>> getGraphInfo(@PathVariable String joint) {
+
+
+
+        return null;
+    }
+
+    @GetMapping(value = "/getAllJointsForPatient/{email}")
+    public ResponseEntity<List<Joint>> getAllJoints(@PathVariable String email) {
+        System.out.println(email);
+        return ResponseEntity.ok(physiotherapistService.getAllJointsForPatient(email));
+    }
 }

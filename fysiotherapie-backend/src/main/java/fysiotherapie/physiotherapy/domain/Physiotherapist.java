@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity(name = "physiotherapists")
 public class Physiotherapist {
@@ -33,5 +34,11 @@ public class Physiotherapist {
         if (!patients.contains(patient)) {
             patients.add(patient);
         }
+    }
+
+    public Optional<Patient> getPatientFromPatients(String email) {
+        return patients.stream()
+                .filter(patient -> patient.getEmail().equals(email))
+                .findFirst();
     }
 }

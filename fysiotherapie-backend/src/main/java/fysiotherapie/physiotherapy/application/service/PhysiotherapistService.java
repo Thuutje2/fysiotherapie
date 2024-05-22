@@ -22,7 +22,9 @@ import java.util.*;
 public class PhysiotherapistService {
     private final PhysiotherapistRepository physiotherapistRepository;
     private final PatientRepository patientRepository;
+    //TODO VERANDER DIT:::::
     Patient test_patient = new Patient("Daan", "test", "test@daan.nl", LocalDate.now(), 21, 195, 95);
+    Physiotherapist test_physio = new Physiotherapist("Naad", "tset", "daan@test.nl");
 
     public PhysiotherapistService(PhysiotherapistRepository physiotherapistRepository, PatientRepository patientRepository) {
         this.physiotherapistRepository = physiotherapistRepository;
@@ -57,7 +59,10 @@ public class PhysiotherapistService {
 
                         test_patient.setJointsPoints(joints);
 
-                        patientRepository.save(test_patient);
+//                        patientRepository.save(test_patient);
+                        test_physio.addPatient(test_patient);
+                        physiotherapistRepository.save(test_physio);
+
                     }
                 }
             } catch (IOException e) {
@@ -101,5 +106,28 @@ public class PhysiotherapistService {
 
     public Physiotherapist getPhysiotherapistByEmail(String email) {
         return tryFindingPhysiotherapistByEmail(email);
+    }
+
+    public List<Joint> getAllJointsForPatient(String email) {
+        Optional<Patient> temp_patient = null;
+        try {
+            Optional<Physiotherapist> temp_physio = physiotherapistRepository.findByEmail(email);
+
+            // TODO VERANDEREEEEN
+            if(temp_physio.isPresent()) {
+                temp_patient = temp_physio.get().getPatientFromPatients("daan@test.nl");
+            }
+
+            if (temp_patient.isPresent()) {
+                return temp_patient.get().getJointsPoints();
+            }
+
+
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 }
