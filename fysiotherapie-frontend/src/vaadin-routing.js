@@ -6,6 +6,8 @@ import "./components/login-form.js";
 import "./components/physio-hoofdpagina.js";
 import "./components/physio-history.js";
 import "./components/physio-measurement.js";
+import "./components/patient-overview.js";
+
 
 import {Router} from "@vaadin/router";
 import AuthService from "./service/auth-service.js";
