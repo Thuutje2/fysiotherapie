@@ -3,8 +3,9 @@ package fysiotherapie.physiotherapy.presentation.controller;
 import fysiotherapie.physiotherapy.application.service.PatientService;
 import fysiotherapie.physiotherapy.presentation.dto.request.NewPatient;
 import fysiotherapie.physiotherapy.presentation.dto.response.PatientInfo;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,8 +21,9 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addPatient(Neo4jProperties.Authentication authentication, @RequestBody NewPatient newPatient) {
-        String username = authentication.getUsername();
+    public ResponseEntity<String> addPatient(Authentication authentication, @RequestBody NewPatient newPatient) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
 
         long id = patientService.addPatient(username,
                 newPatient.firstName, newPatient.lastName, newPatient.email,

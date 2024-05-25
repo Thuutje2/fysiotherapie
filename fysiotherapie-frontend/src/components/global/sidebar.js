@@ -1,5 +1,5 @@
 import {css, html, LitElement} from "lit";
-import AuthService from "../../service/auth-service.js";
+import AuthServiceOld from "../../service/auth-service-old.js";
 
 class SidebarComponent extends LitElement {
     static get properties() {
@@ -107,8 +107,8 @@ class SidebarComponent extends LitElement {
     constructor() {
         super();
         this.isDropdownVisible = false;
-        this._isAdmin = AuthService.isAdmin();
-        this._isUser = AuthService.isUser();
+        this._isAdmin = AuthServiceOld.isAdmin();
+        this._isUser = AuthServiceOld.isUser();
     }
 
     render() {
@@ -172,7 +172,7 @@ class SidebarComponent extends LitElement {
     }
 
     handleLogout() {
-        const authService = new AuthService();
+        const authService = new AuthServiceOld();
         authService.logout();
     }
 }

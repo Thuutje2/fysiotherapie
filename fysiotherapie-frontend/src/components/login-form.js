@@ -1,5 +1,4 @@
 import {css, html, LitElement} from "lit";
-import LoginService from "../service/login-service.js";
 import AuthService from "../service/auth-service.js";
 
 class LoginForm extends LitElement {
@@ -182,59 +181,89 @@ class LoginForm extends LitElement {
             </div>
         `;
     }
+    async redirectToMainPageBasedOnRole(authService) {
+        const response = await authService.getRole();
+        // if (await response.text() === "ADMIN") {
+        //     window.location.href = "physio-hoofdpagina";
+        // }
+        //
+        // if (await response.text() === "USER") {
+        //     window.location.href = "patient-hoofdpagina";
+        // }
+    }
 
-    async onSubmit(event) {
-        event.preventDefault();
+    async tryLogIn(authService, email, password) {
+        debugger;
+        const loginData = {
+            email: email,
+            password: password
+        };
 
-        const email = this.shadowRoot.getElementById("loginform")[0].value;
-        const password = this.shadowRoot.getElementById("loginform")[1].value;
-        const errorMessage = this.shadowRoot.getElementById("errorMessage");
-
-        if (this.isValidEmail(email)) {
-            try {
-                const authService = new LoginService();
-                console.log("Password:", password);
-                const token = await authService.authenticateUser(email, password);
-
-                //Authentication error: Illegal arguments: string, undefined login-form.js:207:24
-
-                // store the token
-                sessionStorage.setItem("jwtToken", token);
-
-                if (AuthService.isAdmin()) {
-                    window.location.href = "physio-hoofdpagina";
-                }
-
-                if (AuthService.isUser()) {
-                    // User gets redirected to after successful login
-                    window.location.href = "patient-hoofdpagina";
-                }
-            } catch (error) {
-                console.error("Authentication error:", error.message);
-                console.log(error)
-                errorMessage.style.display = "block";
-
-                setTimeout(() => {
-                    errorMessage.style.display = "none";
-                }, 5000);
-            }
-        } else {
+        const response = await authService.login(loginData);
+        if (response.status !== 200) {
+            const errorMessage = await response.text();
+            console.error("Authentication error:", errorMessage);
             errorMessage.style.display = "block";
 
             setTimeout(() => {
                 errorMessage.style.display = "none";
             }, 5000);
-            alert(`${email} is niet correct!`);
         }
+        else {
+            console.log(response.headers);
+            const token = response.headers.get("Authorization");
+            sessionStorage.setItem("token", token);
+        }
+    }
+
+        // const authService = new LoginService();
+        // console.log("Password:", password);
+        // const token = await authService.authenticateUser(email, password);
+        //
+        // //Authentication error: Illegal arguments: string, undefined login-form.js:207:24
+        //
+        // // store the token
+        // sessionStorage.setItem("jwtToken", token);
+        //
+        // if (AuthServiceOld.isAdmin()) {
+        //     window.location.href = "physio-hoofdpagina";
+        // }
+        //
+        // if (AuthServiceOld.isUser()) {
+        //     // User gets redirected to after successful login
+        //     window.location.href = "patient-hoofdpagina";
+        // }
+
+    async onSubmit(event) {
+        event.preventDefault()
+        const email = this.shadowRoot.getElementById("loginform")[0].value
+        const password = this.shadowRoot.getElementById("loginform")[1].value
+        if (!this.isEmailValid(email)) {
+           this.emailNotValid(email)
+        }
+        const authService = new AuthService()
+        await this.tryLogIn(authService, email, password)
+        await this.redirectToMainPageBasedOnRole(authService)
     }
 
     onForgotPassword(event) {
         event.preventDefault();
     }
 
-    isValidEmail(email) {
+    isEmailValid(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    emailNotValid(email) {
+        const errorMessage = this.shadowRoot.getElementById("errorMessage");
+
+        errorMessage.style.display = "block";
+
+        setTimeout(() => {
+            errorMessage.style.display = "none";
+        }, 5000);
+        alert(`${email} is niet correct!`);
     }
 }
 

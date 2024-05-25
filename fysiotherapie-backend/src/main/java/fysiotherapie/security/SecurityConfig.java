@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import fysiotherapie.security.presentation.filter.JwtAuthenticationFilter;
 import fysiotherapie.security.presentation.filter.JwtAuthorizationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -29,8 +30,9 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
     private static final String LOGIN_PATH = "/auth/login";
-    private static final String REGISTER_PATH_USER = "/auth/register/user";
-    private static final String REGISTER_PATH_ADMIN = "/auth/register/admin";
+    private static final String REGISTER_USER_PATH = "/auth/register/user";
+    private static final String REGISTER_ADMIN_PATH = "/auth/register/admin";
+    private static final String GET_ROLE_PATH = "/auth/role";
     private static final String ADD_PATIENT = "/patients";
     @Value("${security.jwt.expiration-in-ms}")
     private Integer jwtExpirationInMs;
@@ -49,12 +51,14 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(
             final HttpSecurity http, final AuthenticationManager authenticationManager) throws Exception {
-        http.cors(Customizer.withDefaults())
+        http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(r -> r
                         .requestMatchers(antMatcher(POST, LOGIN_PATH)).permitAll()
-                        .requestMatchers(antMatcher(POST, REGISTER_PATH_USER)).permitAll()
-                        .requestMatchers(antMatcher(POST, REGISTER_PATH_ADMIN)).permitAll()
+                        .requestMatchers(antMatcher(POST, REGISTER_USER_PATH)).permitAll()
+                        .requestMatchers(antMatcher(POST, REGISTER_ADMIN_PATH)).permitAll()
+                        .requestMatchers(antMatcher(GET, GET_ROLE_PATH)).permitAll()
                         .requestMatchers(antMatcher(POST, ADD_PATIENT)).hasAuthority(Role.ROLE_ADMIN.toString())
                         .requestMatchers(antMatcher("/error")).anonymous()
                         .anyRequest().authenticated()

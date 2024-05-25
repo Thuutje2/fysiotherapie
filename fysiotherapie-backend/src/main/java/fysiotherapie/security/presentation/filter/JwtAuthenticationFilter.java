@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -75,6 +76,21 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
                 .claim("lastName", user.getLastName())
                 .compact();
 
+//        Cookie cookie = new Cookie("JWT", token);
+//        cookie.setHttpOnly(true);
+//        cookie.setMaxAge(3600);
+//        cookie.setSecure(false);
+//        cookie.setPath("/");
+//        cookie.setDomain(null);
+//        response.addCookie(cookie);
+//        response.addHeader("Set-Cookie", "JWT=" + token + "; Max-Age=3600; HttpOnly; Path=/; Domain=localhost");
+//        response.addHeader("Access-Control-Allow-Credentials", "true");
+////        response.addHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+//        response.addHeader("Access-Control-Allow-Headers", "*");
+//        response.addHeader("Access-Control-Allow-Methods", "*");
+//        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+
         response.addHeader("Authorization", "Bearer " + token);
+
     }
 }

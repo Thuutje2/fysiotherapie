@@ -8,7 +8,7 @@ import "./components/physio-history.js";
 import "./components/physio-measurement.js";
 
 import {Router} from "@vaadin/router";
-import AuthService from "./service/auth-service.js";
+import AuthServiceOld from "./service/auth-service-old.js";
 import {ADMIN_ROLE, USER_ROLE} from "./assets/userRoles.js";
 
 const outlet = document.querySelector("#app")
@@ -116,9 +116,9 @@ router.setRoutes([
 async function protectedContentRedirect(commands, allowedRoles) {
     try {
         // get current logged in status and role
-        const userRole = AuthService.getUserRole();
-        const loggedIn = AuthService.isLoggedIn();
-        AuthService.handleNavbarVisibility();
+        const userRole = AuthServiceOld.getUserRole();
+        const loggedIn = AuthServiceOld.isLoggedIn();
+        AuthServiceOld.handleNavbarVisibility();
 
 
         if (!loggedIn || !allowedRoles.includes(userRole)) {

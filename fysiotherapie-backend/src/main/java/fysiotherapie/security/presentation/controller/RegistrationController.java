@@ -1,15 +1,20 @@
 package fysiotherapie.security.presentation.controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import fysiotherapie.security.application.service.UserService;
 import fysiotherapie.security.presentation.dto.request.Registration;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("auth/register")
+
+@RequestMapping("auth/")
 public class RegistrationController {
     private final UserService userService;
 
@@ -17,7 +22,7 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @PostMapping("/user")
+    @PostMapping("register/user")
     public void registerUser(@Validated @RequestBody Registration registration) {
         userService.registerUser(
                 registration.email,
@@ -26,12 +31,22 @@ public class RegistrationController {
                 registration.lastName);
     }
 
-    @PostMapping("/admin")
+    @PostMapping("register/admin")
     public void registerAdmin(@Validated @RequestBody Registration registration) {
         userService.registerAdmin(
                 registration.email,
                 registration.password,
                 registration.firstName,
                 registration.lastName);
+    }
+
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true", exposedHeaders = {"Set-Cookie"})
+    @GetMapping("role")
+    public List<String> getRoleOfAuthenticatedUser(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
     }
 }

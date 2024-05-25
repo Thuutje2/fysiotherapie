@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs"; // Import from bcryptjs instead of bcrypt
 import {mockUsers} from "../assets/mockUsers.js"; // Import mockUsers from mockUsers.js
-import AuthService from "./auth-service.js";
+import AuthServiceOld from "./auth-service-old.js";
 
 // export default class LoginService {
 //
@@ -10,9 +10,9 @@ import AuthService from "./auth-service.js";
 //         );
 //
 //         if (user && (await this.comparePasswords(password, user.hashedPassword))) {
-//             console.log("token1: " + AuthService.generateToken(user.role))
+//             console.log("token1: " + AuthServiceOld.generateToken(user.role))
 //
-//             return AuthService.generateToken(user.role);
+//             return AuthServiceOld.generateToken(user.role);
 //
 //         } else {
 //             console.error("Authentication failed");
@@ -37,7 +37,7 @@ export default class LoginService {
         console.log()
 
         if (user && (await this.comparePasswords(password, user.hashedPassword))) {
-            return AuthService.generateToken(user.role);
+            return AuthServiceOld.generateToken(user.role);
         } else {
             console.error("Authentication failed");
             throw new Error("Authentication failed");
