@@ -46,7 +46,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-
+//
 //        Cookie[] cookies = request.getCookies();
 //        if (cookies == null) {
 //            return null;

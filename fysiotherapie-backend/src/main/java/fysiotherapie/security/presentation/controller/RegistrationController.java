@@ -40,13 +40,13 @@ public class RegistrationController {
                 registration.lastName);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true", exposedHeaders = {"Set-Cookie"})
+//    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true", exposedHeaders = {"Set-Cookie"})
     @GetMapping("role")
-    public List<String> getRoleOfAuthenticatedUser(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return userDetails.getAuthorities()
+    public String getRoleOfAuthenticatedUser(Authentication authentication) {
+        return authentication.getAuthorities()
                 .stream()
+                .findFirst()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+                .orElse("");
     }
 }

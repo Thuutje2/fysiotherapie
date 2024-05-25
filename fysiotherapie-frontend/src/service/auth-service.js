@@ -29,10 +29,7 @@ export default class AuthService {
     async getRole() {
         const fetchOptions = {
             method: "GET",
-            headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("token")},
-            credentials: 'include',
-            exposedHeaders: ["Set-Cookie"]
-
+            headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("myToken")},
         }
         return await fetch("http://localhost:8080/auth/role", fetchOptions);
     }

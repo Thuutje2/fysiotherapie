@@ -183,17 +183,18 @@ class LoginForm extends LitElement {
     }
     async redirectToMainPageBasedOnRole(authService) {
         const response = await authService.getRole();
-        // if (await response.text() === "ADMIN") {
-        //     window.location.href = "physio-hoofdpagina";
-        // }
-        //
-        // if (await response.text() === "USER") {
-        //     window.location.href = "patient-hoofdpagina";
-        // }
+        const data = await response.text();
+        console.log(data);
+        if (data === "ROLE_ADMIN") {
+            window.location.href = "physio-hoofdpagina";
+        }
+
+        if (data === "ROLE_USER") {
+            window.location.href = "patient-hoofdpagina";
+        }
     }
 
     async tryLogIn(authService, email, password) {
-        debugger;
         const loginData = {
             email: email,
             password: password
@@ -210,9 +211,10 @@ class LoginForm extends LitElement {
             }, 5000);
         }
         else {
-            console.log(response.headers);
-            const token = response.headers.get("Authorization");
-            sessionStorage.setItem("token", token);
+            const data = await response.json();
+            if (data["token"].startsWith('Bearer ')) {
+                sessionStorage.setItem("myToken", data["token"]);
+            }
         }
     }
 
@@ -242,8 +244,8 @@ class LoginForm extends LitElement {
            this.emailNotValid(email)
         }
         const authService = new AuthService()
-        await this.tryLogIn(authService, email, password)
-        await this.redirectToMainPageBasedOnRole(authService)
+        await this.tryLogIn(authService, email, password, event)
+        await this.redirectToMainPageBasedOnRole(authService, event)
     }
 
     onForgotPassword(event) {
