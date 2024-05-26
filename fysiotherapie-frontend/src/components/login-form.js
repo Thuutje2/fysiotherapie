@@ -1,5 +1,6 @@
 import {css, html, LitElement} from "lit";
 import AuthService from "../service/auth-service.js";
+import {ROLE_ADMIN, ROLE_USER} from "../assets/userRoles.js";
 
 class LoginForm extends LitElement {
     static properties = {
@@ -171,81 +172,51 @@ class LoginForm extends LitElement {
                             </button>
                         </div>
                         <div id="errorMessage">
-                            <div>
-                                Helaas, er is geen account gevonden met deze e-mail en/of
-                                wachtwoord
-                            </div>
+                            <div></div>
                         </div>
                     </form>
                 </div>
             </div>
         `;
     }
-    async redirectToMainPageBasedOnRole(authService) {
-        const response = await authService.getRole();
-        const data = await response.text();
-        console.log(data);
-        if (data === "ROLE_ADMIN") {
-            window.location.href = "physio-hoofdpagina";
-        }
-
-        if (data === "ROLE_USER") {
-            window.location.href = "patient-hoofdpagina";
-        }
-    }
-
-    async tryLogIn(authService, email, password) {
-        const loginData = {
-            email: email,
-            password: password
-        };
-
-        const response = await authService.login(loginData);
-        if (response.status !== 200) {
-            const errorMessage = await response.text();
-            console.error("Authentication error:", errorMessage);
-            errorMessage.style.display = "block";
-
-            setTimeout(() => {
-                errorMessage.style.display = "none";
-            }, 5000);
-        }
-        else {
-            const data = await response.json();
-            if (data["token"].startsWith('Bearer ')) {
-                sessionStorage.setItem("myToken", data["token"]);
-            }
-        }
-    }
-
-        // const authService = new LoginService();
-        // console.log("Password:", password);
-        // const token = await authService.authenticateUser(email, password);
-        //
-        // //Authentication error: Illegal arguments: string, undefined login-form.js:207:24
-        //
-        // // store the token
-        // sessionStorage.setItem("jwtToken", token);
-        //
-        // if (AuthServiceOld.isAdmin()) {
-        //     window.location.href = "physio-hoofdpagina";
-        // }
-        //
-        // if (AuthServiceOld.isUser()) {
-        //     // User gets redirected to after successful login
-        //     window.location.href = "patient-hoofdpagina";
-        // }
 
     async onSubmit(event) {
         event.preventDefault()
         const email = this.shadowRoot.getElementById("loginform")[0].value
         const password = this.shadowRoot.getElementById("loginform")[1].value
+        const errorMessage = this.shadowRoot.getElementById("errorMessage");
         if (!this.isEmailValid(email)) {
-           this.emailNotValid(email)
+           this.emailNotValid(email, errorMessage)
         }
-        const authService = new AuthService()
-        await this.tryLogIn(authService, email, password, event)
-        await this.redirectToMainPageBasedOnRole(authService, event)
+        else {
+            await this.tryLogIn(email, password, errorMessage)
+            await this.redirectToMainPageBasedOnRole(event)
+        }
+    }
+
+    async redirectToMainPageBasedOnRole() {
+        const role = await AuthService.getRole();
+        const sidebar = document.querySelector("sidebar-component");
+        if (role === ROLE_ADMIN) {
+            window.location.href = "physio-hoofdpagina";
+        }
+
+        if (role === ROLE_USER) {
+            window.location.href = "patient-hoofdpagina";
+        }
+    }
+
+    async tryLogIn(email, password, errorMessage) {
+        const loginData = {
+            email: email,
+            password: password
+        };
+
+        const response = await AuthService.login(loginData);
+        if (response.success === false) {
+            errorMessage.innerText = response.error;
+            errorMessage.style.display = "block";
+        }
     }
 
     onForgotPassword(event) {
@@ -257,15 +228,9 @@ class LoginForm extends LitElement {
         return emailRegex.test(email);
     }
 
-    emailNotValid(email) {
-        const errorMessage = this.shadowRoot.getElementById("errorMessage");
-
+    emailNotValid(email, errorMessage) {
+        errorMessage.innerText = "Het ingevoerde e-mailadres is niet geldig";
         errorMessage.style.display = "block";
-
-        setTimeout(() => {
-            errorMessage.style.display = "none";
-        }, 5000);
-        alert(`${email} is niet correct!`);
     }
 }
 

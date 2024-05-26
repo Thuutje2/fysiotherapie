@@ -1,6 +1,7 @@
 package fysiotherapie.security;
 
 import fysiotherapie.security.domain.Role;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
     private static final String LOGIN_PATH = "/auth/login";
+    private static final String LOGOUT_PATH = "/auth/logout";
     private static final String REGISTER_USER_PATH = "/auth/register/user";
     private static final String REGISTER_ADMIN_PATH = "/auth/register/admin";
     private static final String GET_ROLE_PATH = "/auth/role";
@@ -56,12 +58,20 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(r -> r
                         .requestMatchers(antMatcher(POST, LOGIN_PATH)).permitAll()
+                        .requestMatchers(antMatcher(POST, LOGOUT_PATH)).permitAll()
                         .requestMatchers(antMatcher(POST, REGISTER_USER_PATH)).permitAll()
                         .requestMatchers(antMatcher(POST, REGISTER_ADMIN_PATH)).permitAll()
                         .requestMatchers(antMatcher(GET, GET_ROLE_PATH)).permitAll()
                         .requestMatchers(antMatcher(POST, ADD_PATIENT)).hasAuthority(Role.ROLE_ADMIN.toString())
                         .requestMatchers(antMatcher("/error")).anonymous()
                         .anyRequest().authenticated()
+                )
+                .logout(logout -> logout
+                        .logoutUrl(LOGOUT_PATH)
+                        .logoutSuccessHandler((request, response, authentication) -> response.setStatus(HttpServletResponse.SC_OK))
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(
                         LOGIN_PATH,

@@ -4,69 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/development/db/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/development/db/create_dbs.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/development/db/create_users.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/FysioApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/PhysiotherapistService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/PatientNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/PatientNotUniqueException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/PhysiotherapistNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/TreatmentNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/exception/TreatmentNotUniqueException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/service/PatientService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/service/PhysiotherapistService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/application/service/TreatmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/data/PatientRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/data/PhysiotherapistRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/data/TreatmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Activity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Joint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Physiotherapist.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/Treatment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/enums/ActivityType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/domain/enums/JointType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PatientController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PhysiotherapistController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/TreatmentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/dto/request/NewPatient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/dto/request/NewTreatment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/dto/response/PatientInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/dto/response/TreatmentInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/SecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/application/exception/UsernameNotUniqueException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/application/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/data/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/domain/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/domain/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/domain/UserProfile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/controller/RegistrationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/dto/request/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/dto/request/Registration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthorizationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/data-service.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/patient-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fysiotherapie.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fysiotherapie.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-mainpage.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-mainpage.js" afterDir="false" />
-    </list>
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,9 +50,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging FE-dev",
+    "git-widget-placeholder": "47-restservices-inloggen-maken",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/daanf/freemocap/freemocap",
+    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -155,6 +93,13 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -181,6 +126,7 @@
       <workItem from="1713343160165" duration="650000" />
       <workItem from="1713875666455" duration="295000" />
       <workItem from="1715080520950" duration="1018000" />
+      <workItem from="1716662188478" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />

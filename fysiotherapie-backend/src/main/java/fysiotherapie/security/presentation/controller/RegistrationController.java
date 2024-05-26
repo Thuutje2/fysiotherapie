@@ -40,7 +40,6 @@ public class RegistrationController {
                 registration.lastName);
     }
 
-//    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true", exposedHeaders = {"Set-Cookie"})
     @GetMapping("role")
     public String getRoleOfAuthenticatedUser(Authentication authentication) {
         return authentication.getAuthorities()

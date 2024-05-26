@@ -8,8 +8,8 @@ import "./components/physio-history.js";
 import "./components/physio-measurement.js";
 
 import {Router} from "@vaadin/router";
-import AuthServiceOld from "./service/auth-service-old.js";
-import {ADMIN_ROLE, USER_ROLE} from "./assets/userRoles.js";
+import AuthService from "./service/auth-service.js";
+import {ROLE_ADMIN, ROLE_USER} from "./assets/userRoles.js";
 
 const outlet = document.querySelector("#app")
 const router = new Router(outlet)
@@ -27,21 +27,21 @@ router.setRoutes([
         path: "/patient-hoofdpagina",
         component: "patient-hoofdpagina",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
     },
     {
         path: "/patient-information",
         component: "patient-information",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
     },
     {
         path: "/patient-history",
         component: "patient-history",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE, USER_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
     },
     ////////////////////////////////////////////////////////////////////////
@@ -51,28 +51,28 @@ router.setRoutes([
         path: "/physio-hoofdpagina",
         component: "physio-hoofdpagina",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         }
     },
     {
         path: "/physio-history",
         component: "physio-history",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         }
     },
     {
         path: "/physio-measurement",
         component: "physio-measurement",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         }
     },
     {
         path: "/activity-walk",
         component: "activity-walk",
         action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ADMIN_ROLE]);
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },
     },
 
@@ -115,11 +115,13 @@ router.setRoutes([
 
 async function protectedContentRedirect(commands, allowedRoles) {
     try {
-        // get current logged in status and role
-        const userRole = AuthServiceOld.getUserRole();
-        const loggedIn = AuthServiceOld.isLoggedIn();
-        AuthServiceOld.handleNavbarVisibility();
-
+        debugger;
+        const userRole = AuthService.getSavedRole();
+        const loggedIn = AuthService.isLoggedIn();
+        const sidebar = document.querySelector("sidebar-component");
+        if (sidebar) {
+            sidebar._isLoggedIn = loggedIn;
+        }
 
         if (!loggedIn || !allowedRoles.includes(userRole)) {
             return commands.redirect("/login");
