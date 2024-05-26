@@ -6,6 +6,7 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import fysiotherapie.security.domain.UserProfile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
@@ -44,6 +46,16 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
+//
+//        Cookie[] cookies = request.getCookies();
+//        if (cookies == null) {
+//            return null;
+//        }
+//
+//       String token = Arrays.stream(cookies)
+//               .filter(cookie -> cookie.getName().equals("JWT"))
+//               .findFirst()
+//               .map(Cookie::getValue).orElse(null);
 
         if (token == null || token.isEmpty()) {
             return null;
@@ -60,7 +72,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 .build();
 
         Jws<Claims> parsedToken = jwtParser
-                .parseClaimsJws(token.replace("Bearer ", ""));
+                .parseClaimsJws(token
+                        .replace("Bearer ", "")
+                );
 
         var username = parsedToken
                 .getBody()

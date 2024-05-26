@@ -1,12 +1,11 @@
 import {css, html, LitElement} from "lit";
 import DataService from "../service/data-service.js";
 
-class PatientHoofdpagina extends LitElement {
+class PatientMainpage extends LitElement {
     constructor() {
         super();
         this.dataService = new DataService();
     }
-
 
     static get styles() {
         return css`
@@ -47,4 +46,4 @@ class PatientHoofdpagina extends LitElement {
 
 }
 
-customElements.define('patient-hoofdpagina', PatientHoofdpagina);
+customElements.define('patient-hoofdpagina', PatientMainpage);

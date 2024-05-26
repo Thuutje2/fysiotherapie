@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="component geadd voor meting aanmaken">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/PhysiotherapistService.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/application/PhysiotherapistService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-backend/src/main/java/fysiotherapie/physiotherapy/presentation/controller/PatientController.java" afterDir="false" />
-    </list>
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +23,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="43-meting-maken-pagina" />
+        <entry key="$PROJECT_DIR$" value="29-overzicht-historie-traject" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -53,29 +50,22 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "BE-dev",
+    "git-widget-placeholder": "47-restservices-inloggen-maken",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend/public",
+    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\public" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\public" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global\images" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components\global" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\components" />
-      <recent name="C:\Users\thuha\OneDrive\Documenten\GitHub\fysiotherapie\fysiotherapie-frontend\src\images" />
+      <recent name="C:\Users\marit\Documents\GitHub\fysiotherapie\fysiotherapie-backend\src\main\java" />
+      <recent name="C:\Users\marit\Documents\GitHub\fysiotherapie\fysiotherapie-backend" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\src\main\fysiotherapie\csv" />
     </key>
   </component>
   <component name="RunManager">
@@ -103,6 +93,13 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -126,6 +123,10 @@
       <workItem from="1715604371482" duration="4859000" />
       <workItem from="1715853682891" duration="1344000" />
       <workItem from="1715881331484" duration="875000" />
+      <workItem from="1713343160165" duration="650000" />
+      <workItem from="1713875666455" duration="295000" />
+      <workItem from="1715080520950" duration="1018000" />
+      <workItem from="1716662188478" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -143,37 +144,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712749055632</updated>
     </task>
-    <task id="LOCAL-00003" summary="Update github">
+    <task id="LOCAL-00003" summary="update">
       <option name="closed" value="true" />
-      <created>1712749360849</created>
+      <created>1716290211054</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1712749360849</updated>
+      <updated>1716290211054</updated>
     </task>
-    <task id="LOCAL-00004" summary="Eerste opzet website">
+    <task id="LOCAL-00004" summary="update">
       <option name="closed" value="true" />
-      <created>1712750136585</created>
+      <created>1716291082478</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1712750136585</updated>
+      <updated>1716291082479</updated>
     </task>
-    <task id="LOCAL-00005" summary="fixed sidebar, added logo">
-      <created>1712833318223</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1712833318223</updated>
-    </task>
-    <task id="LOCAL-00006" summary="fixed sidebar, padding deleted in sidebar">
-      <created>1712834523298</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1712834523298</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,10 +179,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="floenk" />
-    <MESSAGE value="Update github" />
-    <MESSAGE value="Eerste opzet website" />
-    <MESSAGE value="fixed sidebar, added logo" />
-    <MESSAGE value="fixed sidebar, padding deleted in sidebar" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed sidebar, padding deleted in sidebar" />
+    <MESSAGE value="update" />
+    <MESSAGE value="Added patient-service.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added patient-service.js" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/fysiotherapie$plot.coverage" NAME="plot Coverage Results" MODIFIED="1712146520374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
+    <SUITE FILE_PATH="coverage/fysiotherapie$test.coverage" NAME="test Coverage Results" MODIFIED="1712149024200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
+    <SUITE FILE_PATH="coverage/fysiotherapie$installer.coverage" NAME="installer Coverage Results" MODIFIED="1712164086849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie/installer" />
   </component>
 </project>

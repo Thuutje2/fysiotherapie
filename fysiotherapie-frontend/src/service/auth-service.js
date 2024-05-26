@@ -1,61 +1,107 @@
-import {USER_ROLE, ADMIN_ROLE} from "../assets/userRoles.js";
-
-const jwtSessionStoreKey = "jwtToken";
+import {ROLE_ADMIN, ROLE_USER} from "../assets/userRoles.js";
 export default class AuthService {
-    // Basically only removes the token from sessionstorage, but in turn blocks the user from seeing protected content.
-    logout() {
-        sessionStorage.removeItem(jwtSessionStoreKey);
-        AuthService.handleNavbarVisibility(); // hides navbar after logging out
+    static async registerUser(registerData) {
+        const fetchOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(registerData)
+        }
+        return await fetch("http://localhost:8080/auth/register/user", fetchOptions);
     }
 
-    // Only shows navbar when user is logged in
-    static handleNavbarVisibility() {
-        const sidebar = document.querySelector("sidebar-component");
-        if (sidebar) {
-            sidebar._isLoggedIn = AuthService.isLoggedIn();
+    static async registerAdmin(registerData) {
+        const fetchOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(registerData)
+        }
+        return await fetch("http://localhost:8080/auth/register/admin", fetchOptions);
+    }
+
+    static async login(loginData){
+        const fetchOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(loginData)
+        };
+        const response = await fetch("http://localhost:8080/auth/login", fetchOptions)
+        if (response.ok) {
+            const data = await response.json();
+            if (data.token && data.token.startsWith("Bearer ")) {
+                this.saveToken(data.token);
+                return { success: true };
+            }
+        } else if (response.status === 401) {
+            return { success: false, error: "Er is geen account gevonden met dit e-mail en/of wachtwoord" };
+        } else {
+            return { success: false, error: "Inloggen mislukt" };
         }
     }
 
-    // static handleNavbarVisibility() {
-    //     const sidebar = document.querySelector("sidebar-component");
-    //
-    //     console.log(sidebar)
-    //
-    //     if(this.isLoggedIn()) {
-    //         sidebar.style.display = 'visible'
-    //     }
-    //
-    //     console.log(sidebar.style)
-    //
-    //     // if (sidebar) {
-    //     //     sidebar._isLoggedIn = AuthService.isLoggedIn(); // Directly set visibility based on logged-in status
-    //     //     sidebar._isAdmin = this.isAdmin(); // Update the property to show admin links
-    //     //     sidebar._isUser = this.isUser(); // Update the property to show patient links
-    //     // }
-    // }
+    static async logout(){
+        const fetchOptions = {
+            method: "POST",
+            headers: {"Authorization": "Bearer " + sessionStorage.getItem("myToken")},
+        }
+        const response = await fetch("http://localhost:8080/auth/logout", fetchOptions);
+        if (response.ok) {
+            this.removeToken();
+            return { success: true }
+        }
+        else {
+            const errorText = await response.text();
+            return { success: false, error: errorText || "Logout failed" }
+        }
+    }
 
-    static isAdmin() {
-        return this.getUserRole() === ADMIN_ROLE;
+    static saveToken(token) {
+        sessionStorage.setItem("myToken", token);
+    }
+
+    static removeToken() {
+        sessionStorage.removeItem("myToken");
+        sessionStorage.removeItem("myRole");
+    }
+
+    static async getRole() {
+        const fetchOptions = {
+            method: "GET",
+            headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("myToken")},
+        }
+        const response = await fetch("http://localhost:8080/auth/role", fetchOptions);
+        if (response.status === 200) {
+            let role = await response.text();
+            if (role === "ROLE_USER") {
+                role = ROLE_USER;
+            }
+            if (role === "ROLE_ADMIN") {
+                role = ROLE_ADMIN;
+            }
+            this.saveRole(role)
+            return role;
+        }
+        else {
+            return null;
+        }
+    }
+
+    static saveRole(role) {
+        sessionStorage.setItem("myRole", role);
+    }
+
+    static getSavedRole() {
+        return sessionStorage.getItem("myRole");
     }
 
     static isUser() {
-        return this.getUserRole() === USER_ROLE;
+        return this.getSavedRole() === ROLE_USER;
     }
 
-    static getUserRole() {
-        // Assuming the JWT token's first part is the role
-        const jwtToken = sessionStorage.getItem(jwtSessionStoreKey);
-        return jwtToken ? jwtToken.split('.')[0] : null;
+    static isAdmin() {
+        return this.getSavedRole() === ROLE_ADMIN;
     }
 
-    static generateToken(role) {
-        const prefix = role === "admin" ? ADMIN_ROLE : USER_ROLE;
-        console.log(`${prefix}.token.${Date.now().toString()}`)
-        return `${prefix}.token.${Date.now().toString()}`;
-    }
-
-    // method that verifies if a user is "logged in" (if there is a token in sessionstorage)
     static isLoggedIn() {
-        return Boolean(sessionStorage.getItem(jwtSessionStoreKey));
+        return Boolean(sessionStorage.getItem("myToken"));
     }
 }

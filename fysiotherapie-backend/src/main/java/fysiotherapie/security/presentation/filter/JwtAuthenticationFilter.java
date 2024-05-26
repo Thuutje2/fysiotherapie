@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,7 +54,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                            FilterChain filterChain, Authentication authentication) {
+                                            FilterChain filterChain, Authentication authentication) throws IOException {
         User user = (User) authentication.getPrincipal();
 
         List<String> roles = user.getAuthorities()
@@ -75,6 +76,22 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
                 .claim("lastName", user.getLastName())
                 .compact();
 
-        response.addHeader("Authorization", "Bearer " + token);
+////        Cookie cookie = new Cookie("JWT", token);
+////        cookie.setHttpOnly(true);
+////        cookie.setMaxAge(3600);
+////        cookie.setSecure(false);
+////        cookie.setPath("/");
+////        cookie.setDomain(null);
+////        response.addCookie(cookie);
+//        response.addHeader("Set-Cookie", "JWT=" + token + "; Max-Age=3600; HttpOnly; Path=/; Domain=localhost");
+////        response.addHeader("Access-Control-Allow-Credentials", "true");
+////        response.addHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+////        response.addHeader("Access-Control-Allow-Headers", "*");
+////        response.addHeader("Access-Control-Allow-Methods", "*");
+////        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+
+//        response.addHeader("Authorization", "Bearer " + token);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"token\": \"Bearer " + token + "\"}");
     }
 }

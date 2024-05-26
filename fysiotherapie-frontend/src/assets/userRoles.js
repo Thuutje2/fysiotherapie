@@ -1,6 +1,6 @@
 // Define roles as constants
-const USER_ROLE = "user";
-const ADMIN_ROLE = "admin";
+const ROLE_USER = "user";
+const ROLE_ADMIN = "admin";
 
 // Export the constants
-export {USER_ROLE, ADMIN_ROLE};
+export {ROLE_USER, ROLE_ADMIN};
