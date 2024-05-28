@@ -2,10 +2,11 @@ package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.exception.PatientNotFoundException;
 import fysiotherapie.physiotherapy.application.exception.PatientNotUniqueException;
+import fysiotherapie.physiotherapy.application.exception.TreatmentDoesNotBelongToPatientException;
 import fysiotherapie.physiotherapy.data.PatientRepository;
 import fysiotherapie.physiotherapy.domain.Patient;
 import fysiotherapie.physiotherapy.domain.Physiotherapist;
-import fysiotherapie.physiotherapy.presentation.dto.response.PatientInfo;
+import fysiotherapie.physiotherapy.application.dto.response.PatientInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,12 @@ public class PatientService {
     private void isPatientUnique(String email) {
         if (patientRepository.existsByEmail(email)) {
             throw new PatientNotUniqueException("Patient already exists by given email address");
+        }
+    }
+
+    public void checkTreatmentBelongsToPatient(long patientId, long treatmentId) {
+        if (!patientRepository.existsByIdAndTreatmentId(patientId, treatmentId)) {
+            throw new TreatmentDoesNotBelongToPatientException("Treatment does not belong to patient");
         }
     }
 

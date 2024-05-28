@@ -1,7 +1,5 @@
 package fysiotherapie.physiotherapy.domain;
 
-import fysiotherapie.physiotherapy.domain.enums.JointType;
-//import fysiotherapie.domain.enums.JointType;
 import jakarta.persistence.*;
 
 import java.util.Map;
@@ -17,12 +15,13 @@ public class Joint {
     private String jointType;
 
     @ElementCollection
-    private Map<String, String> secondsToPosition;
+    @OrderColumn
+    private Map<Double, Double> secondsToPosition;
 
 
     public Joint(){}
 
-    public Joint(Map<String, String> secondsToPosition) {;
+    public Joint(Map<Double, Double> secondsToPosition) {;
         this.setSecondsToPosition(secondsToPosition);
     }
 
@@ -35,11 +34,11 @@ public class Joint {
                 '}';
     }
 
-    public Map<String, String> getSecondsToPosition() {
+    public Map<Double, Double> getSecondsToPosition() {
         return secondsToPosition;
     }
 
-    public void setSecondsToPosition(Map<String, String> secondsToPosition) {
+    public void setSecondsToPosition(Map<Double, Double> secondsToPosition) {
         this.secondsToPosition = secondsToPosition;
     }
 
