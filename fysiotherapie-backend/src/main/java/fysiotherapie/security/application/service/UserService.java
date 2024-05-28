@@ -1,14 +1,13 @@
-/*
 package fysiotherapie.security.application.service;
 
 import fysiotherapie.physiotherapy.application.service.PhysiotherapistService;
 import fysiotherapie.physiotherapy.domain.Physiotherapist;
 import jakarta.transaction.Transactional;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-//import fysiotherapie.security.application.exception.UsernameNotUniqueException;
+import fysiotherapie.security.application.exception.UsernameNotUniqueException;
 import fysiotherapie.security.data.UserRepository;
 import fysiotherapie.security.domain.Role;
 import fysiotherapie.security.domain.User;
@@ -51,4 +50,4 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
-}*/
+}

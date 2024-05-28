@@ -1,4 +1,3 @@
-/*
 package fysiotherapie.security.domain;
 
 import jakarta.persistence.*;
@@ -75,4 +74,4 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.toString()));
     }
 }
-*/
+
