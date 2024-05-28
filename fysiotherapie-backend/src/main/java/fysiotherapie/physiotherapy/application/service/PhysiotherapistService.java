@@ -22,7 +22,7 @@ import java.util.*;
 public class PhysiotherapistService {
     private final PhysiotherapistRepository physiotherapistRepository;
     private final PatientRepository patientRepository;
-    //TODO VERANDER DIT:::::
+    //TODO VERANDER DIT:
     Patient test_patient = new Patient("Daan", "test", "test@daan.nl", LocalDate.now(), 21, 195, 95);
     Physiotherapist test_physio = new Physiotherapist("Naad", "tset", "daan@test.nl");
 
@@ -41,7 +41,6 @@ public class PhysiotherapistService {
     }
 
         public void parseCsvToCorrectFormat(MultipartFile file) {
-            System.out.println("hoi");
             try {
                 if (file != null && !file.isEmpty()) {
                     try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
@@ -58,6 +57,8 @@ public class PhysiotherapistService {
                         List<Joint> joints = dataProcessor(dataList);
 
                         test_patient.setJointsPoints(joints);
+
+                        System.out.println(test_patient.getJointsPoints());
 
 //                        patientRepository.save(test_patient);
                         test_physio.addPatient(test_patient);
