@@ -1,3 +1,4 @@
+/*
 package fysiotherapie.security.presentation.controller;
 
 import org.springframework.http.ResponseEntity;
@@ -49,3 +50,4 @@ public class RegistrationController {
                 .orElse("");
     }
 }
+*/

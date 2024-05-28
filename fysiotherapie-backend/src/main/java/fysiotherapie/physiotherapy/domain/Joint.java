@@ -20,7 +20,6 @@ public class Joint {
     private Map<String, String> secondsToPosition;
 
 
-
     public Joint(){}
 
     public Joint(Map<String, String> secondsToPosition) {;
