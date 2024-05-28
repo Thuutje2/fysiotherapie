@@ -1,6 +1,6 @@
 import {css, html, LitElement} from "lit";
-import LoginService from "../service/login-service.js";
 import AuthService from "../service/auth-service.js";
+import {ROLE_ADMIN, ROLE_USER} from "../assets/userRoles.js";
 
 class LoginForm extends LitElement {
     static properties = {
@@ -172,10 +172,7 @@ class LoginForm extends LitElement {
                             </button>
                         </div>
                         <div id="errorMessage">
-                            <div>
-                                Helaas, er is geen account gevonden met deze e-mail en/of
-                                wachtwoord
-                            </div>
+                            <div></div>
                         </div>
                     </form>
                 </div>
@@ -184,47 +181,41 @@ class LoginForm extends LitElement {
     }
 
     async onSubmit(event) {
-        event.preventDefault();
-
-        const email = this.shadowRoot.getElementById("loginform")[0].value;
-        const password = this.shadowRoot.getElementById("loginform")[1].value;
+        event.preventDefault()
+        const email = this.shadowRoot.getElementById("loginform")[0].value
+        const password = this.shadowRoot.getElementById("loginform")[1].value
         const errorMessage = this.shadowRoot.getElementById("errorMessage");
+        if (!this.isEmailValid(email)) {
+           this.emailNotValid(email, errorMessage)
+        }
+        else {
+            await this.tryLogIn(email, password, errorMessage)
+            await this.redirectToMainPageBasedOnRole(event)
+        }
+    }
 
-        if (this.isValidEmail(email)) {
-            try {
-                const authService = new LoginService();
-                console.log("Password:", password);
-                const token = await authService.authenticateUser(email, password);
+    async redirectToMainPageBasedOnRole() {
+        const role = await AuthService.getRole();
+        const sidebar = document.querySelector("sidebar-component");
+        if (role === ROLE_ADMIN) {
+            window.location.href = "physio-hoofdpagina";
+        }
 
-                //Authentication error: Illegal arguments: string, undefined login-form.js:207:24
+        if (role === ROLE_USER) {
+            window.location.href = "patient-hoofdpagina";
+        }
+    }
 
-                // store the token
-                sessionStorage.setItem("jwtToken", token);
+    async tryLogIn(email, password, errorMessage) {
+        const loginData = {
+            email: email,
+            password: password
+        };
 
-                if (AuthService.isAdmin()) {
-                    window.location.href = "physio-hoofdpagina";
-                }
-
-                if (AuthService.isUser()) {
-                    // User gets redirected to after successful login
-                    window.location.href = "patient-hoofdpagina";
-                }
-            } catch (error) {
-                console.error("Authentication error:", error.message);
-                console.log(error)
-                errorMessage.style.display = "block";
-
-                setTimeout(() => {
-                    errorMessage.style.display = "none";
-                }, 5000);
-            }
-        } else {
+        const response = await AuthService.login(loginData);
+        if (response.success === false) {
+            errorMessage.innerText = response.error;
             errorMessage.style.display = "block";
-
-            setTimeout(() => {
-                errorMessage.style.display = "none";
-            }, 5000);
-            alert(`${email} is niet correct!`);
         }
     }
 
@@ -232,9 +223,14 @@ class LoginForm extends LitElement {
         event.preventDefault();
     }
 
-    isValidEmail(email) {
+    isEmailValid(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
+    }
+
+    emailNotValid(email, errorMessage) {
+        errorMessage.innerText = "Het ingevoerde e-mailadres is niet geldig";
+        errorMessage.style.display = "block";
     }
 }
 

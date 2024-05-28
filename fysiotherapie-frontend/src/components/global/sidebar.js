@@ -171,9 +171,9 @@ class SidebarComponent extends LitElement {
         this.requestUpdate();
     }
 
-    handleLogout() {
-        const authService = new AuthService();
-        authService.logout();
+    async handleLogout() {
+        await AuthService.logout();
+        window.location.href = "login";
     }
 }
 
