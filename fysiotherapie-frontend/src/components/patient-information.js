@@ -54,6 +54,9 @@ class PatientInformation extends LitElement {
         if (this.error !== "") {
             return html`<p>${this.error}</p>`;
         }
+        if (!this.patient) {
+            return html`<p>Aan het laden...</p>`;
+        }
 
         return html`
       <h2>Uw persoonlijke gegevens</h2>
