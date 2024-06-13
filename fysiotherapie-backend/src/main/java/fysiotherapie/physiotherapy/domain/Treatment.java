@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "treatments")
-//@Table(uniqueConstraints = {
-//        @UniqueConstraint(columnNames = {"patient_id", "startDate", "endDate", "condition"})})
 public class Treatment {
     @Id
     @GeneratedValue
@@ -19,7 +17,7 @@ public class Treatment {
     private String condition;
     @OneToMany
     @JoinColumn(name = "treatment_id")
-    private List<Activity> activities = new ArrayList<>();
+    private List<Measurement> measurements = new ArrayList<>();
 
     public Treatment(){}
 
@@ -45,12 +43,12 @@ public class Treatment {
         return condition;
     }
 
-    public List<Activity> getActivities() {
-        return activities;
+    public List<Measurement> getMeasurements() {
+        return measurements;
     }
 
-    public void addActivity(Activity activity) {
-        activities.add(activity);
+    public void addMeasurement(Measurement measurement) {
+        measurements.add(measurement);
     }
 
     @Override

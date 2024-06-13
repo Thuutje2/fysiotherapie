@@ -19,6 +19,7 @@ export default class AuthService {
     }
 
     static async login(loginData){
+        debugger;
         const fetchOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },

@@ -3,9 +3,10 @@ package fysiotherapie.physiotherapy.application.service;
 import fysiotherapie.physiotherapy.application.exception.TreatmentNotFoundException;
 import fysiotherapie.physiotherapy.application.exception.TreatmentNotUniqueException;
 import fysiotherapie.physiotherapy.data.TreatmentRepository;
+import fysiotherapie.physiotherapy.domain.Measurement;
 import fysiotherapie.physiotherapy.domain.Patient;
 import fysiotherapie.physiotherapy.domain.Treatment;
-import fysiotherapie.physiotherapy.presentation.dto.response.TreatmentInfo;
+import fysiotherapie.physiotherapy.application.dto.response.TreatmentInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,12 @@ public class TreatmentService {
                 throw new TreatmentNotUniqueException("Duplicate treatment found for patient");
             }
         }
+    }
+
+    public void addMeasurementToTreatment(long treatmentId, Measurement measurement) {
+        Treatment treatment = tryFindingTreatmentById(treatmentId);
+        treatment.addMeasurement(measurement);
+        treatmentRepository.save(treatment);
     }
 
     public long addTreatment(long patientId, LocalDate startDate, LocalDate endDate, String condition) {

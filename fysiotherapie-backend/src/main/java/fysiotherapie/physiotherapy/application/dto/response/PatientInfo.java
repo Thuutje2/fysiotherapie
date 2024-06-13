@@ -1,4 +1,4 @@
-package fysiotherapie.physiotherapy.presentation.dto.response;
+package fysiotherapie.physiotherapy.application.dto.response;
 
 import fysiotherapie.physiotherapy.domain.Patient;
 
