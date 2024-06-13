@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js" />
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_05_2024_13_13_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_05_2024_13_13__Changes_.xml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +55,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "47-restservices-inloggen-maken",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie",
+    "last_opened_file_path": "C:/Users/thuha/OneDrive/Documenten/GitHub/fysiotherapie/fysiotherapie-frontend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -127,6 +130,7 @@
       <workItem from="1713875666455" duration="295000" />
       <workItem from="1715080520950" duration="1018000" />
       <workItem from="1716662188478" duration="12000" />
+      <workItem from="1718318849222" duration="21000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />
@@ -182,10 +186,5 @@
     <MESSAGE value="update" />
     <MESSAGE value="Added patient-service.js" />
     <option name="LAST_COMMIT_MESSAGE" value="Added patient-service.js" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/fysiotherapie$plot.coverage" NAME="plot Coverage Results" MODIFIED="1712146520374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
-    <SUITE FILE_PATH="coverage/fysiotherapie$test.coverage" NAME="test Coverage Results" MODIFIED="1712149024200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie" />
-    <SUITE FILE_PATH="coverage/fysiotherapie$installer.coverage" NAME="installer Coverage Results" MODIFIED="1712164086849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/fysiotherapie/installer" />
   </component>
 </project>

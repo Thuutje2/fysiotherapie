@@ -7,6 +7,7 @@ import "./components/physio-hoofdpagina.js";
 import "./components/physio-history.js";
 import "./components/physio-measurement.js";
 import "./components/patient-overview.js";
+import "./components/physio-treatments.js";
 
 
 import {Router} from "@vaadin/router";
@@ -73,6 +74,13 @@ router.setRoutes([
     {
         path: "/activity-walk",
         component: "activity-walk",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
+    {
+        path: "/physio-treatments",
+        component: "physio-treatments",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },

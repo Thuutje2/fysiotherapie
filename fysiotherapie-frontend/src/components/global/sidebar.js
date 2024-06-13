@@ -132,6 +132,7 @@ class SidebarComponent extends LitElement {
                         <a href="/patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
                         <a href="/physio-history" @click="${this.handleLinkClick}">Meethistorie</a>
                         <a href="/physio-measurement" @click="${this.handleLinkClick}">Nieuwe meting</a>
+                        <a href="/physio-treatments" @click="${this.handleLinkClick}">Behandelingen</a>
     
                         <a @click="${this.toggleDropdown}">Activiteit <img src="../../../public/sort-down.png" width="15" height="15" class="dropdown-image"> </a>
                         <ul class="dropdown-menu" ?hidden="${!this.isDropdownVisible}">
