@@ -11,7 +11,7 @@ public class PatientInfo {
     public String email;
     public LocalDate dateOfBirth;
     public int age;
-    public double length;
+    public double height;
     public double weight;
 
     public PatientInfo(Patient patient) {
@@ -21,7 +21,7 @@ public class PatientInfo {
         email = patient.getEmail();
         dateOfBirth = patient.getDateOfBirth();
         age = patient.getAge();
-        length = patient.getLength();
+        height = patient.getHeight();
         weight = patient.getWeight();
     }
 }

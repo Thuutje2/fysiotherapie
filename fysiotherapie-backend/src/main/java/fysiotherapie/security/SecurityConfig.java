@@ -36,6 +36,7 @@ public class SecurityConfig {
     private static final String REGISTER_ADMIN_PATH = "/auth/register/admin";
     private static final String GET_ROLE_PATH = "/auth/role";
     private static final String ADD_PATIENT = "/patients";
+    private static final String GET_PATIENT_INFO = "/patients/patient";
     @Value("${security.jwt.expiration-in-ms}")
     private Integer jwtExpirationInMs;
     @Value("${security.jwt.secret}")
@@ -63,6 +64,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher(POST, REGISTER_ADMIN_PATH)).permitAll()
                         .requestMatchers(antMatcher(GET, GET_ROLE_PATH)).permitAll()
                         .requestMatchers(antMatcher(POST, ADD_PATIENT)).hasAuthority(Role.ROLE_ADMIN.toString())
+                        .requestMatchers(antMatcher(GET, GET_PATIENT_INFO)).hasAuthority(Role.ROLE_USER.toString())
                         .requestMatchers(antMatcher("/error")).anonymous()
                         .anyRequest().authenticated()
                 )

@@ -8,6 +8,6 @@ public class NewPatient {
     public String email;
     public LocalDate dateOfBirth;
     public int age;
-    public double length;
+    public double height;
     public double weight;
 }

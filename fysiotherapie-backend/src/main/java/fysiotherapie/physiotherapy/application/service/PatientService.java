@@ -28,20 +28,25 @@ public class PatientService {
                 new PatientNotFoundException("Patient does not exist by given id"));
     }
 
+    private Patient tryFindingPatientByEmail(String email) {
+        return patientRepository.findByEmail(email).orElseThrow(()->
+                new PatientNotFoundException("Patient does not exist by given email"));
+    }
+
     private void isPatientUnique(String email) {
         if (patientRepository.existsByEmail(email)) {
             throw new PatientNotUniqueException("Patient already exists by given email address");
         }
     }
 
+    private void savePatient(Patient patient) {
+        patientRepository.save(patient);
+    }
+
     public void checkTreatmentBelongsToPatient(long patientId, long treatmentId) {
         if (!patientRepository.existsByIdAndTreatmentId(patientId, treatmentId)) {
             throw new TreatmentDoesNotBelongToPatientException("Treatment does not belong to patient");
         }
-    }
-
-    public void savePatient(Patient patient) {
-        patientRepository.save(patient);
     }
 
     public long addPatient(String physiotherapistEmail, String firstName, String lastName, String email, LocalDate dateOfBirth,
@@ -61,8 +66,13 @@ public class PatientService {
         return tryFindingPatientById(id);
     }
 
-    public PatientInfo getPatientInfo(long id) {
+    public PatientInfo getPatientInfoById(long id) {
         Patient patient = tryFindingPatientById(id);
+        return new PatientInfo(patient);
+    }
+
+    public PatientInfo getPatientInfoByEmail(String email) {
+        Patient patient = tryFindingPatientByEmail(email);
         return new PatientInfo(patient);
     }
 }

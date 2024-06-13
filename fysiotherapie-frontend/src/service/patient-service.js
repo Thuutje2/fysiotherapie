@@ -1,24 +1,52 @@
 export default class PatientService {
-    getFetchOptionsGet(){
+    static getFetchOptionsGet(){
         return {
-            headers: {"Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("myToken")}
+            method: "GET",
+            headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("myToken")}
         }
     }
 
-    getFetchOptionsPost(dataPatient){
+    static getFetchOptionsPost(dataPatient){
        return {
            method: "POST",
-           headers: {"Content-Type": "application/json", "Authorization": "Bearer " + localStorage.getItem("myToken")},
+           headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("myToken")},
            body: JSON.stringify(dataPatient)
        };
     }
 
-    async getPatientInformation(idPatient) {
-        return await fetch(`http://localhost:8080/physiotherapists/patients/${idPatient}`, this.getFetchOptionsGet())
+    static async getPatientInformationForPhysio(idPatient) {
+        const response= await fetch(`http://localhost:8080/patients/${idPatient}`, this.getFetchOptionsGet());
+        if (response.ok) {
+            const patient = await response.json();
+            return { success: true, patient: patient }
+        }
+        else {
+            return { success: false }
+        }
     }
 
-    async postPatient(dataPatient) {
-        return await fetch(`http://localhost:8080/physiotherapists/patients`, this.getFetchOptionsPost(dataPatient))
+    static async getPatientInformationForPatient() {
+        const response= await fetch("http://localhost:8080/patients/patient", this.getFetchOptionsGet());
+        if (response.ok) {
+            const patient = await response.json();
+            return { success: true, patient: patient }
+        }
+        else if (response.status === 401) {
+            return { success: false, error: "U bent niet ingelogd" }
+        }
+        else if (response.status === 404) {
+            return { success: false, error: "Uw patientgegevens kunnen niet gevonden worden" }
+        }
+    }
+
+    static async postPatient(dataPatient) {
+        const response= await fetch(`http://localhost:8080/patients`, this.getFetchOptionsPost(dataPatient));
+        if (response.ok) {
+            return { success: true}
+        }
+        else {
+            return {success: false}
+        }
     }
 }
 
