@@ -1,6 +1,7 @@
-package fysiotherapie.physiotherapy.presentation.exception;
+package fysiotherapie.physiotherapy.presentation.exception.global;
 
 import fysiotherapie.physiotherapy.application.exception.*;
+import fysiotherapie.physiotherapy.presentation.exception.UnauthenticatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -48,5 +49,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PatientNotUniqueException.class)
     public ResponseEntity<String> handlePatientNotUniqueException(PatientNotUniqueException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(UnauthenticatedException.class)
+    public ResponseEntity<String> handleUnauthenticatedException(UnauthenticatedException exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
     }
 }

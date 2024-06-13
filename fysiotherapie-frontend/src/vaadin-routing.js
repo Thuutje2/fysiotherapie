@@ -117,7 +117,6 @@ router.setRoutes([
 
 async function protectedContentRedirect(commands, allowedRoles) {
     try {
-        debugger;
         const userRole = AuthService.getSavedRole();
         const loggedIn = AuthService.isLoggedIn();
         const sidebar = document.querySelector("sidebar-component");

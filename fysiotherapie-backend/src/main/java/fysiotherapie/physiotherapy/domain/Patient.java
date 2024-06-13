@@ -17,7 +17,7 @@ public class Patient {
     private String email;
     private LocalDate dateOfBirth;
     private int age;
-    private double length;
+    private double height;
     private double weight;
     @OneToMany
     @JoinColumn(name = "patient_id")
@@ -25,13 +25,13 @@ public class Patient {
 
     public Patient(){}
 
-    public Patient(String firstName, String lastName, String email, LocalDate dateOfBirth, int age, double length, double weight) {
+    public Patient(String firstName, String lastName, String email, LocalDate dateOfBirth, int age, double height, double weight) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
-        this.length = length;
+        this.height = height;
         this.weight = weight;
     }
 
@@ -69,8 +69,8 @@ public class Patient {
         return age;
     }
 
-    public double getLength() {
-        return length;
+    public double getHeight() {
+        return height;
     }
 
     public double getWeight() {

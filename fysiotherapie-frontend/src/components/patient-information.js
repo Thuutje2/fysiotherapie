@@ -1,6 +1,33 @@
-import {css, html, LitElement} from "lit";
+import {html, css, LitElement} from "lit";
+import PatientService from "../service/patient-service.js";
 
 class PatientInformation extends LitElement {
+    static properties = {
+        patient: { type: Object },
+        error: { type: String }
+    };
+
+    constructor() {
+        super();
+        this.patient = null;
+        this.error = "";
+    }
+
+    async connectedCallback() {
+        super.connectedCallback();
+        await this.loadPatientData();
+    }
+
+    async loadPatientData() {
+        const result = await PatientService.getPatientInformationForPatient();
+        if (result.success === true ) {
+            this.patient = result.patient;
+        }
+        else {
+            this.error = result.error;
+        }
+    }
+
     static get styles() {
         return css`
             :host {
@@ -24,51 +51,44 @@ class PatientInformation extends LitElement {
 
 
     render() {
-        // Hardgecodeerde patiëntgegevens
-        const patient = {
-            firstname: "Henk",
-            lastname: "Janssen",
-            patientnumber: "123456",
-            birthdate: "01-01-2000",
-            age: 24,
-            height: "180 cm",
-            weight: "75 kg"
-        };
+        if (this.error !== "") {
+            return html`<p>${this.error}</p>`;
+        }
 
         return html`
-            <h2>Uw persoonlijke gegevens</h2>
-            <table>
-                <tr>
-                    <th>Voornaam</th>
-                    <td>${patient.firstname}</td>
-                </tr>
-                <tr>
-                    <th>Achternaam</th>
-                    <td>${patient.lastname}</td>
-                </tr>
-                <tr>
-                    <th>Patiëntnummer</th>
-                    <td>${patient.patientnumber}</td>
-                </tr>
-                <tr>
-                    <th>Geboortedatum</th>
-                    <td>${patient.birthdate}</td>
-                </tr>
-                <tr>
-                    <th>Leeftijd</th>
-                    <td>${patient.age}</td>
-                </tr>
-                <tr>
-                    <th>Lengte</th>
-                    <td>${patient.height}</td>
-                </tr>
-                <tr>
-                    <th>Gewicht</th>
-                    <td>${patient.weight}</td>
-                </tr>
-            </table>
-        `;
+      <h2>Uw persoonlijke gegevens</h2>
+      <table>
+        <tr>
+          <th>Voornaam</th>
+          <td>${this.patient.firstName}</td>
+        </tr>
+        <tr>
+          <th>Achternaam</th>
+          <td>${this.patient.lastName}</td>
+        </tr>
+        <tr>
+          <th>Patiëntnummer</th>
+          <td>${this.patient.id}</td>
+        </tr>
+        <tr>
+          <th>Geboortedatum</th>
+          <td>${this.patient.dateOfBirth}</td>
+        </tr>
+        <tr>
+          <th>Leeftijd</th>
+          <td>${this.patient.age}</td>
+        </tr>
+        <tr>
+          <th>Lengte (cm)</th>
+          <td>${this.patient.height}</td>
+        </tr>
+        <tr>
+          <th>Gewicht (kg)</th>
+          <td>${this.patient.weight}</td>
+        </tr>
+      </table>
+    `;
     }
 }
 
-customElements.define('patient-information', PatientInformation);
+customElements.define("patient-information", PatientInformation);
