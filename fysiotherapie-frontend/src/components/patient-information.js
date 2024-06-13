@@ -49,7 +49,6 @@ class PatientInformation extends LitElement {
         `;
     }
 
-
     render() {
         if (this.error !== "") {
             return html`<p>${this.error}</p>`;

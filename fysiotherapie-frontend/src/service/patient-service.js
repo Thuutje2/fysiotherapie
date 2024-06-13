@@ -42,10 +42,13 @@ export default class PatientService {
     static async postPatient(dataPatient) {
         const response= await fetch(`http://localhost:8080/patients`, this.getFetchOptionsPost(dataPatient));
         if (response.ok) {
-            return { success: true}
+            return { success: true }
+        }
+        else if (response.status === 409) {
+            return { success: false, error: "Er is al een patient bekend met dit e-mailadres" }
         }
         else {
-            return {success: false}
+            return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
         }
     }
 }

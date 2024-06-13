@@ -1,4 +1,5 @@
 import { css, html, LitElement } from "lit";
+import PatientService from "../service/patient-service.js";
 
 class PatientOverview extends LitElement {
     static get properties() {
@@ -35,6 +36,9 @@ class PatientOverview extends LitElement {
                 margin: 1em;
             }
             
+            .add-button {
+                cursor: pointer;
+            }
 
             table {
                 border-collapse: collapse;
@@ -132,9 +136,21 @@ class PatientOverview extends LitElement {
                 margin-top: 1em;
             }
 
-
             #submitButton:hover {
                 background-color: #0056b3;
+            }
+
+            #errorMessage {
+                color: #ff0000;
+                font-weight: bold;
+                margin: 5px;
+                padding: 5px;
+                background-color: #facdca;
+                border-style: solid;
+                border-color: #ff0000;
+                border-radius: 10px;
+                display: none;
+                font-size:13px;
             }
         `;
     }
@@ -148,8 +164,8 @@ class PatientOverview extends LitElement {
                 email: "henk@gmail.com",
                 birthdate: "01-01-2000",
                 age: "24",
-                length: "0",
-                weigt: "0"
+                height: "0",
+                weight: "0"
             },
         ];
 
@@ -176,8 +192,8 @@ class PatientOverview extends LitElement {
                             <td>${patient.email}</td>
                             <td>${patient.birthdate}</td>
                             <td>${patient.age}</td>
-                            <td>${patient.length}</td>
-                            <td>${patient.weigt}</td>
+                            <td>${patient.height}</td>
+                            <td>${patient.weight}</td>
                         </tr>
                     `)}
                 </table>
@@ -188,44 +204,55 @@ class PatientOverview extends LitElement {
                     <h3>Voeg een nieuwe patiënt toe</h3>
                     <form @submit="${this.handleSubmit}">
                         <div>
-                            <label for="firstname">Voornaam:</label>
-                            <input type="text" id="firstname" name="firstname" placeholder="Voornaam" required>
+                            <label for="firstName">Voornaam:</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Voornaam" required>
                         </div>
                         <div>
-                            <label for="lastname">Achternaam:</label>
-                            <input type="text" id="lastname" name="lastname" placeholder="Achternaam" required>
+                            <label for="lastName">Achternaam:</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Achternaam" required>
                         </div>
                         <div>
                             <label for="email">Email:</label>
                             <input type="email" id="email" name="email" placeholder="Email" required>
                         </div>
                         <div>
-                            <label for="birthdate">Geboortedatum:</label>
-                            <input type="date" id="birthdate" name="birthdate" placeholder="Geboortedatum" required>
+                            <label for="dateOfBirth">Geboortedatum:</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Geboortedatum" required>
                         </div>
                         <div>
                             <label for="weight">Gewicht:</label>
                             <input type="text" id="weight" name="weight" placeholder="Gewicht" required>
                         </div>
                         <div>
-                            <label for="length">Lengte:</label>
-                            <input type="text" id="length" name="length" placeholder="Lengte" required>
+                            <label for="height">Lengte:</label>
+                            <input type="text" id="height" name="height" placeholder="Lengte" required>
                         </div>
                         <button id="submitButton" type="submit">Opslaan</button>
+                        <div id="errorMessage" style="display: none;">
+                            <div></div>
+                        </div>
                     </form>
-
                 </div>
             </div>
 
         `;
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
+        debugger;
         event.preventDefault();
         const formData = new FormData(event.target);
         const patient = Object.fromEntries(formData.entries());
-        console.log("Nieuwe patient gegevens:", patient);
-        this.togglePopup();
+        const result = await PatientService.postPatient(patient);
+
+        if (result.success === true) {
+            this.togglePopup();
+        }
+        else {
+            const errorMessage = this.shadowRoot.getElementById("errorMessage");
+            errorMessage.innerText = result.error;
+            errorMessage.style.display = "block";
+        }
     }
 }
 
