@@ -5,16 +5,31 @@ class PatientOverview extends LitElement {
     static get properties() {
         return {
             isPopupVisible: { type: Boolean },
+            patients: { type: Array }
         };
     }
 
     constructor() {
         super();
         this.isPopupVisible = false;
+        this.patients = [];
     }
 
     togglePopup() {
         this.isPopupVisible = !this.isPopupVisible;
+    }
+
+    async connectedCallback() {
+        super.connectedCallback();
+        await this.loadPatients();
+    }
+
+    async loadPatients() {
+        debugger;
+        const result = await PatientService.getPatientsForPhysio();
+        if (result.success === true ) {
+            this.patients = result.patients;
+        }
     }
 
     static get styles() {
@@ -156,19 +171,6 @@ class PatientOverview extends LitElement {
     }
 
     render() {
-        const patients = [
-            {
-                id: "12345678",
-                firstname: "Henk",
-                lastname: "Blok",
-                email: "henk@gmail.com",
-                birthdate: "01-01-2000",
-                age: "24",
-                height: "0",
-                weight: "0"
-            },
-        ];
-
         return html`
             <div class="container">
                 <h2>Patiëntenoverzicht</h2>
@@ -184,13 +186,13 @@ class PatientOverview extends LitElement {
                         <th>Lengte</th>
                         <th>Gewicht</th>
                     </tr>
-                    ${patients.map(patient => html`
+                    ${this.patients.map(patient => html`
                         <tr>
                             <td>${patient.id}</td>
-                            <td>${patient.firstname}</td>
-                            <td>${patient.lastname}</td>
+                            <td>${patient.firstName}</td>
+                            <td>${patient.lastName}</td>
                             <td>${patient.email}</td>
-                            <td>${patient.birthdate}</td>
+                            <td>${patient.dateOfBirth}</td>
                             <td>${patient.age}</td>
                             <td>${patient.height}</td>
                             <td>${patient.weight}</td>
@@ -246,6 +248,7 @@ class PatientOverview extends LitElement {
         const result = await PatientService.postPatient(patient);
 
         if (result.success === true) {
+            this.patients = [...this.patients, result.patient];
             this.togglePopup();
         }
         else {

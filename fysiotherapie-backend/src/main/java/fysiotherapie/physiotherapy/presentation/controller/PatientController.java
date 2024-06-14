@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("patients")
@@ -22,30 +23,37 @@ public class PatientController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addPatient(Authentication authentication, @RequestBody NewPatient newPatient) {
+    public ResponseEntity<PatientInfo> addPatient(Authentication authentication, @RequestBody NewPatient newPatient) {
         checkAuthentication(authentication);
 
         UserProfile profile = (UserProfile) authentication.getPrincipal();
-
-        long id = patientService.addPatient(profile.getUsername(),
+        PatientInfo patient = patientService.addPatient(profile.getUsername(),
                 newPatient.firstName, newPatient.lastName, newPatient.email,
-                newPatient.dateOfBirth, newPatient.age, newPatient.height, newPatient.weight);
+                newPatient.dateOfBirth, newPatient.height, newPatient.weight);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(patient.id)
                 .toUri();
-        return ResponseEntity.created(location).body("Patient created with id " + id);
+        return ResponseEntity.created(location).body(patient);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PatientInfo> getPatientInfo(@PathVariable long id) {
-        PatientInfo patientInfo = patientService.getPatientInfoById(id);
-        return ResponseEntity.ok().body(patientInfo);
+    public ResponseEntity<PatientInfo> getPatient(@PathVariable long id) {
+        PatientInfo patient= patientService.getPatientInfoById(id);
+        return ResponseEntity.ok().body(patient);
     }
 
-    @GetMapping("/patient")
-    public ResponseEntity<PatientInfo> getPatientInfo(Authentication authentication) {
+    @GetMapping
+    public List<PatientInfo> getPatients(Authentication authentication) {
+        checkAuthentication(authentication);
+
+        UserProfile profile = (UserProfile) authentication.getPrincipal();
+        return patientService.getAllPatientsForPhysiotherapistByEmail(profile.getUsername());
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<PatientInfo> getMyDetails(Authentication authentication) {
         checkAuthentication(authentication);
 
         UserProfile profile = (UserProfile) authentication.getPrincipal();

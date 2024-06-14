@@ -26,6 +26,10 @@ public class Physiotherapist {
         this.email = email;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public List<Patient> getPatients() {
         return patients;
     }

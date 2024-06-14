@@ -77,6 +77,13 @@ router.setRoutes([
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },
     },
+    {
+        path: "/patient-overview",
+        component: "patient-overview",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
 
 
 

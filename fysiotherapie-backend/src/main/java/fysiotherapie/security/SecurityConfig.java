@@ -36,7 +36,7 @@ public class SecurityConfig {
     private static final String REGISTER_ADMIN_PATH = "/auth/register/admin";
     private static final String GET_ROLE_PATH = "/auth/role";
     private static final String ADD_PATIENT = "/patients";
-    private static final String GET_PATIENT_INFO = "/patients/patient";
+    private static final String GET_PATIENT_INFO = "/patients/details";
     @Value("${security.jwt.expiration-in-ms}")
     private Integer jwtExpirationInMs;
     @Value("${security.jwt.secret}")

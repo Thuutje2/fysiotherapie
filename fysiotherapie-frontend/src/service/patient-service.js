@@ -14,11 +14,11 @@ export default class PatientService {
        };
     }
 
-    static async getPatientInformationForPhysio(idPatient) {
-        const response= await fetch(`http://localhost:8080/patients/${idPatient}`, this.getFetchOptionsGet());
+    static async getPatientsForPhysio() {
+        const response= await fetch("http://localhost:8080/patients", this.getFetchOptionsGet());
         if (response.ok) {
-            const patient = await response.json();
-            return { success: true, patient: patient }
+            const patients = await response.json();
+            return { success: true, patients: patients }
         }
         else {
             return { success: false }
@@ -26,7 +26,7 @@ export default class PatientService {
     }
 
     static async getPatientInformationForPatient() {
-        const response= await fetch("http://localhost:8080/patients/patient", this.getFetchOptionsGet());
+        const response= await fetch("http://localhost:8080/patients/details", this.getFetchOptionsGet());
         if (response.ok) {
             const patient = await response.json();
             return { success: true, patient: patient }
@@ -42,7 +42,8 @@ export default class PatientService {
     static async postPatient(dataPatient) {
         const response= await fetch(`http://localhost:8080/patients`, this.getFetchOptionsPost(dataPatient));
         if (response.ok) {
-            return { success: true }
+            const patient = await response.json();
+            return { success: true, patient: patient }
         }
         else if (response.status === 409) {
             return { success: false, error: "Er is al een patient bekend met dit e-mailadres" }
