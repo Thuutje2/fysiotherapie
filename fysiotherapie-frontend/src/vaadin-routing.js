@@ -79,8 +79,8 @@ router.setRoutes([
         },
     },
     {
-        path: "/physio-treatments",
-        component: "physio-treatments",
+        path: "/patient-overview",
+        component: "patient-overview",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },

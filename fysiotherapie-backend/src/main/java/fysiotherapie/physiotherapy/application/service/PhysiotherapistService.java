@@ -2,7 +2,6 @@ package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.exception.PatientNotAssignedToPhysiotherapistException;
 import fysiotherapie.physiotherapy.application.exception.PhysiotherapistNotFoundException;
-import fysiotherapie.physiotherapy.data.PatientRepository;
 import fysiotherapie.physiotherapy.data.PhysiotherapistRepository;
 import fysiotherapie.physiotherapy.domain.Physiotherapist;
 import org.springframework.stereotype.Service;
@@ -12,11 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PhysiotherapistService {
     private final PhysiotherapistRepository physiotherapistRepository;
-    private final PatientRepository patientRepository;
 
-    public PhysiotherapistService(PhysiotherapistRepository physiotherapistRepository, PatientRepository patientRepository) {
+    public PhysiotherapistService(PhysiotherapistRepository physiotherapistRepository) {
         this.physiotherapistRepository = physiotherapistRepository;
-        this.patientRepository = patientRepository;
     }
 
     private Physiotherapist tryFindingPhysiotherapistById(long id) {
