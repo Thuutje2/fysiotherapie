@@ -7,7 +7,6 @@ import "./components/physio-hoofdpagina.js";
 import "./components/physio-history.js";
 import "./components/physio-measurement.js";
 import "./components/patient-overview.js";
-import "./components/physio-treatments.js";
 
 
 import {Router} from "@vaadin/router";

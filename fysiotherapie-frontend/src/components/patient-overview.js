@@ -5,7 +5,10 @@ class PatientOverview extends LitElement {
     static get properties() {
         return {
             isPopupVisible: { type: Boolean },
-            patients: { type: Array }
+            patients: { type: Array },
+            isTreatmentPopupVisible: { type: Boolean },
+            selectedPatient: { type: Object },
+            treatments: {type: Array }
         };
     }
 
@@ -13,10 +16,34 @@ class PatientOverview extends LitElement {
         super();
         this.isPopupVisible = false;
         this.patients = [];
+        this.isTreatmentPopupVisible = false;
+        this.selectedPatient = null;
+        this.treatments = [];
     }
 
     togglePopup() {
         this.isPopupVisible = !this.isPopupVisible;
+    }
+
+    toggleTreatmentPopup(patient = null) {
+        this.isTreatmentPopupVisible = !this.isTreatmentPopupVisible;
+        this.selectedPatient = patient
+        if (this.isTreatmentPopupVisible) {
+            this.treatments = [
+                { date: 1, name: 'Behandeling 1' },
+                { date: 2, name: 'Behandeling 2' },
+                { date: 3, name: 'Behandeling 3' },
+                { date: 1, name: 'Behandeling 1' },
+                { date: 2, name: 'Behandeling 2' },
+                { date: 3, name: 'Behandeling 3' },
+                { date: 1, name: 'Behandeling 1' },
+                { date: 2, name: 'Behandeling 2' },
+                { date: 3, name: 'Behandeling 3' },
+                { date: 1, name: 'Behandeling 1' },
+                { date: 2, name: 'Behandeling 2' },
+                { date: 3, name: 'Behandeling 3' }
+            ]
+        }
     }
 
     async connectedCallback() {
@@ -34,141 +61,223 @@ class PatientOverview extends LitElement {
 
     static get styles() {
         return css`
-            :host {
-                display: block;
-                padding: 1em;
-                position: relative; 
-            }
+        :host {
+            display: block;
+            padding: 1em;
+            position: relative;
+        }
 
-            .container {
-                position: relative;
-            }
+        .container {
+            position: relative;
+        }
 
-            .add-button {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 1em;
-            }
-            
-            .add-button {
-                cursor: pointer;
-            }
+        .add-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 1em;
+        }
 
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
+        .add-button {
+            cursor: pointer;
+        }
 
-            th, td {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-                width: 150px;
-                position: relative; 
-            }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-            th {
-                background-color: #f2f2f2;
-            }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            width: 150px;
+            position: relative;
+        }
 
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 1000;
-                justify-content: center;
-                align-items: center;
-            }
+        th {
+            background-color: #f2f2f2;
+        }
 
-            .overlay[visible] {
-                display: flex;
-            }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
 
-            .popup {
-                background-color: white;
-                padding: 2em;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);                
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
+        .overlay[visible] {
+            display: flex;
+        }
 
+        .popup {
+            background-color: white;
+            padding: 2em;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-            .popup form {
-                display: flex;
-                flex-direction: column;
-            }
+        .popup form {
+            display: flex;
+            flex-direction: column;
+        }
 
-            .popup form label {
-                display: inline-block;
-                width: 120px; 
-                margin-right: 10px; 
-            }
+        .popup form label {
+            display: inline-block;
+            width: 120px;
+            margin-right: 10px;
+        }
 
+        .popup form input {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
 
-            .popup form input {
-                margin-bottom: 1em;
-                padding: 0.5em;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-            }
+        .popup form button {
+            padding: 0.5em;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
 
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
 
-            .popup form button {
-                padding: 0.5em;
-                border: none;
-                background-color: #007BFF;
-                color: white;
-                border-radius: 3px;
-                cursor: pointer;
-            }
+        #submitButton {
+            padding: 0.5em 2em;
+            border: none;
+            background-color: #3297DF;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 1em;
+        }
 
+        #submitButton:hover {
+            background-color: #0056b3;
+        }
 
-            .close-button {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background: none;
-                border: none;
-                font-size: 1.5em;
-                cursor: pointer;
-            }
+        #errorMessage {
+            color: #ff0000;
+            font-weight: bold;
+            margin: 5px;
+            padding: 5px;
+            background-color: #facdca;
+            border-style: solid;
+            border-color: #ff0000;
+            border-radius: 10px;
+            display: none;
+            font-size: 13px;
+        }
 
-            #submitButton {
-                padding: 0.5em 2em;
-                border: none;
-                background-color: #3297DF;
-                color: white;
-                border-radius: 3px;
-                cursor: pointer;
-                margin-top: 1em;
-            }
+        /* Behandeling popup CSS */
+        .treatment-popup {
+            background-color: white;
+            padding: 2em;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            max-height: 50%;
+            overflow-y: auto;
+        }
 
-            #submitButton:hover {
-                background-color: #0056b3;
-            }
+        .treatment-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 1em;
+        }
 
-            #errorMessage {
-                color: #ff0000;
-                font-weight: bold;
-                margin: 5px;
-                padding: 5px;
-                background-color: #facdca;
-                border-style: solid;
-                border-color: #ff0000;
-                border-radius: 10px;
-                display: none;
-                font-size:13px;
-            }
-        `;
+        .patient-number {
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .treatment-popup-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .treatment-list {
+            width: 45%;
+            border-right: 1px solid #ccc;
+            padding-right: 1em;
+            overflow-y: auto;
+        }
+
+        .treatment-list h4 {
+            margin-top: 0;
+        }
+
+        .treatment-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .treatment-list li {
+            margin-bottom: 0.5em;
+        }
+
+        .treatment-popup form {
+            display: flex;
+            flex-direction: column;
+            width: 45%;
+        }
+
+        .treatment-popup form label {
+            display: inline-block;
+            width: 120px;
+            margin-right: 10px;
+        }
+
+        .treatment-popup form input {
+            margin-bottom: 1em;
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .treatment-popup form button {
+            padding: 0.5em;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+          
+    `;
     }
+
 
     render() {
         return html`
@@ -188,7 +297,13 @@ class PatientOverview extends LitElement {
                     </tr>
                     ${this.patients.map(patient => html`
                         <tr>
-                            <td>${patient.id}</td>
+                            <td>
+                                <a href="#"
+                                   @click="${() => this.toggleTreatmentPopup(patient)}"
+                                   >
+                                    ${patient.id}
+                                </a>
+                            </td>
                             <td>${patient.firstName}</td>
                             <td>${patient.lastName}</td>
                             <td>${patient.email}</td>
@@ -226,7 +341,7 @@ class PatientOverview extends LitElement {
                             <input type="text" id="weight" name="weight" placeholder="Gewicht" required>
                         </div>
                         <div>
-                            <label for="height">Lengte:</label>
+                            <label for="height">Lengte (cm):</label>
                             <input type="text" id="height" name="height" placeholder="Lengte" required>
                         </div>
                         <button id="submitButton" type="submit">Opslaan</button>
@@ -236,9 +351,51 @@ class PatientOverview extends LitElement {
                     </form>
                 </div>
             </div>
+            
+            <div class="overlay" ?visible="${this.isTreatmentPopupVisible}">
+                <div class="treatment-popup">
+                    <button class="close-button" @click="${this.toggleTreatmentPopup}">&times;</button>
+                    <div class="patient-number">
+                        Patiëntnummer: ${this.selectedPatient?.id}
+                    </div>
+                    <div class="treatment-popup-content">
+                        <div>
+                            <h3>Voeg een behandeling toe</h3>
+                            <form @submit="${this.handleTreatmentSubmit}">
+                                <div>
+                                    <label for="treatmentName">Behandeling:</label>
+                                    <input type="text" id="treatmentName" name="treatmentName" placeholder="Behandeling" required>
+                                </div>
+                                <div>
+                                    <label for="treatmentDate">Startdatum:</label>
+                                    <input type="date" id="treatmentDate" name="treatmentDate" placeholder="Datum" required>
+                                </div>
+                                <button id="submitButton" type="submit">Opslaan</button>
+                                <div id="errorMessage" style="display: none;">
+                                    <div></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="treatment-list">
+                            <h4>Bestaande behandelingen</h4>
+                            <ul>
+                                ${this.treatments.map(treatment => html`
+                                <li>${treatment.date}, ${treatment.name}</li>
+                                `)}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         `;
     }
+
+    // dit moet eigenlijk onder <h4>Bestaande behandelingen</h4> in de ul
+//     ${this.selectedPatient?.treatments?.map(treatment => html`
+//     <li>${treatment.name} - ${treatment.date}</li>
+//      `) || html`<li>Geen behandelingen gevonden</li>`}
+
 
     async handleSubmit(event) {
         debugger;
@@ -255,6 +412,20 @@ class PatientOverview extends LitElement {
             const errorMessage = this.shadowRoot.getElementById("errorMessage");
             errorMessage.innerText = result.error;
             errorMessage.style.display = "block";
+        }
+    }
+
+    showPopup(event) {
+        const popup = document.createElement('div');
+        popup.textContent = "Behandeling toevoegen";
+        popup.classList.add('popup');
+        event.target.appendChild(popup);
+    }
+
+    hidePopup(event){
+        const popup = event.target.querySelector('.popup');
+        if (popup) {
+            popup.remove();
         }
     }
 }
