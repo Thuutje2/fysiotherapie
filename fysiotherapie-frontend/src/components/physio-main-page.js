@@ -1,6 +1,6 @@
 import {css, html, LitElement} from "lit";
 
-class PhysioHoofdpagina extends LitElement {
+class PhysioMainPage extends LitElement {
     static get styles() {
         return css`
             :host {
@@ -18,4 +18,4 @@ class PhysioHoofdpagina extends LitElement {
     }
 }
 
-customElements.define('physio-hoofdpagina', PhysioHoofdpagina);
+customElements.define('physio-main-page', PhysioMainPage);

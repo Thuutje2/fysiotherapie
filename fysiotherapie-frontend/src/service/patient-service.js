@@ -14,7 +14,7 @@ export default class PatientService {
        };
     }
 
-    static async getPatientsForPhysio() {
+    static async getAllPatientsOfPhysio() {
         const response= await fetch("http://localhost:8080/patients", this.getFetchOptionsGet());
         if (response.ok) {
             const patients = await response.json();
@@ -25,7 +25,18 @@ export default class PatientService {
         }
     }
 
-    static async getPatientInformationForPatient() {
+    static async getPatientById(id) {
+        const response= await fetch(`http://localhost:8080/patients/${id}`, this.getFetchOptionsGet());
+        if (response.ok) {
+            const patient = await response.json();
+            return { success: true, patient: patient }
+        }
+        else {
+            return { success: false }
+        }
+    }
+
+    static async getPatientDetails() {
         const response= await fetch("http://localhost:8080/patients/details", this.getFetchOptionsGet());
         if (response.ok) {
             const patient = await response.json();
@@ -50,6 +61,30 @@ export default class PatientService {
         }
         else {
             return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
+        }
+    }
+
+    static async getTreatmentsByPatientId(id) {
+        const response= await fetch(`http://localhost:8080/patients/${id}/treatments`, this.getFetchOptionsGet());
+        if (response.ok) {
+            const treatments = await response.json();
+            return { success: true, treatments: treatments }
+        }
+    }
+
+    static async getMeasurementsByTreatmentId(patientId, treatmentId) {
+        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, this.getFetchOptionsGet());
+        if (response.ok) {
+            const measurements = response.json();
+            return { success: true, measurements: measurements }
+        }
+    }
+
+    static async getMeasurementById(patientId, treatmentId, measurementId) {
+        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
+        if (response.ok) {
+            const measurement = response.json();
+            return { success: true, measurement: measurement }
         }
     }
 }

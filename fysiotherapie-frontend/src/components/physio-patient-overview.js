@@ -1,7 +1,8 @@
 import { css, html, LitElement } from "lit";
 import PatientService from "../service/patient-service.js";
+import {Router} from "@vaadin/router";
 
-class PatientOverview extends LitElement {
+class PhysioPatientOverview extends LitElement {
     static get properties() {
         return {
             isPopupVisible: { type: Boolean },
@@ -25,8 +26,7 @@ class PatientOverview extends LitElement {
     }
 
     async loadPatients() {
-        debugger;
-        const result = await PatientService.getPatientsForPhysio();
+        const result = await PatientService.getAllPatientsOfPhysio();
         if (result.success === true ) {
             this.patients = result.patients;
         }
@@ -188,7 +188,7 @@ class PatientOverview extends LitElement {
                     </tr>
                     ${this.patients.map(patient => html`
                         <tr>
-                            <td>${patient.id}</td>
+                            <td><a href="#" @click="${() => this.handlePatientClick(patient.id)}">${patient.id}</a></td>
                             <td>${patient.firstName}</td>
                             <td>${patient.lastName}</td>
                             <td>${patient.email}</td>
@@ -241,7 +241,6 @@ class PatientOverview extends LitElement {
     }
 
     async handleSubmit(event) {
-        debugger;
         event.preventDefault();
         const formData = new FormData(event.target);
         const patient = Object.fromEntries(formData.entries());
@@ -257,6 +256,10 @@ class PatientOverview extends LitElement {
             errorMessage.style.display = "block";
         }
     }
+
+    handlePatientClick(patientId) {
+        Router.go(`/physio-patient-details/${patientId}`);
+    }
 }
 
-customElements.define('patient-overview', PatientOverview);
+customElements.define('physio-patient-overview', PhysioPatientOverview);

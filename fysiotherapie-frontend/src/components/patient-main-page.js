@@ -1,7 +1,7 @@
 import {css, html, LitElement} from "lit";
 import DataService from "../service/data-service.js";
 
-class PatientMainpage extends LitElement {
+class PatientMainPage extends LitElement {
     constructor() {
         super();
         this.dataService = new DataService();
@@ -46,4 +46,4 @@ class PatientMainpage extends LitElement {
 
 }
 
-customElements.define('patient-hoofdpagina', PatientMainpage);
+customElements.define('patient-main-page', PatientMainPage);
