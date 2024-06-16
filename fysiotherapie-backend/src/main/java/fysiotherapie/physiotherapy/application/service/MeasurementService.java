@@ -1,11 +1,11 @@
 package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.dto.response.JointInfo;
+import fysiotherapie.physiotherapy.application.dto.response.MeasurementInfo;
 import fysiotherapie.physiotherapy.application.exception.MeasurementNotFoundException;
 import fysiotherapie.physiotherapy.data.MeasurementRepository;
 import fysiotherapie.physiotherapy.domain.Joint;
 import fysiotherapie.physiotherapy.domain.Measurement;
-import fysiotherapie.physiotherapy.domain.enums.ActivityType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,19 +99,18 @@ public class MeasurementService {
         return joints;
     }
 
-    public long saveMeasurement(String physiotherapistUsername, long patientId, long treatmentId, String activityType,
+    public MeasurementInfo saveMeasurement(String physiotherapistUsername, long patientId, long treatmentId, String activity,
                                 MultipartFile file) {
         physiotherapistService.checkIfPatientIsAssignedToPhysiotherapist(physiotherapistUsername, patientId);
         patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
 
-        ActivityType activityTypeEnum = ActivityType.fromValue(activityType);
         List<Joint> joints = parseCsvToJoints(file);
-        Measurement measurement = new Measurement(activityTypeEnum, joints);
+        Measurement measurement = new Measurement(activity, LocalDate.now(), LocalTime.now(), joints);
 
         joints.forEach(jointService::saveJoint);
         measurementRepository.save(measurement);
         treatmentService.addMeasurementToTreatment(treatmentId, measurement);
-        return measurement.getId();
+        return new MeasurementInfo(measurement);
     }
 
 
@@ -122,6 +123,14 @@ public class MeasurementService {
         List<Joint> sortedJoints = sortJointsByTime(joints);
         return sortedJoints.stream()
                 .map(JointInfo::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<MeasurementInfo> getMeasurementsForTreatment(long patientId, long treatmentId) {
+        patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
+        List<Measurement> measurements = measurementRepository.findAllByTreatmentId(treatmentId);
+        return measurements.stream()
+                .map(MeasurementInfo::new)
                 .collect(Collectors.toList());
     }
 }

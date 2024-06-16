@@ -1,11 +1,15 @@
-import "./components/patient-mainpage.js";
-import "./components/patient-information.js";
+import "./components/patient-main-page.js";
+import "./components/patient-details-page.js";
 import "./components/patient-history.js";
 import "./components/activity-walk.js";
 import "./components/login-form.js";
-import "./components/physio-hoofdpagina.js";
+import "./components/physio-main-page.js";
 import "./components/physio-history.js";
 import "./components/physio-measurement.js";
+import "./components/physio-patient-overview.js";
+import "./components/physio-patient-details.js";
+import "./components/physio-measurement-graphs.js";
+
 
 import {Router} from "@vaadin/router";
 import AuthService from "./service/auth-service.js";
@@ -24,15 +28,15 @@ router.setRoutes([
     //    PATIENT = INGELOGD                                              //
     ////////////////////////////////////////////////////////////////////////
     {
-        path: "/patient-hoofdpagina",
-        component: "patient-hoofdpagina",
+        path: "/patient-main-page",
+        component: "patient-main-page",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
     },
     {
-        path: "/patient-information",
-        component: "patient-information",
+        path: "/patient-details-page",
+        component: "patient-details-page",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
@@ -48,8 +52,8 @@ router.setRoutes([
     //    ADMIN = INGELOGD                                                //
     ////////////////////////////////////////////////////////////////////////
     {
-        path: "/physio-hoofdpagina",
-        component: "physio-hoofdpagina",
+        path: "/physio-main-page",
+        component: "physio-main-page",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         }
@@ -75,7 +79,27 @@ router.setRoutes([
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },
     },
-
+    {
+        path: "/physio-patient-overview",
+        component: "physio-patient-overview",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
+    {
+        path: "/physio-patient-details/:patientId",
+        component: "physio-patient-details",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
+    {
+        path: '/physio-measurement-graphs/patients/:patientId/treatments/:treatmentId/measurements/:measurementId',
+        component: "physio-measurement-graphs",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -105,8 +129,8 @@ router.setRoutes([
         component: "physio-measurement",
     },
     {
-        path: "/patient-overview",
-        component: "patient-overview",
+        path: "/physio-patient-overview",
+        component: "physio-patient-overview",
     },
 
 ]).then(() => {
@@ -115,7 +139,6 @@ router.setRoutes([
 
 async function protectedContentRedirect(commands, allowedRoles) {
     try {
-        debugger;
         const userRole = AuthService.getSavedRole();
         const loggedIn = AuthService.isLoggedIn();
         const sidebar = document.querySelector("sidebar-component");

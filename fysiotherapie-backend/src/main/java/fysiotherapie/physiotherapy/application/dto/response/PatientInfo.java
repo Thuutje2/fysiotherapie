@@ -11,17 +11,17 @@ public class PatientInfo {
     public String email;
     public LocalDate dateOfBirth;
     public int age;
-    public double length;
+    public double height;
     public double weight;
 
-    public PatientInfo(Patient patient) {
-        id = patient.getId();
-        firstName = patient.getFirstName();
-        lastName = patient.getLastName();
-        email = patient.getEmail();
-        dateOfBirth = patient.getDateOfBirth();
-        age = patient.getAge();
-        length = patient.getLength();
-        weight = patient.getWeight();
+    public PatientInfo(Patient patient, int age) {
+        this.id = patient.getId();
+        this.firstName = patient.getFirstName();
+        this.lastName = patient.getLastName();
+        this.email = patient.getEmail();
+        this.dateOfBirth = patient.getDateOfBirth();
+        this.age = age;
+        this.height = patient.getHeight();
+        this.weight = patient.getWeight();
     }
 }
