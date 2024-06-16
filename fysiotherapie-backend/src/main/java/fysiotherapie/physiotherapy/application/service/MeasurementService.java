@@ -99,13 +99,13 @@ public class MeasurementService {
         return joints;
     }
 
-    public long saveMeasurement(String physiotherapistUsername, long patientId, long treatmentId, String activityType,
+    public long saveMeasurement(String physiotherapistUsername, long patientId, long treatmentId, String activity,
                                 MultipartFile file) {
         physiotherapistService.checkIfPatientIsAssignedToPhysiotherapist(physiotherapistUsername, patientId);
         patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
 
         List<Joint> joints = parseCsvToJoints(file);
-        Measurement measurement = new Measurement(activityType, LocalDate.now(), LocalTime.now(), joints);
+        Measurement measurement = new Measurement(activity, LocalDate.now(), LocalTime.now(), joints);
 
         joints.forEach(jointService::saveJoint);
         measurementRepository.save(measurement);

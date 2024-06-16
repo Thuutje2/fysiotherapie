@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 public class MeasurementInfo {
     public long id;
-    public String activityType;
+    public String activity;
     public LocalDate date;
     public LocalTime time;
 
@@ -15,6 +15,6 @@ public class MeasurementInfo {
         this.id = measurement.getId();
         this.date = measurement.getDate();
         this.time = measurement.getTime();
-        this.activityType = measurement.getActivityType();
+        this.activity = measurement.getActivity();
     }
 }

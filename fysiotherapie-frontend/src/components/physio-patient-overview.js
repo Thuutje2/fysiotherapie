@@ -118,6 +118,7 @@ class PhysioPatientOverview extends LitElement {
                 padding: 0.5em;
                 border: 1px solid #ccc;
                 border-radius: 3px;
+                width: calc(100% - 16px);
             }
 
 
@@ -144,7 +145,7 @@ class PhysioPatientOverview extends LitElement {
             #submitButton {
                 padding: 0.5em 2em;
                 border: none;
-                background-color: #3297DF;
+                background: rgb(50, 151, 223);
                 color: white;
                 border-radius: 3px;
                 cursor: pointer;
@@ -152,7 +153,7 @@ class PhysioPatientOverview extends LitElement {
             }
 
             #submitButton:hover {
-                background-color: #0056b3;
+                background-color: rgb(30, 91, 158);;
             }
 
             #errorMessage {

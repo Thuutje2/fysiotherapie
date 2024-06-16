@@ -26,9 +26,9 @@ public class MeasurementController {
                                      @PathVariable("patientId") Long patientId,
                                      @PathVariable("treatmentId") Long treatmentId,
                                      @RequestParam("file") MultipartFile file,
-                                     @RequestParam("activity") String activityType) {
+                                     @RequestParam("activity") String activity) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
-        return measurementService.saveMeasurement(profile.getUsername(), patientId, treatmentId, activityType, file);
+        return measurementService.saveMeasurement(profile.getUsername(), patientId, treatmentId, activity, file);
     }
 
     @GetMapping("/{measurementId}")

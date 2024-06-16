@@ -12,7 +12,7 @@ public class Measurement {
     @Id
     @GeneratedValue
     private Long id;
-    private String activityType;
+    private String activity;
     private LocalDate date;
     private LocalTime time;
     @ManyToOne
@@ -24,8 +24,8 @@ public class Measurement {
 
     public Measurement(){}
 
-    public Measurement(String activityType, LocalDate date, LocalTime time, List<Joint> joints) {
-        this.activityType = activityType;
+    public Measurement(String activity, LocalDate date, LocalTime time, List<Joint> joints) {
+        this.activity = activity;
         this.date = date;
         this.time = time;
         this.joints = joints;
@@ -34,8 +34,8 @@ public class Measurement {
         return id;
     }
 
-    public String getActivityType() {
-        return activityType;
+    public String getActivity() {
+        return activity;
     }
 
     public LocalDate getDate() {
