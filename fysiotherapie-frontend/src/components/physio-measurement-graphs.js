@@ -59,12 +59,12 @@ class PhysioMeasurementGraphs extends LitElement {
     }
 
     getAllSecondsAndPositions(jointType) {
-        if (!Array.isArray(this.measurements)) {
+        if (!Array.isArray(this.measurement)) {
             console.error("Measurements data is not available or is not an array.");
             return { seconds: [], positions: [] };
         }
 
-        const data = this.measurements.find(item => item.jointType === jointType);
+        const data = this.measurement.find(item => item.jointType === jointType);
         if (data) {
             const seconds = Object.keys(data.secondsToPosition).map(parseFloat);
             const positions = Object.values(data.secondsToPosition).map(parseFloat);
