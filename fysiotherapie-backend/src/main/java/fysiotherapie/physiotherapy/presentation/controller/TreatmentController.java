@@ -25,14 +25,14 @@ public class TreatmentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addTreatment(@PathVariable long patientId, @RequestBody NewTreatment newTreatment) {
-        long id = treatmentService.addTreatment(patientId, newTreatment.startDate, newTreatment.endDate, newTreatment.condition);
+    public ResponseEntity<TreatmentInfo> addTreatment(@PathVariable long patientId, @RequestBody NewTreatment newTreatment) {
+        TreatmentInfo treatmentInfo = treatmentService.addTreatment(patientId, newTreatment.startDate, newTreatment.endDate, newTreatment.condition);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(treatmentInfo.id)
                 .toUri();
-        return ResponseEntity.created(location).body("Treatment created with id " + id);
+        return ResponseEntity.created(location).body(treatmentInfo);
     }
 
     @DeleteMapping ("{treatmentId}")

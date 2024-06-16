@@ -233,7 +233,7 @@ class PhysioPatientDetails extends LitElement {
                                 <th>Einddatum</th>
                                 <th>Conditie</th>
                             </tr>
-                            ${this.treatments ? html`
+                            ${this.treatments !== null ? html`
                                 ${this.treatments.map(treatment => html`
                                     <tr class="${this.selectedTreatment === treatment ? 'selected' : ''}" @click="${() => this.selectTreatment(treatment)}">
                                         <td>${treatment.startDate}</td>
@@ -340,11 +340,24 @@ class PhysioPatientDetails extends LitElement {
         }
     }
 
-    handleSubmitTreatment(event) {
+    async handleSubmitTreatment(event) {
         event.preventDefault();
+        const formData = new FormData(event.target);
+        const treatment = Object.fromEntries(formData.entries());
+        const result = await PatientService.postTreatment(this.patientId, treatment);
+
+        if (result.success === true) {
+            this.treatments = [...this.treatments, result.treatment];
+            this.hideAddTreatmentOverlay();
+        }
+        else {
+            const errorMessage = this.shadowRoot.getElementById("errorMessage");
+            errorMessage.innerText = result.error;
+            errorMessage.style.display = "block";
+        }
     }
 
-    handleSubmitMeasurement(event) {
+    async handleSubmitMeasurement(event) {
         event.preventDefault();
     }
 

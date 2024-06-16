@@ -50,7 +50,7 @@ public class TreatmentService {
         treatmentRepository.save(treatment);
     }
 
-    public long addTreatment(long patientId, LocalDate startDate, LocalDate endDate, String condition) {
+    public TreatmentInfo addTreatment(long patientId, LocalDate startDate, LocalDate endDate, String condition) {
         Patient patient = patientService.getPatient(patientId);
         Treatment treatment = new Treatment(startDate, endDate, condition);
 
@@ -60,7 +60,7 @@ public class TreatmentService {
 
         treatmentRepository.save(treatment);
 
-        return treatment.getId();
+        return new TreatmentInfo(treatment);
     }
 
     public void deleteTreatment(long treatmentId) {

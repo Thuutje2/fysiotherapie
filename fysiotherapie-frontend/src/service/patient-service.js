@@ -64,6 +64,20 @@ export default class PatientService {
         }
     }
 
+    static async postTreatment(patientId, dataTreatment) {
+        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments`, this.getFetchOptionsPost(dataTreatment));
+        if (response.ok) {
+            const treatment = await response.json();
+            return { success: true, treatment: treatment }
+        }
+        else if (response.status === 409) {
+            return { success: false, error: "De behandeling overlapt met datum van een andere behandeling" }
+        }
+        else {
+            return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
+        }
+    }
+
     static async getTreatmentsByPatientId(id) {
         const response= await fetch(`http://localhost:8080/patients/${id}/treatments`, this.getFetchOptionsGet());
         if (response.ok) {
