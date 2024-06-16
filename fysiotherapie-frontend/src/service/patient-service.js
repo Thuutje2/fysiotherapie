@@ -101,5 +101,23 @@ export default class PatientService {
             return { success: true, measurement: measurement }
         }
     }
+
+    static async postMeasurement(patientId, treatmentId, dataMeasurement) {
+        const fetchOptionsPost =
+        {
+            method: "POST",
+            headers: {"Authorization": "Bearer " + sessionStorage.getItem("myToken")},
+            body: dataMeasurement
+        };
+
+        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, fetchOptionsPost);
+        if (response.ok) {
+            const measurement = await response.json();
+            return { success: true, measurement: measurement }
+        }
+        else {
+            return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
+        }
+    }
 }
 

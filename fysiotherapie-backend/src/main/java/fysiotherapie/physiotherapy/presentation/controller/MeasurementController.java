@@ -22,7 +22,7 @@ public class MeasurementController {
     }
 
     @PostMapping()
-    public long uploadCsvMeasurement(Authentication authentication,
+    public MeasurementInfo uploadCsvMeasurement(Authentication authentication,
                                      @PathVariable("patientId") Long patientId,
                                      @PathVariable("treatmentId") Long treatmentId,
                                      @RequestParam("file") MultipartFile file,

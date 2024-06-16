@@ -12,11 +12,13 @@ class PhysioPatientDetails extends LitElement {
             measurements: { type: Array },
             selectedTreatment: { type: Object },
             isPopupAddTreatmentVisible: { type: Boolean },
-            isPopupAddMeasurementVisible: { type: Boolean }
+            isPopupAddMeasurementVisible: { type: Boolean },
+            isUploading: { type: Boolean }
         };
     }
 
     constructor() {
+        debugger;
         super();
         this.patient = null;
         this.treatments = null;
@@ -24,6 +26,7 @@ class PhysioPatientDetails extends LitElement {
         this.selectedTreatment = null;
         this.isPopupAddTreatmentVisible = false;
         this.isPopupAddMeasurementVisible = false;
+        this.isUploading = false;
     }
 
     async connectedCallback() {
@@ -121,7 +124,7 @@ class PhysioPatientDetails extends LitElement {
                 z-index: 1;
             }
             .treatment-history tr:hover {
-                background: rgb(50, 151, 223, 0.2);
+                background: rgb(50, 151, 223, 0.8);
                 cursor: pointer;
             }
 
@@ -208,6 +211,46 @@ class PhysioPatientDetails extends LitElement {
                 font-size: 1.5em;
                 cursor: pointer;
             }
+            
+            #error-message {
+                color: #ff0000;
+                font-weight: bold;
+                margin: 5px;
+                padding: 5px;
+                background-color: #facdca;
+                border-style: solid;
+                border-color: #ff0000;
+                border-radius: 10px;
+                display: none;
+                font-size:13px;
+            }
+
+            .loader-overlay[visible] {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .loader[visible] {
+                border: 16px solid #f3f3f3;
+                border-top: 16px solid rgb(50, 151, 223);
+                border-radius: 50%;
+                width: 80px;
+                height: 80px;
+                animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
         `;
     }
 
@@ -265,8 +308,8 @@ class PhysioPatientDetails extends LitElement {
                             <label for="condition">Conditie:</label>
                             <input type="text" id="condition" name="condition" placeholder="Conditie" required>
                         </div>
-                        <button id="submitButton" type="submit">Opslaan</button>
-                        <div id="errorMessage" style="display: none;">
+                        <button id="submit-button" type="submit">Opslaan</button>
+                        <div id="error-message" style="display: none;">
                             <div></div>
                         </div>
                     </form>
@@ -294,7 +337,7 @@ class PhysioPatientDetails extends LitElement {
                                     <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id)}">${measurement.id}</a></td>
                                     <td>${measurement.date}</td>
                                     <td>${measurement.time}</td>
-                                    <td>${measurement.activityType}</td>
+                                    <td>${measurement.activity}</td>
                                 </tr>
                             `)}`
                 : html`
@@ -317,13 +360,16 @@ class PhysioPatientDetails extends LitElement {
                             <label for="file">Bestand:</label>
                             <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
                         </div>
-                        <button id="submitButton" type="submit">Opslaan</button>
-                        <div id="errorMessage" style="display: none;">
+                        <button id="submit-button" type="submit">Opslaan</button>
+                        <div id="error-message" style="display: none;">
                             <div></div>
                         </div>
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="loader-overlay" ?visible="${this.isUploading}">
+            <div class="loader" ?visible="${this.isUploading}"></div>
         </div>
     `;
     }
@@ -351,7 +397,7 @@ class PhysioPatientDetails extends LitElement {
             this.hideAddTreatmentOverlay();
         }
         else {
-            const errorMessage = this.shadowRoot.getElementById("errorMessage");
+            const errorMessage = this.shadowRoot.getElementById("error-message");
             errorMessage.innerText = result.error;
             errorMessage.style.display = "block";
         }
@@ -359,6 +405,28 @@ class PhysioPatientDetails extends LitElement {
 
     async handleSubmitMeasurement(event) {
         event.preventDefault();
+        this.isUploading = true;
+
+        const formData = new FormData();
+        const fileInput = this.shadowRoot.querySelector('#file');
+        const file = fileInput.files[0];
+        formData.append('file', file);
+        const activityInput = this.shadowRoot.querySelector('#activity');
+        const activity = activityInput.value;
+        formData.append('activity', activity);
+        const result = await PatientService.postMeasurement(this.patientId, this.selectedTreatment.id, formData);
+
+        if (result.success === true) {
+            this.measurements = [...this.measurements, result.measurement];
+            this.isUploading = false;
+            this.hideAddMeasurementOverlay();
+        }
+        else {
+            this.isUploading = false;
+            const errorMessage = this.shadowRoot.getElementById("error-message");
+            errorMessage.innerText = result.error;
+            errorMessage.style.display = "block";
+        }
     }
 
     handleMeasurementsClick(measurementId) {

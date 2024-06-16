@@ -99,7 +99,7 @@ public class MeasurementService {
         return joints;
     }
 
-    public long saveMeasurement(String physiotherapistUsername, long patientId, long treatmentId, String activity,
+    public MeasurementInfo saveMeasurement(String physiotherapistUsername, long patientId, long treatmentId, String activity,
                                 MultipartFile file) {
         physiotherapistService.checkIfPatientIsAssignedToPhysiotherapist(physiotherapistUsername, patientId);
         patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
@@ -110,7 +110,7 @@ public class MeasurementService {
         joints.forEach(jointService::saveJoint);
         measurementRepository.save(measurement);
         treatmentService.addMeasurementToTreatment(treatmentId, measurement);
-        return measurement.getId();
+        return new MeasurementInfo(measurement);
     }
 
 
