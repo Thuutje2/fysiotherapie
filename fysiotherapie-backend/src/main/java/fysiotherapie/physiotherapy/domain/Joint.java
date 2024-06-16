@@ -15,7 +15,6 @@ public class Joint {
     @OrderColumn
     private Map<Double, Double> secondsToPosition;
 
-
     public Joint(){}
 
     public Joint(Map<Double, Double> secondsToPosition) {;
