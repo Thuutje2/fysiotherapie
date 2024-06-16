@@ -126,32 +126,43 @@ class PhysioMeasurementGraphs extends LitElement {
     static get styles() {
         return css`
             :host {
-                display: block;
-                padding: 1em;
-                position: relative; 
+              display: flex;
+              flex-direction: column;
+              padding: 1em;
+              position: relative; 
+            }
+          
+            .container {
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
             }
 
             .checkboxContainer {
-                border: 1px solid #ccc; 
-                padding: 10px; 
+              border: 1px solid #ccc; 
+              padding: 10px; 
+              margin-right: 20px;
+              flex: 1;
             }
 
             .checkbox {
-                margin-right: 10px;
+              margin-right: 10px;
             }
             
             .loader {
-                width: 20px;
-                aspect-ratio: 4;
-                background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
-                clip-path: inset(0 100% 0 0);
-                animation: l1 1s steps(4) infinite;
+              width: 20px;
+              aspect-ratio: 4;
+              background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
+              clip-path: inset(0 100% 0 0);
+              animation: l1 1s steps(4) infinite;
             }
             @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
           
             canvas {
-              max-width: 100%;
-              margin-top: 20px
+              max-width: 85%;
+              margin-top: 20px;
+              flex: 2;
+              margin-top: 20px;
             }
         `;
     }
@@ -168,8 +179,8 @@ class PhysioMeasurementGraphs extends LitElement {
 
         return html`
             <div class="container">
-                <h2>Meting ${this.measurementId}</h2>
                 <div class="checkboxContainer">
+                    <h2>Meting ${this.measurementId}</h2>
                     ${this.jointTypes.map(jointType => html`
                         <input
                                 class="checkbox"
