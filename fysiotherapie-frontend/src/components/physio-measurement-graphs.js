@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit";
 import PatientService from "../service/patient-service.js";
 import { Router } from "@vaadin/router";
+import Chart from 'chart.js/auto';
 
 class PhysioMeasurementGraphs extends LitElement {
     static get properties() {
@@ -18,6 +19,7 @@ class PhysioMeasurementGraphs extends LitElement {
         super();
         this.measurement = null;
         this.checkedValues = {};
+        this.chart = null;
     }
 
     async connectedCallback() {
@@ -43,7 +45,83 @@ class PhysioMeasurementGraphs extends LitElement {
     handleCheckboxChange(event) {
         const { id, checked } = event.target;
         this.checkedValues = { ...this.checkedValues, [id]: checked };
+        if (checked) {
+            this.renderChart(id);
+        } else {
+            this.destroyChart();
+        }
     }
+
+    destroyChart() {
+        if (this.chart) {
+            this.chart.destroy();
+        }
+    }
+
+    getAllSecondsAndPositions(jointType) {
+        if (!Array.isArray(this.measurements)) {
+            console.error("Measurements data is not available or is not an array.");
+            return { seconds: [], positions: [] };
+        }
+
+        const data = this.measurements.find(item => item.jointType === jointType);
+        if (data) {
+            const seconds = Object.keys(data.secondsToPosition).map(parseFloat);
+            const positions = Object.values(data.secondsToPosition).map(parseFloat);
+            return { seconds, positions };
+        }
+        return { seconds: [], positions: [] };
+    }
+
+    renderChart(jointType) {
+        const ctx = this.shadowRoot.getElementById('chart').getContext('2d');
+        const { seconds, positions } = this.getAllSecondsAndPositions(jointType);
+
+        if (seconds.length === 0 || positions.length === 0) {
+            console.error(`No data available for jointType: ${jointType}`);
+            return;
+        }
+
+        const dataset = {
+            label: jointType,
+            data: seconds.map((second, index) => ({ x: second, y: positions[index] })),
+            borderColor: 'rgb(75, 192, 192)',
+            borderWidth: 1,
+            fill: false
+        };
+
+        if (this.chart) {
+            this.chart.destroy();
+        }
+
+        this.chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [dataset]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Seconds'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Position'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
 
     static get styles() {
         return css`
@@ -70,6 +148,11 @@ class PhysioMeasurementGraphs extends LitElement {
                 animation: l1 1s steps(4) infinite;
             }
             @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
+          
+            canvas {
+              max-width: 100%;
+              margin-top: 20px
+            }
         `;
     }
 
@@ -100,6 +183,7 @@ class PhysioMeasurementGraphs extends LitElement {
                         <label for="${jointType}">${jointType}</label><br>
                     `)}
                 </div>
+                <canvas id="chart"></canvas>
             </div>
         `;
     }
