@@ -9,9 +9,6 @@ public class Joint {
     @Id
     @GeneratedValue
     private Long id;
-//    @Enumerated(EnumType.STRING)
-//    private JointType type;
-
     private String jointType;
 
     @ElementCollection

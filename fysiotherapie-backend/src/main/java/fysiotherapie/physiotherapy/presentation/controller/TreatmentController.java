@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("patients/{patientId}/")
+@RequestMapping("patients/{patientId}/treatments")
 public class TreatmentController {
     private final TreatmentService treatmentService;
 
@@ -19,24 +19,24 @@ public class TreatmentController {
         this.treatmentService = treatmentService;
     }
 
-    @GetMapping("treatments")
+    @GetMapping
     public List<TreatmentInfo> getTreatments(@PathVariable long patientId) {
         return treatmentService.getTreatments(patientId);
     }
 
-    @PostMapping("treatments")
-    public ResponseEntity<String> addTreatment(@PathVariable long patientId, @RequestBody NewTreatment newTreatment) {
-        long id = treatmentService.addTreatment(patientId, newTreatment.startDate, newTreatment.endDate, newTreatment.condition);
+    @PostMapping
+    public ResponseEntity<TreatmentInfo> addTreatment(@PathVariable long patientId, @RequestBody NewTreatment newTreatment) {
+        TreatmentInfo treatmentInfo = treatmentService.addTreatment(patientId, newTreatment.startDate, newTreatment.endDate, newTreatment.condition);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(treatmentInfo.id)
                 .toUri();
-        return ResponseEntity.created(location).body("Treatment created with id " + id);
+        return ResponseEntity.created(location).body(treatmentInfo);
     }
 
-    @DeleteMapping ("treatments/{treatmentId}")
-    public ResponseEntity<?> deleteTreatment(@PathVariable long treatmentId) {
+    @DeleteMapping ("{treatmentId}")
+    public ResponseEntity<?> deleteTreatment(@PathVariable long patientId, @PathVariable long treatmentId) {
         treatmentService.deleteTreatment(treatmentId);
         return ResponseEntity.ok().build();
     }

@@ -129,8 +129,8 @@ class SidebarComponent extends LitElement {
                     <!--FYSIOTHERAPEUT-->
                     <!-- en dan hier moet iets komen van als je fysiotherapeut bent dan zie je deze links-->
                     <div ?hidden="${!this._isAdmin}">
-                        <a href="/patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
-                        <a href="/physio-history" @click="${this.handleLinkClick}">Historie(fysio)</a>
+                        <a href="/physio-patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
+                        <a href="/physio-history" @click="${this.handleLinkClick}">Meethistorie</a>
                         <a href="/physio-measurement" @click="${this.handleLinkClick}">Nieuwe meting</a>
     
                         <a @click="${this.toggleDropdown}">Activiteit <img src="../../../public/sort-down.png" width="15" height="15" class="dropdown-image"> </a>
@@ -154,9 +154,9 @@ class SidebarComponent extends LitElement {
     handleDashboardClick(event) {
         event.preventDefault();
         if (this._isUser) {
-            window.location.href = '/patient-hoofdpagina';
+            window.location.href = '/patient-main-page';
         } else if (this._isAdmin) {
-            window.location.href = '/physio-hoofdpagina';
+            window.location.href = '/patient-main-page';
         }
     }
 

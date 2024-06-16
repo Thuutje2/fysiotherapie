@@ -198,11 +198,11 @@ class LoginForm extends LitElement {
         const role = await AuthService.getRole();
         const sidebar = document.querySelector("sidebar-component");
         if (role === ROLE_ADMIN) {
-            window.location.href = "physio-hoofdpagina";
+            window.location.href = "physio-main-page";
         }
 
         if (role === ROLE_USER) {
-            window.location.href = "patient-hoofdpagina";
+            window.location.href = "physio-main-page";
         }
     }
 

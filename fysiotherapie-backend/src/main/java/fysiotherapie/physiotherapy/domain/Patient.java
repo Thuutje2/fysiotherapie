@@ -3,6 +3,7 @@ package fysiotherapie.physiotherapy.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,22 +17,23 @@ public class Patient {
     private String lastName;
     private String email;
     private LocalDate dateOfBirth;
-    private int age;
-    private double length;
+    private double height;
     private double weight;
+    @ManyToOne
+    @JoinColumn(name = "physiotherapist_id")
+    private Physiotherapist physiotherapist;
     @OneToMany
     @JoinColumn(name = "patient_id")
     private List<Treatment> treatments = new ArrayList<>();
 
     public Patient(){}
 
-    public Patient(String firstName, String lastName, String email, LocalDate dateOfBirth, int age, double length, double weight) {
+    public Patient(String firstName, String lastName, String email, LocalDate dateOfBirth, double height, double weight) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
-        this.age = age;
-        this.length = length;
+        this.height = height;
         this.weight = weight;
     }
 
@@ -43,6 +45,13 @@ public class Patient {
         if (!treatments.contains(treatment)) {
             treatments.add(treatment);
         }
+    }
+
+    public static int calculateAge(LocalDate dateOfBirth) {
+        if (dateOfBirth == null) {
+            return 0;
+        }
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
     public Long getId() {
@@ -65,12 +74,8 @@ public class Patient {
         return dateOfBirth;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public double getLength() {
-        return length;
+    public double getHeight() {
+        return height;
     }
 
     public double getWeight() {
