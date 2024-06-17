@@ -89,6 +89,15 @@ class PhysioPatientDetails extends LitElement {
                 position: relative;
             }
 
+            .header-container {
+              display: flex;
+              align-items: center; 
+            }
+    
+            .header-container button {
+              margin-right: 10px; 
+            }
+
             .container {
                 display: flex;
                 flex-direction: row;
@@ -256,7 +265,10 @@ class PhysioPatientDetails extends LitElement {
 
     render() {
         return html`
-        <h2>Patiënt ${this.patient ? this.patient.id : ""}</h2>
+        <h2 class="header-container">
+            <button @click="${this.goBack}">&larr;</button>
+            Patiënt ${this.patient ? this.patient.id : ""}
+        </h2>
         <div class="container">
             <div class="patient-and-treatments">
                 ${this.patient ? html`
@@ -432,6 +444,10 @@ class PhysioPatientDetails extends LitElement {
     handleMeasurementsClick(measurementId, activity) {
         const treatmentId = this.selectedTreatment.id;
         Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
+    }
+
+    goBack() {
+        history.back();
     }
 }
 
