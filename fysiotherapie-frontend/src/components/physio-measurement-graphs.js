@@ -36,6 +36,7 @@ class PhysioMeasurementGraphs extends LitElement {
 
     async loadMeasurement(patientId, treatmentId, measurementId) {
         const result = await PatientService.getMeasurementById(patientId, treatmentId, measurementId);
+        console.log(result)
         if (result.success) {
             return result.measurement;
         }
@@ -44,13 +45,18 @@ class PhysioMeasurementGraphs extends LitElement {
 
     handleCheckboxChange(event) {
         const { id, checked } = event.target;
-        this.checkedValues = { ...this.checkedValues, [id]: checked };
-        if (checked) {
-            this.renderChart(id);
-        } else {
-            this.destroyChart();
+        const checkedCount = Object.values(this.checkedValues).filter(val => val).length;
+
+        if (checked && checkedCount >= 2) {
+            event.target.checked = false;
+            return;
         }
+
+        this.checkedValues = { ...this.checkedValues, [id]: checked };
+        this.renderChart(); // Roep renderChart aan om alle geselecteerde datasets te tonen
     }
+
+
 
     destroyChart() {
         if (this.chart) {
@@ -73,22 +79,27 @@ class PhysioMeasurementGraphs extends LitElement {
         return { seconds: [], positions: [] };
     }
 
-    renderChart(jointType) {
+    renderChart() {
         const ctx = this.shadowRoot.getElementById('chart').getContext('2d');
-        const { seconds, positions } = this.getAllSecondsAndPositions(jointType);
 
-        if (seconds.length === 0 || positions.length === 0) {
-            console.error(`No data available for jointType: ${jointType}`);
+        // Maak een array van datasets voor alle aangevinkte jointTypes
+        const datasets = Object.keys(this.checkedValues)
+            .filter(jointType => this.checkedValues[jointType])
+            .map(jointType => {
+                const { seconds, positions } = this.getAllSecondsAndPositions(jointType);
+                return {
+                    label: jointType,
+                    data: seconds.map((second, index) => ({ x: second, y: positions[index] })),
+                    borderColor: this.getColorForJointType(jointType),
+                    borderWidth: 1,
+                    fill: false
+                };
+            });
+
+        if (datasets.length === 0) {
+            this.destroyChart();
             return;
         }
-
-        const dataset = {
-            label: jointType,
-            data: seconds.map((second, index) => ({ x: second, y: positions[index] })),
-            borderColor: 'rgb(75, 192, 192)',
-            borderWidth: 1,
-            fill: false
-        };
 
         if (this.chart) {
             this.chart.destroy();
@@ -97,7 +108,7 @@ class PhysioMeasurementGraphs extends LitElement {
         this.chart = new Chart(ctx, {
             type: 'line',
             data: {
-                datasets: [dataset]
+                datasets: datasets
             },
             options: {
                 scales: {
@@ -121,6 +132,19 @@ class PhysioMeasurementGraphs extends LitElement {
         });
     }
 
+
+    getColorForJointType(jointType) {
+        const colors = {
+        };
+        const selectedJointTypes = Object.keys(this.checkedValues).filter(jt => this.checkedValues[jt]);
+        const index = selectedJointTypes.indexOf(jointType);
+        if (index !== -1) {
+            const defaultColors = ['rgb(75, 192, 192)', 'rgb(192, 75, 75)'];
+            return defaultColors[index % defaultColors.length];
+        } else {
+            return 'rgb(75, 75, 192)';
+        }
+    }
 
 
     static get styles() {
@@ -159,10 +183,10 @@ class PhysioMeasurementGraphs extends LitElement {
             @keyframes l1 {to{clip-path: inset(0 -34% 0 0)}}
           
             canvas {
-              max-width: 85%;
+              max-width: 80%;
               margin-top: 20px;
               flex: 2;
-              margin-top: 20px;
+              margin-left: 35px;  
             }
         `;
     }

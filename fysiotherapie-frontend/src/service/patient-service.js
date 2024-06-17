@@ -89,7 +89,7 @@ export default class PatientService {
     static async getMeasurementsByTreatmentId(patientId, treatmentId) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, this.getFetchOptionsGet());
         if (response.ok) {
-            const measurements = response.json();
+            const measurements = await response.json();
             return { success: true, measurements: measurements }
         }
     }
@@ -97,7 +97,7 @@ export default class PatientService {
     static async getMeasurementById(patientId, treatmentId, measurementId) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
         if (response.ok) {
-            const measurement = response.json();
+            const measurement = await response.json();
             return { success: true, measurement: measurement }
         }
     }
