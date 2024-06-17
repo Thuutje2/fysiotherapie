@@ -123,7 +123,7 @@ class PhysioMeasurementGraphs extends LitElement {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Position'
+                            text: 'Angles'
                         }
                     }
                 }

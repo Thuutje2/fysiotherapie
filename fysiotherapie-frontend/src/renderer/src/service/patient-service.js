@@ -14,8 +14,15 @@ export default class PatientService {
        };
     }
 
+    static handleTokenExpiration(response) {
+        if (response.status === 401) {
+            window.location.href = "/login";
+        }
+    }
+
     static async getAllPatientsOfPhysio() {
         const response= await fetch("http://localhost:8080/patients", this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const patients = await response.json();
             return { success: true, patients: patients }
@@ -27,6 +34,7 @@ export default class PatientService {
 
     static async getPatientById(id) {
         const response= await fetch(`http://localhost:8080/patients/${id}`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const patient = await response.json();
             return { success: true, patient: patient }
@@ -38,12 +46,10 @@ export default class PatientService {
 
     static async getPatientDetails() {
         const response= await fetch("http://localhost:8080/patients/details", this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const patient = await response.json();
             return { success: true, patient: patient }
-        }
-        else if (response.status === 401) {
-            return { success: false, error: "U bent niet ingelogd" }
         }
         else if (response.status === 404) {
             return { success: false, error: "Uw patientgegevens kunnen niet gevonden worden" }
@@ -52,6 +58,7 @@ export default class PatientService {
 
     static async postPatient(dataPatient) {
         const response= await fetch(`http://localhost:8080/patients`, this.getFetchOptionsPost(dataPatient));
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const patient = await response.json();
             return { success: true, patient: patient }
@@ -66,6 +73,7 @@ export default class PatientService {
 
     static async postTreatment(patientId, dataTreatment) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments`, this.getFetchOptionsPost(dataTreatment));
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const treatment = await response.json();
             return { success: true, treatment: treatment }
@@ -80,6 +88,7 @@ export default class PatientService {
 
     static async getTreatmentsByPatientId(id) {
         const response= await fetch(`http://localhost:8080/patients/${id}/treatments`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const treatments = await response.json();
             return { success: true, treatments: treatments }
@@ -88,6 +97,7 @@ export default class PatientService {
 
     static async getMeasurementsByTreatmentId(patientId, treatmentId) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const measurements = await response.json();
             return { success: true, measurements: measurements }
@@ -96,6 +106,7 @@ export default class PatientService {
 
     static async getMeasurementById(patientId, treatmentId, measurementId) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const measurement = await response.json();
             return { success: true, measurement: measurement }
@@ -111,6 +122,7 @@ export default class PatientService {
         };
 
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, fetchOptionsPost);
+        this.handleTokenExpiration(response);
         if (response.ok) {
             const measurement = await response.json();
             return { success: true, measurement: measurement }

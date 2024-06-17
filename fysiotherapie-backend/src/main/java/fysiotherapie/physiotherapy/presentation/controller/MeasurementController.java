@@ -2,9 +2,7 @@ package fysiotherapie.physiotherapy.presentation.controller;
 
 import fysiotherapie.physiotherapy.application.dto.response.JointInfo;
 import fysiotherapie.physiotherapy.application.dto.response.MeasurementInfo;
-import fysiotherapie.physiotherapy.application.dto.response.TreatmentInfo;
 import fysiotherapie.physiotherapy.application.service.MeasurementService;
-import fysiotherapie.physiotherapy.application.service.TreatmentService;
 import fysiotherapie.security.domain.UserProfile;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
