@@ -1,5 +1,7 @@
 import {css, html, LitElement} from "lit";
 import AuthService from "../../service/auth-service.js";
+import RunningManLogo from "../../assets/RunningMan.png"
+import LogOutLogo from "../../assets/logout-48.png"
 
 class SidebarComponent extends LitElement {
     static get properties() {
@@ -114,8 +116,10 @@ class SidebarComponent extends LitElement {
     render() {
         return html`
             <div class="sidebar" style="${this._isLoggedIn ? 'visibility: visible;' : 'visibility: hidden;'}">
-                <img src="../../../public/RunningMan.png" alt="Logo" width="75" height="75" class="image-sidebar">
-                <h1><a href="/" @click="${this.handleDashboardClick}">Dashboard</a></h1>
+                <img src="${RunningManLogo}" alt="Logo" width="75" height="75"
+                     class="image-sidebar">
+                <h1><a href="/fysiotherapie-frontend/src/public" @click="${this.handleDashboardClick}">Dashboard</a>
+                </h1>
                 <div class="line"></div>
 
                 <div class="links-container" .hidden=${!this._isLoggedIn}>
@@ -131,11 +135,11 @@ class SidebarComponent extends LitElement {
                     <div ?hidden="${!this._isAdmin}">
                         <a href="/physio-patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
                     </div>
-                    
+
                 </div>
 
                 <a id="logout-btn" href="#" @click="${this.handleLogout}">
-                    <img src="../../../public/logout-48.png" alt="Uitloggen">
+                    <img src="${LogOutLogo}" alt="Uitloggen">
                 </a>
             </div>
 
