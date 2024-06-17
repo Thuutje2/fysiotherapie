@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fysiotherapie</title>
     <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/my-element.js"></script>
   </head>
   <body>
+    <sidebar-component></sidebar-component>
     <div id="app"></div>
 
+    <script type="module" src="./src/components/global/sidebar.js"></script>
+    <script type="module" src="src/service/auth-service.js"></script>
     <script type="module" src="./src/vaadin-routing.js"></script>
   </body>
 </html>
