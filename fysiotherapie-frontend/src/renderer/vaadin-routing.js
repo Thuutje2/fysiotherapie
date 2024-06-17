@@ -1,19 +1,19 @@
-import "./components/patient-main-page.js";
-import "./components/patient-details-page.js";
-import "./components/patient-history.js";
-import "./components/activity-walk.js";
-import "./components/login-form.js";
-import "./components/physio-main-page.js";
-import "./components/physio-history.js";
-import "./components/physio-measurement.js";
-import "./components/physio-patient-overview.js";
-import "./components/physio-patient-details.js";
-import "./components/physio-measurement-graphs.js";
+import "./src/components/patient-main-page.js";
+import "./src/components/patient-details-page.js";
+import "./src/components/patient-history.js";
+import "./src/components/activity-walk.js";
+import "./src/components/login-form.js";
+import "./src/components/physio-main-page.js";
+import "./src/components/physio-history.js";
+import "./src/components/physio-measurement.js";
+import "./src/components/physio-patient-overview.js";
+import "./src/components/physio-patient-details.js";
+import "./src/components/physio-measurement-graphs.js";
 
 
 import {Router} from "@vaadin/router";
-import AuthService from "./service/auth-service.js";
-import {ROLE_ADMIN, ROLE_USER} from "./assets/userRoles.js";
+import AuthService from "./src/service/auth-service.js";
+import {ROLE_ADMIN, ROLE_USER} from "./src/assets/userRoles.js";
 
 const outlet = document.querySelector("#app")
 const router = new Router(outlet)

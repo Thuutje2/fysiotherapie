@@ -4,7 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js" />
+    <list default="true" id="023cc5c3-7d33-4667-9a81-5de9e0c730db" name="Changes" comment="Added patient-service.js">
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/electron-vite-config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/preload/preload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_05_2024_13_13_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_05_2024_13_13__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/public/RunningMan.png" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/RunningMan.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/public/logout-48.png" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/logout-48.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/public/sort-down.png" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/sort-down.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/public/vite.svg" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/vite.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/lit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/lit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/mockUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/mockUsers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/assets/userRoles.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/assets/userRoles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/activity-walk.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/activity-walk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/login-form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-details-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/patient-details-page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-details-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/patient-details-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-history-graphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/patient-history-graphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-history.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/patient-history.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/patient-main-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/patient-main-page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-history.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/physio-history.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-main-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/physio-main-page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-measurement.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/physio-measurement.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/physio-patient-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/components/physio-patient-overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/components/physio-patient-overview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/auth-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/service/auth-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/service/patient-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/src/service/patient-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/fysiotherapie-frontend/src/renderer/vaadin-routing.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,8 +56,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="43-meting-maken-pagina" />
-        <entry key="$PROJECT_DIR$" value="29-overzicht-historie-traject" />
+        <entry key="$PROJECT_DIR$" value="BE-dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,7 +83,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "47-restservices-inloggen-maken",
+    "git-widget-placeholder": "60-de-webapplicatie-als-een-electron-desktop-applicatie-kunnen-runnen",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie",
     "node.js.detected.package.eslint": "true",
@@ -58,14 +91,17 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\marit\Documents\GitHub\fysiotherapie\fysiotherapie-backend\src\main\java" />
-      <recent name="C:\Users\marit\Documents\GitHub\fysiotherapie\fysiotherapie-backend" />
-      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\src\main\fysiotherapie\csv" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\fysiotherapie-frontend\src\renderer\src" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\fysiotherapie-frontend\src\renderer" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\fysiotherapie-frontend\src\assets" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\fysiotherapie-frontend\src\images" />
+      <recent name="C:\Users\daanf\code\TODSS\Github\fysiotherapie\fysiotherapie-frontend\src" />
     </key>
   </component>
   <component name="RunManager">
@@ -92,13 +128,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -127,6 +156,9 @@
       <workItem from="1713875666455" duration="295000" />
       <workItem from="1715080520950" duration="1018000" />
       <workItem from="1716662188478" duration="12000" />
+      <workItem from="1717418232449" duration="7000" />
+      <workItem from="1718117020479" duration="53000" />
+      <workItem from="1718620202746" duration="4717000" />
     </task>
     <task id="LOCAL-00001" summary="floenk">
       <option name="closed" value="true" />

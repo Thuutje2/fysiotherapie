@@ -1,5 +1,8 @@
 import {css, html, LitElement} from "lit";
 import AuthService from "../../service/auth-service.js";
+import RunningManLogo from "../../assets/RunningMan.png"
+import LogOutLogo from "../../assets/logout-48.png"
+import ActivityLogo from "../../assets/sort-down.png"
 
 class SidebarComponent extends LitElement {
     static get properties() {
@@ -114,8 +117,10 @@ class SidebarComponent extends LitElement {
     render() {
         return html`
             <div class="sidebar" style="${this._isLoggedIn ? 'visibility: visible;' : 'visibility: hidden;'}">
-                <img src="../../../public/RunningMan.png" alt="Logo" width="75" height="75" class="image-sidebar">
-                <h1><a href="/" @click="${this.handleDashboardClick}">Dashboard</a></h1>
+                <img src="${RunningManLogo}" alt="Logo" width="75" height="75"
+                     class="image-sidebar">
+                <h1><a href="/fysiotherapie-frontend/src/public" @click="${this.handleDashboardClick}">Dashboard</a>
+                </h1>
                 <div class="line"></div>
 
                 <div class="links-container" .hidden=${!this._isLoggedIn}>
@@ -132,19 +137,25 @@ class SidebarComponent extends LitElement {
                         <a href="/physio-patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
                         <a href="/physio-history" @click="${this.handleLinkClick}">Meethistorie</a>
                         <a href="/physio-measurement" @click="${this.handleLinkClick}">Nieuwe meting</a>
-    
-                        <a @click="${this.toggleDropdown}">Activiteit <img src="../../../public/sort-down.png" width="15" height="15" class="dropdown-image"> </a>
+
+                        <a @click="${this.toggleDropdown}">Activiteit <img src="${ActivityLogo}"
+                                                                           width="15" height="15"
+                                                                           class="dropdown-image"> </a>
                         <ul class="dropdown-menu" ?hidden="${!this.isDropdownVisible}">
                             <li><a href="/activity-walk" @click="${this.handleLinkClick}">Lopen</a></li>
-                            <li><a href="/#" @click="${this.handleLinkClick}">Gooien</a></li>
-                            <li><a href="/#" @click="${this.handleLinkClick}">Rennen</a></li>
+                            <li><a href="/fysiotherapie-frontend/src/public#"
+                                   @click="${this.handleLinkClick}">Gooien</a>
+                            </li>
+                            <li><a href="/fysiotherapie-frontend/src/public#"
+                                   @click="${this.handleLinkClick}">Rennen</a>
+                            </li>
                         </ul>
                     </div>
-                    
+
                 </div>
 
                 <a id="logout-btn" href="#" @click="${this.handleLogout}">
-                    <img src="../../../public/logout-48.png" alt="Uitloggen">
+                    <img src="${LogOutLogo}" alt="Uitloggen">
                 </a>
             </div>
 

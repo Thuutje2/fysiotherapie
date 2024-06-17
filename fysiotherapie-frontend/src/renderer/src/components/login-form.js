@@ -1,6 +1,7 @@
 import {css, html, LitElement} from "lit";
 import AuthService from "../service/auth-service.js";
 import {ROLE_ADMIN, ROLE_USER} from "../assets/userRoles.js";
+import RunningManLogo from '../assets/RunningMan.png'
 
 class LoginForm extends LitElement {
     static properties = {
@@ -130,7 +131,8 @@ class LoginForm extends LitElement {
             <div id="content-container">
                 <div id="form-container">
                     <div id="login-header">
-                        <img src="../../public/RunningMan.png" alt="Logo" width="75" height="75" class="image-sidebar">
+                        <img src="${RunningManLogo}" alt="Logo" width="75" height="75"
+                             class="image-sidebar">
                         <h2 class="login-text">Inloggen</h2>
                     </div>
                     <form @submit=${this.onSubmit} id="loginform">
