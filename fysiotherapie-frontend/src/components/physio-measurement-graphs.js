@@ -11,7 +11,8 @@ class PhysioMeasurementGraphs extends LitElement {
             measurementId: { type: String },
             measurement: { type: Object },
             jointTypes: { type: Array },
-            checkedValues: { type: Object }
+            checkedValues: { type: Object },
+            activity: { type: String }
         };
     }
 
@@ -20,6 +21,7 @@ class PhysioMeasurementGraphs extends LitElement {
         this.measurement = null;
         this.checkedValues = {};
         this.chart = null;
+        this.activity = null;
     }
 
     async connectedCallback() {
@@ -28,6 +30,8 @@ class PhysioMeasurementGraphs extends LitElement {
         this.patientId = this.location.params.patientId;
         this.treatmentId = this.location.params.treatmentId;
         this.measurementId = this.location.params.measurementId;
+        const urlParams = new URLSearchParams(window.location.search);
+        this.activity = urlParams.get("activity");
 
         this.requestUpdate();
         this.measurement = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId);
@@ -121,8 +125,6 @@ class PhysioMeasurementGraphs extends LitElement {
         });
     }
 
-
-
     static get styles() {
         return css`
             :host {
@@ -139,7 +141,6 @@ class PhysioMeasurementGraphs extends LitElement {
             }
 
             .checkboxContainer {
-              border: 1px solid #ccc; 
               padding: 10px; 
               margin-right: 20px;
               flex: 1;
@@ -150,6 +151,7 @@ class PhysioMeasurementGraphs extends LitElement {
             }
             
             .loader {
+              margin-top: 10px;
               width: 20px;
               aspect-ratio: 4;
               background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
@@ -164,23 +166,31 @@ class PhysioMeasurementGraphs extends LitElement {
               flex: 2;
               margin-top: 20px;
             }
+            
+            p {
+                margin: 2px;
+            }
         `;
     }
 
     render() {
         if (!this.measurement) {
             return html`
+                <h2>Meting ${this.measurementId}</h2>
+                <p><b>Patiëntnummer</b>: ${this.patientId}</p>
+                <p><b>Activiteit</b>: ${this.activity}</p>
                 <div class="container">
-                    <h2>Meting ${this.measurementId}</h2>
                     <div class="loader"></div>
                 </div>
             `;
         }
 
         return html`
+            <h2>Meting ${this.measurementId}</h2>
+            <p><b>Patiëntnummer</b>: ${this.patientId}</p>
+            <p><b>Activiteit</b>: ${this.activity}</p>
             <div class="container">
                 <div class="checkboxContainer">
-                    <h2>Meting ${this.measurementId}</h2>
                     ${this.jointTypes.map(jointType => html`
                         <input
                                 class="checkbox"
@@ -198,7 +208,5 @@ class PhysioMeasurementGraphs extends LitElement {
             </div>
         `;
     }
-
-
 }
 customElements.define('physio-measurement-graphs', PhysioMeasurementGraphs);

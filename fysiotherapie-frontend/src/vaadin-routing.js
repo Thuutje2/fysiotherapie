@@ -1,15 +1,11 @@
 import "./components/patient-main-page.js";
 import "./components/patient-details-page.js";
 import "./components/patient-history.js";
-import "./components/activity-walk.js";
 import "./components/login-form.js";
 import "./components/physio-main-page.js";
-import "./components/physio-history.js";
-import "./components/physio-measurement.js";
 import "./components/physio-patient-overview.js";
 import "./components/physio-patient-details.js";
 import "./components/physio-measurement-graphs.js";
-
 
 import {Router} from "@vaadin/router";
 import AuthService from "./service/auth-service.js";
@@ -59,27 +55,6 @@ router.setRoutes([
         }
     },
     {
-        path: "/physio-history",
-        component: "physio-history",
-        action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
-        }
-    },
-    {
-        path: "/physio-measurement",
-        component: "physio-measurement",
-        action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
-        }
-    },
-    {
-        path: "/activity-walk",
-        component: "activity-walk",
-        action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
-        },
-    },
-    {
         path: "/physio-patient-overview",
         component: "physio-patient-overview",
         action: async (context, commands) => {
@@ -119,14 +94,6 @@ router.setRoutes([
         name: "catchall", // doet niks impliciet
         path: "/******************************************", // 404 must be last in this file
         component: "not-found",
-    },
-    {
-        path: "/physio-history",
-        component: "physio-history",
-    },
-    {
-        path: "/physio-measurement",
-        component: "physio-measurement",
     },
     {
         path: "/physio-patient-overview",

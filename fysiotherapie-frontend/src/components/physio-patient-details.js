@@ -334,7 +334,7 @@ class PhysioPatientDetails extends LitElement {
                         ${this.measurements ? html`
                             ${this.measurements.map(measurement => html`
                                 <tr>
-                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id)}">${measurement.id}</a></td>
+                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id, measurement.activity)}">${measurement.id}</a></td>
                                     <td>${measurement.date}</td>
                                     <td>${measurement.time}</td>
                                     <td>${measurement.activity}</td>
@@ -429,9 +429,9 @@ class PhysioPatientDetails extends LitElement {
         }
     }
 
-    handleMeasurementsClick(measurementId) {
+    handleMeasurementsClick(measurementId, activity) {
         const treatmentId = this.selectedTreatment.id;
-        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}`);
+        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
     }
 }
 

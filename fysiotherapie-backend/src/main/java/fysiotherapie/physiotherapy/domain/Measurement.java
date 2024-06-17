@@ -17,8 +17,9 @@ public class Measurement {
     private LocalTime time;
     @ManyToOne
     @JoinColumn(name = "treatment_id")
+
     private Treatment treatment;
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "measurement_id")
     private List<Joint> joints = new ArrayList<>();
 
