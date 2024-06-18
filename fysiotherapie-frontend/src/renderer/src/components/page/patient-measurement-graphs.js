@@ -55,6 +55,10 @@ class PatientMeasurementGraphs extends LitElement {a
                 padding: 1em;
                 position: relative;
             }
+
+            .back-button {
+                cursor: pointer;
+            }
             
             p {
                 margin: 2px;
@@ -74,7 +78,10 @@ class PatientMeasurementGraphs extends LitElement {a
 
     render() {
         return html`
-        <h2>Meting ${this.measurementId}</h2>
+        <h2>
+            <button class="back-button" @click="${this.goBack}">&#8249;</button>
+            Meting ${this.measurementId}
+        </h2>
         <p><b>Activiteit</b>: ${this.activity}</p>
         ${!this.measurement ? html`
             <div class="loader"></div>
@@ -82,6 +89,10 @@ class PatientMeasurementGraphs extends LitElement {a
             <measurement-graphs .measurement="${this.measurement}"></measurement-graphs>
         `}
     `;
+    }
+
+    goBack() {
+        history.back();
     }
 }
 customElements.define('patient-measurement-graphs', PatientMeasurementGraphs);

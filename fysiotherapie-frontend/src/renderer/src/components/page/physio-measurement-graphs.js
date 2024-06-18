@@ -46,6 +46,10 @@ class PhysioMeasurementGraphs extends LitElement {
                 padding: 1em;
                 position: relative;
             }
+
+            .back-button {
+                cursor: pointer;
+            }
             
             p {
                 margin: 2px;
@@ -65,7 +69,10 @@ class PhysioMeasurementGraphs extends LitElement {
 
     render() {
         return html`
-        <h2>Meting ${this.measurementId}</h2>
+        <h2>
+            <button class="back-button" @click="${this.goBack}">&#8249;</button>
+            Meting ${this.measurementId}
+        </h2>
         <p><b>Patiëntnummer</b>: ${this.patientId}</p>
         <p><b>Activiteit</b>: ${this.activity}</p>
         ${!this.measurement ? html`
@@ -74,6 +81,10 @@ class PhysioMeasurementGraphs extends LitElement {
             <measurement-graphs .measurement="${this.measurement}"></measurement-graphs>
         `}
     `;
+    }
+
+    goBack() {
+        history.back();
     }
 }
 customElements.define('physio-measurement-graphs', PhysioMeasurementGraphs);

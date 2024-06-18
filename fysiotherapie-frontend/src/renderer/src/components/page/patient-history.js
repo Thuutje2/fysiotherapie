@@ -8,7 +8,8 @@ class PatientHistory extends LitElement {
         treatments: { type: Array },
         measurements: { type: Array },
         selectedTreatment: { type: Object },
-        error: { type: String }
+        error: { type: String },
+        sortOrder: { type: String }
     };
 
     constructor() {
@@ -18,6 +19,7 @@ class PatientHistory extends LitElement {
         this.measurements = null;
         this.selectedTreatment = null;
         this.error = "";
+        this.sortOrder = 'desc';
     }
 
     async connectedCallback() {
@@ -25,6 +27,7 @@ class PatientHistory extends LitElement {
         await this.loadPatientDetails();
         this.patientId = this.patient.id;
         this.treatments = await this.loadTreatmentsOfPatient(this.patientId);
+        this.sortTreatmentsByStartDate();
     }
 
     async loadPatientDetails() {
@@ -50,6 +53,18 @@ class PatientHistory extends LitElement {
             return result.measurements;
         }
         return null;
+    }
+
+    sortTreatmentsByStartDate() {
+        const sortedTreatments = [...this.treatments];
+        if (this.sortOrder === 'asc') {
+            sortedTreatments.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+            this.sortOrder = 'desc';
+        } else {
+            sortedTreatments.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+            this.sortOrder = 'asc';
+        }
+        this.treatments = sortedTreatments;
     }
 
     static get styles() {
@@ -96,7 +111,9 @@ class PatientHistory extends LitElement {
                         <h3>Behandelhistorie</h3>
                         <div class="treatments-table">
                             <treatments-table   .treatments="${this.treatments}"
-                                                @treatment-selected="${this.handleTreatmentSelected}">
+                                                .sortOrder="${this.sortOrder}"
+                                                @treatment-selected="${this.handleTreatmentSelected}"
+                                                @treatment-sorted="${this.sortTreatmentsByStartDate}">
                             </treatments-table>
                         </div>
                     </div>

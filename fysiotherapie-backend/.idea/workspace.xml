@@ -5,22 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/out/renderer/assets/RunningMan-BeSZz4gK.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/out/renderer/assets/index-BIO74_0h.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/out/renderer/assets/index-rnekbrTS.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/out/renderer/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-graphs.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-measurement-graphs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/table/measurements-table.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/table/treatments-table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/MeasurementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/MeasurementService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/PatientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/presentation/controller/MeasurementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/presentation/controller/MeasurementController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/login-form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-overview.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-details-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-details.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-details-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/table/details-patient-table.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-history-graphics.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-history.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-main-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-main-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-graphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-patient-overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-overview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-patient-details.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-patient-overview.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/service/patient-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/service/patient-service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/vaadin-routing.js" afterDir="false" />
     </list>
@@ -40,26 +51,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.FysioApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;68-patient-details-en-historie-laten-zien&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.FysioApplication.executor": "Run",
+    "git-widget-placeholder": "Merging FE-dev",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="FysioApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />

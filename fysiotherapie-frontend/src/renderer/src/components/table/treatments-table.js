@@ -2,13 +2,23 @@ import { html, css, LitElement } from "lit";
 
 class TreatmentsTable extends LitElement {
     static properties = {
-        treatments: { type: Array }
+        treatments: { type: Array },
+        sortOrder: { type: String }
     };
 
     handleSelectTreatment(treatment) {
         debugger;
         const event = new CustomEvent("treatment-selected", {
             detail: { treatment },
+            bubbles: true,
+            composed: true
+        });
+        this.dispatchEvent(event);
+    }
+
+    sortTreatmentsByStartDate() {
+        debugger;
+        const event = new CustomEvent("treatment-sorted", {
             bubbles: true,
             composed: true
         });
@@ -41,6 +51,27 @@ class TreatmentsTable extends LitElement {
                 background: rgb(50, 151, 223, 0.8);
                 cursor: pointer;
             }
+
+            .sortable {
+                cursor: pointer;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
+
+            .sortable::after {
+                content: '';
+                display: inline-block;
+                margin-left: 5px;
+            }
+
+            .sortable.asc::after {
+                content: ' &#9650;';
+            }
+
+            .sortable.desc::after {
+                content: ' &#9660;';
+            }
         `;
     }
 
@@ -48,7 +79,7 @@ class TreatmentsTable extends LitElement {
         return html`
             <table>
                 <tr>
-                    <th>Begindatum</th>
+                    <th class="sortable" @click="${this.sortTreatmentsByStartDate}">Begindatum ${this.sortOrder === 'asc' ? html`&#9650;` : html`&#9660;`}</th>
                     <th>Einddatum</th>
                     <th>Conditie</th>
                 </tr>
