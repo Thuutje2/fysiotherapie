@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("patients/{patientId}/treatments/{treatmentId}/measurements")
+@RequestMapping
 public class MeasurementController {
     private final MeasurementService measurementService;
 
@@ -19,7 +19,7 @@ public class MeasurementController {
         this.measurementService = measurementService;
     }
 
-    @PostMapping()
+    @PostMapping("patients/{patientId}/treatments/{treatmentId}/measurements")
     public MeasurementInfo uploadCsvMeasurement(Authentication authentication,
                                      @PathVariable("patientId") Long patientId,
                                      @PathVariable("treatmentId") Long treatmentId,
@@ -29,17 +29,25 @@ public class MeasurementController {
         return measurementService.saveMeasurement(profile.getUsername(), patientId, treatmentId, activity, file);
     }
 
-    @GetMapping("/{measurementId}")
-    public List<JointInfo> getMeasurementPerJoint(Authentication authentication,
+    @GetMapping("patients/{patientId}/treatments/{treatmentId}/measurements/{measurementId}")
+    public List<JointInfo> getMeasurementPerJointPhysio(Authentication authentication,
                                           @PathVariable("patientId") Long patientId,
                                           @PathVariable("treatmentId") Long treatmentId,
                                           @PathVariable("measurementId") Long measurementId) {
         UserProfile profile = (UserProfile) authentication.getPrincipal();
-        return measurementService.getMeasurementForPatient(profile.getUsername(), patientId, treatmentId, measurementId);
+        return measurementService.getMeasurementForPhysio(profile.getUsername(), patientId, treatmentId, measurementId);
     }
 
-    @GetMapping
-    public List<MeasurementInfo> getMeasurements(@PathVariable long patientId, @PathVariable long treatmentId) {
+    @GetMapping("treatments/{treatmentId}/measurements/{measurementId}")
+    public List<JointInfo> getMeasurementPerJointPatient(Authentication authentication,
+                                                  @PathVariable("treatmentId") Long treatmentId,
+                                                  @PathVariable("measurementId") Long measurementId) {
+        UserProfile profile = (UserProfile) authentication.getPrincipal();
+        return measurementService.getMeasurementForPatient(profile.getUsername(), treatmentId, measurementId);
+    }
+
+    @GetMapping("patients/{patientId}/treatments/{treatmentId}/measurements")
+    public List<MeasurementInfo> getMeasurementsPhysio(@PathVariable long patientId, @PathVariable long treatmentId) {
         return measurementService.getMeasurementsForTreatment(patientId, treatmentId);
     }
 }

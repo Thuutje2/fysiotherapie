@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import PatientService from "../service/patient-service.js";
+import PatientService from "../../service/patient-service.js";
 import {Router} from "@vaadin/router";
 
 class PhysioPatientOverview extends LitElement {
@@ -88,6 +88,11 @@ class PhysioPatientOverview extends LitElement {
               border: none;
               border-radius: 3px;
             }
+            
+            .patients-table {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
 
             table {
                 border-collapse: collapse;
@@ -104,6 +109,9 @@ class PhysioPatientOverview extends LitElement {
 
             th {
                 background-color: #f2f2f2;
+                position: sticky;
+                top: 0;
+                z-index: 1;
             }
 
             .container tr:hover {
@@ -139,7 +147,6 @@ class PhysioPatientOverview extends LitElement {
                 transform: translate(-50%, -50%);
             }
 
-
             .popup form {
                 display: flex;
                 flex-direction: column;
@@ -151,7 +158,6 @@ class PhysioPatientOverview extends LitElement {
                 margin-right: 10px; 
             }
 
-
             .popup form input {
                 margin-bottom: 1em;
                 padding: 0.5em;
@@ -159,7 +165,6 @@ class PhysioPatientOverview extends LitElement {
                 border-radius: 3px;
                 width: calc(100% - 16px);
             }
-
 
             .popup form button {
                 padding: 0.5em;
@@ -169,7 +174,6 @@ class PhysioPatientOverview extends LitElement {
                 border-radius: 3px;
                 cursor: pointer;
             }
-
 
             .close-button {
                 position: absolute;
@@ -212,12 +216,13 @@ class PhysioPatientOverview extends LitElement {
 
     render() {
         return html`
-            <div class="container">
-                <h2>Patiëntenoverzicht</h2>
-                <div class="search-add-container">
-                    <input type="text" @input="${this.updateSearchTerm}" placeholder="Zoeken..." class="search-bar" />
-                    <button @click="${this.togglePopup}" class="add-button">Voeg patiënt toe</button>
-                </div>
+        <div class="container">
+            <h2>Patiëntenoverzicht</h2>
+            <div class="search-add-container">
+                <input type="text" @input="${this.updateSearchTerm}" placeholder="Zoeken..." class="search-bar" />
+                <button @click="${this.togglePopup}" class="add-button">Voeg patiënt toe</button>
+            </div>
+            <div class="patients-table">
                 <table>
                     <tr>
                         <th>ID</th>
@@ -243,44 +248,24 @@ class PhysioPatientOverview extends LitElement {
                     `)}
                 </table>
             </div>
-            <div class="overlay" ?visible="${this.isPopupVisible}">
-                <div class="popup">
-                    <button class="close-button" @click="${this.togglePopup}">&times;</button>
-                    <h3>Voeg een nieuwe patiënt toe</h3>
-                    <form @submit="${this.handleSubmit}">
-                        <div>
-                            <label for="firstName">Voornaam:</label>
-                            <input type="text" id="firstName" name="firstName" placeholder="Voornaam" required>
-                        </div>
-                        <div>
-                            <label for="lastName">Achternaam:</label>
-                            <input type="text" id="lastName" name="lastName" placeholder="Achternaam" required>
-                        </div>
-                        <div>
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="Email" required>
-                        </div>
-                        <div>
-                            <label for="dateOfBirth">Geboortedatum:</label>
-                            <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Geboortedatum" required>
-                        </div>
-                        <div>
-                            <label for="weight">Gewicht:</label>
-                            <input type="text" id="weight" name="weight" placeholder="Gewicht" required>
-                        </div>
-                        <div>
-                            <label for="height">Lengte:</label>
-                            <input type="text" id="height" name="height" placeholder="Lengte" required>
-                        </div>
-                        <button id="submitButton" type="submit">Opslaan</button>
-                        <div id="errorMessage" style="display: none;">
-                            <div></div>
-                        </div>
-                    </form>
-                </div>
+        </div>
+        <div class="overlay" ?visible="${this.isPopupVisible}">
+            <div class="popup">
+                <button class="close-button" @click="${this.togglePopup}">&times;</button>
+                <h3>Voeg een nieuwe patiënt toe</h3>
+                <form @submit="${this.handleSubmit}">
+                    <div>
+                        <label for="firstName">Voornaam:</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Voornaam" required>
+                    </div>
+                    <button id="submitButton" type="submit">Opslaan</button>
+                    <div id="errorMessage" style="display: none;">
+                        <div></div>
+                    </div>
+                </form>
             </div>
-
-        `;
+        </div>
+    `;
     }
 
     async handleSubmit(event) {

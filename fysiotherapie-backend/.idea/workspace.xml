@@ -4,13 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="">
+    <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
+      <change afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/MeasurementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/MeasurementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/PatientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/PatientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/presentation/controller/MeasurementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/presentation/controller/MeasurementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/presentation/exception/global/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/presentation/exception/global/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/presentation/filter/JwtAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/login-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/login-form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-details-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-details-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/table/details-patient-table.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-history-graphics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-history.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/patient-main-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-main-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-patient-overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-overview.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/service/patient-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/service/patient-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/vaadin-routing.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,26 +40,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.FysioApplication.executor": "Run",
-    "git-widget-placeholder": "64-redirection-login-als-token-verstreken-is",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/fh192/IdeaProjects/fysiotherapie/fysiotherapie-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.FysioApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;68-patient-details-en-historie-laten-zien&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="FysioApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -61,8 +73,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-19.0.2-corretto-19.0.2-4caba194b151-48ba4555" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
       </set>
     </attachedChunks>
   </component>
@@ -79,10 +90,26 @@
       <workItem from="1718623757131" duration="54000" />
       <workItem from="1718623923003" duration="16000" />
       <workItem from="1718623984745" duration="610000" />
+      <workItem from="1718648692699" duration="1850000" />
+      <workItem from="1718694614460" duration="2094000" />
+      <workItem from="1718708070697" duration="2420000" />
     </task>
+    <task id="LOCAL-00001" summary="Return to login-page after expiration JWT">
+      <option name="closed" value="true" />
+      <created>1718647647703</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718647647703</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Return to login-page after expiration JWT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Return to login-page after expiration JWT" />
   </component>
 </project>

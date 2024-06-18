@@ -1,6 +1,8 @@
 import { html, css, LitElement } from "lit";
-import PatientService from "../service/patient-service.js";
-import './patient-details-table.js';
+import PatientService from "../../service/patient-service.js";
+import '../table/details-patient-table.js';
+import '../table/treatments-table.js';
+import '../table/measurements-table.js';
 import { Router } from "@vaadin/router";
 
 class PhysioPatientDetails extends LitElement {
@@ -11,28 +13,23 @@ class PhysioPatientDetails extends LitElement {
             treatments: { type: Array },
             measurements: { type: Array },
             selectedTreatment: { type: Object },
-            selectedMeasurement: { type: Object },
             isPopupAddTreatmentVisible: { type: Boolean },
             isPopupAddMeasurementVisible: { type: Boolean },
             isUploading: { type: Boolean },
-            sortOrder: { type: String },
-            sortMeasurementOrder: { type: String }
+            sortOrder: { type: String }
         };
     }
 
     constructor() {
-        debugger;
         super();
         this.patient = null;
         this.treatments = null;
         this.measurements = null;
         this.selectedTreatment = null;
-        this.selectedMeasurement = null;
         this.isPopupAddTreatmentVisible = false;
         this.isPopupAddMeasurementVisible = false;
         this.isUploading = false;
-        this.sortOrder = 'asc';
-        this.sortMeasurementOrder = 'asc';
+        this.sortOrder = 'desc';
     }
 
     async connectedCallback() {
@@ -41,7 +38,6 @@ class PhysioPatientDetails extends LitElement {
         this.patient = await this.loadPatientDetails(this.patientId);
         this.treatments = await this.loadTreatmentsOfPatient(this.patientId);
         this.sortTreatmentsByStartDate();
-        this.sortMeasurementByDate();
     }
 
     async loadPatientDetails(patientId) {
@@ -61,21 +57,11 @@ class PhysioPatientDetails extends LitElement {
     }
 
     async loadMeasurementsOfTreatment(patientId, treatmentId) {
-        const result = await PatientService.getMeasurementsByTreatmentId(patientId, treatmentId);
+        const result = await PatientService.getMeasurements(patientId, treatmentId);
         if (result.success) {
             return result.measurements;
         }
         return null;
-    }
-
-    async selectTreatment(treatment) {
-        this.selectedTreatment = treatment;
-        this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, treatment.id);
-    }
-
-    async selectMeasurement(measurement){
-        this.selectedMeasurement = measurement;
-        this.handleMeasurementsClick(measurement.id, measurement.activity)
     }
 
     showAddTreatmentOverlay(container) {
@@ -106,18 +92,6 @@ class PhysioPatientDetails extends LitElement {
         this.treatments = sortedTreatments;
     }
 
-    sortMeasurementByDate() {
-        const sortedMeasurements = [...this.measurements];
-        if (this.sortMeasurementOrder === 'asc') {
-            sortedMeasurements.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
-            this.sortMeasurementOrder = 'desc';
-        } else {
-            sortedMeasurements.sort((a,b) => new Date(b.startDate) - new Date(a.startDate))
-        }
-        this.measurements = sortedMeasurements;
-    }
-
-
     static get styles() {
         return css`
             :host {
@@ -125,14 +99,9 @@ class PhysioPatientDetails extends LitElement {
                 padding: 1em;
                 position: relative;
             }
-
-            .header-container {
-              display: flex;
-              align-items: center; 
-            }
-    
-            .header-container button {
-              margin-right: 10px; 
+            
+            .back-button {
+                cursor: pointer;
             }
 
             .container {
@@ -141,52 +110,32 @@ class PhysioPatientDetails extends LitElement {
                 justify-content: space-between;
             }
 
-            .patient-and-treatments {
+            .patient-and-treatments-tables {
                 flex: 1;
             }
-
+            
             .treatment-history {
-                max-height: 400px;
+                max-height: 28vh;
                 overflow-y: auto;
             }
 
-            .treatment-history table, .measurement-panel table {
-                border-collapse: collapse;
-                width: 100%;
+            .measurement-history {
+                max-height: 65vh;
+                overflow-y: auto;
             }
-
-            .treatment-history th, td, .measurement-panel th, td {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-                width: 150px;
-                position: relative;
-            }
-
-            .treatment-history th, .measurement-panel th {
-                background-color: #f2f2f2;
-                position: sticky;
-                top: 0; 
-                z-index: 1;
-            }
-            .treatment-history tr:hover, .measurement-panel tr:hover {
-                background: rgb(50, 151, 223, 0.8);
-                cursor: pointer;
-            }
-
-            .measurement-panel {
+            
+            .measurement-table {
                 flex: 0 0 auto;
                 margin-left: 100px;
             }
             
             .add-treatment-button, .add-measurement-button {
                 float: right;
-                padding: 0.5em 1em;
-                cursor: pointer;
                 background-color: rgb(50, 151, 223);
                 color: white;
                 border: none;
                 border-radius: 3px;
+                padding: 0.5em 1em;
             }
 
             .add-treatment-button:hover, .add-measurement-button:hover {
@@ -303,149 +252,105 @@ class PhysioPatientDetails extends LitElement {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
-          .sortable {
-            cursor: pointer;
-            position: relative;
-          }
-
-          .sortable::after {
-            content: '';
-            display: inline-block;
-            margin-left: 5px;
-          }
-
-          .sortable.asc::after {
-            content: ' &#9650;';
-          }
-
-          .sortable.desc::after {
-            content: ' &#9660;';
-          }
-
         `;
     }
 
     render() {
         return html`
         <h2 class="header-container">
-            <button @click="${this.goBack}">&larr;</button>
+            <button class="back-button" @click="${this.goBack}">&#8249;</button>
             Patiënt ${this.patient ? this.patient.id : ""}
         </h2>
         <div class="container">
-            <div class="patient-and-treatments">
+            <div class="patient-and-treatments-tables">
                 ${this.patient ? html`
                     <h3>Persoonlijke gegevens</h3>
                     <div>
-                        <patient-details-table .patient="${this.patient}"></patient-details-table>
+                        <details-patient-table .patient="${this.patient}"></details-patient-table>
+                    </div>
+                    <h3>Behandelhistorie
+                        <button class="add-treatment-button" @click="${this.showAddTreatmentOverlay}">Behandeling toevoegen</button>
+                    </h3>
+                    <div class="treatment-history">
+                        <treatments-table   .treatments="${this.treatments}"
+                                            .sortOrder="${this.sortOrder}"
+                                            @treatment-selected="${this.handleTreatmentSelected}"
+                                            @treatment-sorted="${this.sortTreatmentsByStartDate}">
+                        </treatments-table>
                     </div>`
             : ''}
-                <h3>Behandelhistorie
-                    <button class="add-treatment-button" @click="${this.showAddTreatmentOverlay}">Behandeling toevoegen</button>
+            </div>
+            <div class="measurement-table">
+                <h3>Meethistorie ${this.selectedTreatment
+            ? html`<button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
+            : ''}
                 </h3>
-                <div class="treatment-history">
+                <div class="measurement-history">
+                    <measurements-table   .measurements="${this.measurements}"
+                                          .selectedTreatment="${this.selectedTreatment}"
+                                          @measurement-clicked="${this.handleMeasurementClicked}">
+                    </measurements-table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="add-treatment-overlay" ?visible="${this.isPopupAddTreatmentVisible}" @click="${this.handleAddTreatmentOverlayClick}">
+            <div class="add-treatment">
+                <button class="close-button" @click="${this.hideAddTreatmentOverlay}">&times;</button>
+                <h3>Voeg een nieuwe behandeling toe</h3>
+                <form @submit="${this.handleSubmitTreatment}">
                     <div>
-                        <table>
-                            <tr>
-                                <th class="sortable" @click="${this.sortTreatmentsByStartDate}">Begindatum ${this.sortOrder === 'asc' ? html`&#9650;` : html`&#9660;`}</th>
-                                <th>Einddatum</th>
-                                <th>Conditie</th>
-                            </tr>
-                            ${this.treatments !== null ? html`
-                                ${this.treatments.map(treatment => html`
-                                    <tr class="${this.selectedTreatment === treatment ? 'selected' : ''}" @click="${() => this.selectTreatment(treatment)}">
-                                        <td>${treatment.startDate}</td>
-                                        <td>${treatment.endDate}</td>
-                                        <td>${treatment.condition}</td>
-                                    </tr>
-                                `)}`
-            : html`
-                                <tr><td colspan="3">Geen behandelingen bekend</td></tr>
-                            `}
-                        </table>
+                        <label for="startDate">Begindatum:</label>
+                        <input type="date" id="startDate" name="startDate" placeholder="Begindatum" required>
                     </div>
-                </div>
+                    <div>
+                        <label for="endDate">Einddatum:</label>
+                        <input type="date" id="endDate" name="endDate" placeholder="Einddatum" required>
+                    </div>
+                    <div>
+                        <label for="condition">Conditie:</label>
+                        <input type="text" id="condition" name="condition" placeholder="Conditie" required>
+                    </div>
+                    <button id="submit-button" type="submit">Opslaan</button>
+                    <div id="error-message" style="display: none;">
+                        <div></div>
+                    </div>
+                </form>
             </div>
-            <div class="add-treatment-overlay" ?visible="${this.isPopupAddTreatmentVisible}" @click="${this.handleAddTreatmentOverlayClick}">
-                <div class="add-treatment">
-                    <button class="close-button" @click="${this.hideAddTreatmentOverlay}">&times;</button>
-                    <h3>Voeg een nieuwe behandeling toe</h3>
-                    <form @submit="${this.handleSubmitTreatment}">
-                        <div>
-                            <label for="startDate">Begindatum:</label>
-                            <input type="date" id="startDate" name="startDate" placeholder="Begindatum" required>
-                        </div>
-                        <div>
-                            <label for="endDate">Einddatum:</label>
-                            <input type="date" id="endDate" name="endDate" placeholder="Einddatum" required>
-                        </div>
-                        <div>
-                            <label for="condition">Conditie:</label>
-                            <input type="text" id="condition" name="condition" placeholder="Conditie" required>
-                        </div>
-                        <button id="submit-button" type="submit">Opslaan</button>
-                        <div id="error-message" style="display: none;">
-                            <div></div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            
-            <div class="measurement-panel">
-                <h3>Meethistorie
-                    ${this.selectedTreatment ? html`
-                            <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
-                            : ''}
-                </h3>
-                ${this.selectedTreatment ? html`
-                    <table>
-                        <tr>
-                            <th>Meting</th>
-                            <th class="sortable" @click="${this.sortMeasurementByDate}">Datum ${this.sortMeasurementOrder === 'asc' ? html`&#9650;` : html`&#9660;`}</th>
-                            <th>Tijd</th>
-                            <th>Activiteit</th>
-                        </tr>
-                        ${this.measurements ? html`
-                            ${this.measurements.map(measurement => html`
-                                <tr class="${this.selectedMeasurement === measurement ? 'selected' : ''}" @click="${() => this.selectMeasurement(measurement)}">
-                                    <td>${measurement.id}</td>
-                                    <td>${measurement.date}</td>
-                                    <td>${measurement.time}</td>
-                                    <td>${measurement.activity}</td>
-                                </tr>
-                            `)}`
-                : html`
-                                <tr><td colspan="4">Geen metingen bekend</td></tr>
-                            `}
-                    </table>`
-            : html`<p>Selecteer eerst een behandeling</p>`
-        }
-            </div>
-            <div class="add-measurement-overlay" ?visible="${this.isPopupAddMeasurementVisible}" @click="${this.handleAddMeasurementOverlayClick}">
-                <div class="add-measurement">
-                    <button class="close-button" @click="${this.hideAddMeasurementOverlay}">&times;</button>
-                    <h3>Voeg een nieuwe meting toe</h3>
-                    <form @submit="${this.handleSubmitMeasurement}">
-                        <div>
-                            <label for="activity">Activiteit:</label>
-                            <input type="text" id="activity" name="activity" placeholder="Lopen" required>
-                        </div>
-                        <div>
-                            <label for="file">Bestand:</label>
-                            <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
-                        </div>
-                        <button id="submit-button" type="submit">Opslaan</button>
-                        <div id="error-message" style="display: none;">
-                            <div></div>
-                        </div>
-                    </form>
-                </div>
+        </div>
+        <div class="add-measurement-overlay" ?visible="${this.isPopupAddMeasurementVisible}" @click="${this.handleAddMeasurementOverlayClick}">
+            <div class="add-measurement">
+                <button class="close-button" @click="${this.hideAddMeasurementOverlay}">&times;</button>
+                <h3>Voeg een nieuwe meting toe</h3>
+                <form @submit="${this.handleSubmitMeasurement}">
+                    <div>
+                        <label for="activity">Activiteit:</label>
+                        <input type="text" id="activity" name="activity" placeholder="Lopen" required>
+                    </div>
+                    <div>
+                        <label for="file">Bestand:</label>
+                        <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
+                    </div>
+                    <button id="submit-button" type="submit">Opslaan</button>
+                    <div id="error-message" style="display: none;">
+                </form>
             </div>
         </div>
         <div class="loader-overlay" ?visible="${this.isUploading}">
             <div class="loader" ?visible="${this.isUploading}"></div>
         </div>
     `;
+    }
+
+    async handleTreatmentSelected(event) {
+        this.selectedTreatment = event.detail.treatment;
+        this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, this.selectedTreatment.id);
+    }
+
+    handleMeasurementClicked(event) {
+        const { id: measurementId, activity } = event.detail.measurement;
+        const treatmentId = this.selectedTreatment.id;
+        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
     }
 
     handleAddTreatmentOverlayClick(event) {
@@ -467,6 +372,9 @@ class PhysioPatientDetails extends LitElement {
         const result = await PatientService.postTreatment(this.patientId, treatment);
 
         if (result.success === true) {
+            debugger;
+            this.sortOrder = 'asc';
+            this.sortTreatmentsByStartDate();
             this.treatments = [...this.treatments, result.treatment];
             this.hideAddTreatmentOverlay();
         }
@@ -501,11 +409,6 @@ class PhysioPatientDetails extends LitElement {
             errorMessage.innerText = result.error;
             errorMessage.style.display = "block";
         }
-    }
-
-    handleMeasurementsClick(measurementId, activity) {
-        const treatmentId = this.selectedTreatment.id;
-        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
     }
 
     goBack() {

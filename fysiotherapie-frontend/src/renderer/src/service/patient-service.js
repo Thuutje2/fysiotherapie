@@ -51,7 +51,7 @@ export default class PatientService {
             const patient = await response.json();
             return { success: true, patient: patient }
         }
-        else if (response.status === 404) {
+        else {
             return { success: false, error: "Uw patientgegevens kunnen niet gevonden worden" }
         }
     }
@@ -95,7 +95,7 @@ export default class PatientService {
         }
     }
 
-    static async getMeasurementsByTreatmentId(patientId, treatmentId) {
+    static async getMeasurements(patientId, treatmentId) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, this.getFetchOptionsGet());
         this.handleTokenExpiration(response);
         if (response.ok) {
@@ -104,8 +104,17 @@ export default class PatientService {
         }
     }
 
-    static async getMeasurementById(patientId, treatmentId, measurementId) {
+    static async getMeasurementForPhysio(patientId, treatmentId, measurementId) {
         const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
+        if (response.ok) {
+            const measurement = await response.json();
+            return { success: true, measurement: measurement }
+        }
+    }
+
+    static async getMeasurementForPatient(treatmentId, measurementId) {
+        const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
         this.handleTokenExpiration(response);
         if (response.ok) {
             const measurement = await response.json();

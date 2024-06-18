@@ -30,11 +30,6 @@ public class PatientService {
                 new PatientNotFoundException("Patient does not exist by given id"));
     }
 
-    private Patient tryFindingPatientByEmail(String email) {
-        return patientRepository.findByEmail(email).orElseThrow(()->
-                new PatientNotFoundException("Patient does not exist by given email"));
-    }
-
     private List<Patient> tryFindingAllPatientsForPhysiotherapistById(long id) {
         return patientRepository.findAllByPhysiotherapistId(id);
     }
@@ -58,6 +53,11 @@ public class PatientService {
         return patients.stream()
                 .map(this::convertToPatientInfo)
                 .collect(Collectors.toList());
+    }
+
+    public Patient tryFindingPatientByEmail(String email) {
+        return patientRepository.findByEmail(email).orElseThrow(()->
+                new PatientNotFoundException("Patient does not exist by given email"));
     }
 
     public void checkTreatmentBelongsToPatient(long patientId, long treatmentId) {

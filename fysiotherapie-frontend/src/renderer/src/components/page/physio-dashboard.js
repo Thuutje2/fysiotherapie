@@ -1,10 +1,6 @@
 import {css, html, LitElement} from "lit";
 
-class PatientMainPage extends LitElement {
-    constructor() {
-        super();
-    }
-
+class PhysioDashboard extends LitElement {
     static get styles() {
         return css`
             :host {
@@ -17,9 +13,9 @@ class PatientMainPage extends LitElement {
     render() {
         return html`
             <h1>Welkom bij de fysiotherapie applicatie</h1>
-            <p>U bent ingelogd als patiënt</p>
+            <p>U bent ingelogd als fysiotherapeut</p>
         `;
     }
 }
 
-customElements.define('patient-main-page', PatientMainPage);
+customElements.define('physio-dashboard', PhysioDashboard);
