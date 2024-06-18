@@ -258,6 +258,26 @@ class PhysioPatientOverview extends LitElement {
                         <label for="firstName">Voornaam:</label>
                         <input type="text" id="firstName" name="firstName" placeholder="Voornaam" required>
                     </div>
+                    <div>
+                        <label for="lastName">Achternaam:</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Achternaam" required>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div>
+                        <label for="dateOfBirth">Geboortedatum:</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Geboortedatum" required>
+                    </div>
+                    <div>
+                        <label for="weight">Gewicht:</label>
+                        <input type="text" id="weight" name="weight" placeholder="Gewicht" required>
+                    </div>
+                    <div>
+                        <label for="height">Lengte:</label>
+                        <input type="text" id="height" name="height" placeholder="Lengte" required>
+                    </div>
                     <button id="submitButton" type="submit">Opslaan</button>
                     <div id="errorMessage" style="display: none;">
                         <div></div>
