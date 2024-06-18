@@ -6,7 +6,9 @@ class PhysioPatientOverview extends LitElement {
     static get properties() {
         return {
             isPopupVisible: { type: Boolean },
-            patients: { type: Array }
+            patients: { type: Array },
+            searchTerm: { type: String },
+            selectedPatient: { type: Object }
         };
     }
 
@@ -14,6 +16,20 @@ class PhysioPatientOverview extends LitElement {
         super();
         this.isPopupVisible = false;
         this.patients = [];
+        this.searchTerm = '';
+        this.selectedPatient = null;
+    }
+
+    updateSearchTerm(event) {
+        this.searchTerm = event.target.value.toLowerCase();
+    }
+
+    get filteredPatients() {
+        return this.patients.filter(patient => {
+            return Object.values(patient).some(value =>
+            String(value).toLowerCase().includes(this.searchTerm)
+            );
+        });
     }
 
     togglePopup() {
@@ -32,6 +48,11 @@ class PhysioPatientOverview extends LitElement {
         }
     }
 
+    async selectPatient(patient) {
+        this.selectedPatient = patient;
+        this.handlePatientClick(patient.id);
+    }
+
     static get styles() {
         return css`
             :host {
@@ -44,15 +65,28 @@ class PhysioPatientOverview extends LitElement {
                 position: relative;
             }
 
-            .add-button {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 1em;
+            .search-add-container {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              margin-bottom: 1em;
             }
-            
+    
+            .search-bar {
+              width: 200px;
+              padding: 0.5em;
+              border: 1px solid #ccc;
+              border-radius: 3px;
+              margin-right: 1em;
+            }
+
             .add-button {
-                cursor: pointer;
+              padding: 0.5em 1em;
+              cursor: pointer;
+              background-color: rgb(50, 151, 223);
+              color: white;
+              border: none;
+              border-radius: 3px;
             }
 
             table {
@@ -70,6 +104,11 @@ class PhysioPatientOverview extends LitElement {
 
             th {
                 background-color: #f2f2f2;
+            }
+
+            .container tr:hover {
+              background: rgb(50, 151, 223, 0.8);
+              cursor: pointer;
             }
 
             .overlay {
@@ -175,7 +214,10 @@ class PhysioPatientOverview extends LitElement {
         return html`
             <div class="container">
                 <h2>Patiëntenoverzicht</h2>
-                <button @click="${this.togglePopup}" class="add-button">Voeg patiënt toe</button>
+                <div class="search-add-container">
+                    <input type="text" @input="${this.updateSearchTerm}" placeholder="Zoeken..." class="search-bar" />
+                    <button @click="${this.togglePopup}" class="add-button">Voeg patiënt toe</button>
+                </div>
                 <table>
                     <tr>
                         <th>ID</th>
@@ -187,9 +229,9 @@ class PhysioPatientOverview extends LitElement {
                         <th>Lengte</th>
                         <th>Gewicht</th>
                     </tr>
-                    ${this.patients.map(patient => html`
-                        <tr>
-                            <td><a href="#" @click="${() => this.handlePatientClick(patient.id)}">${patient.id}</a></td>
+                    ${this.filteredPatients.map(patient => html`
+                        <tr class="${this.selectedPatient === patient ? 'selected' : ''}" @click="${() => this.selectPatient(patient)}">
+                            <td>${patient.id}</td>
                             <td>${patient.firstName}</td>
                             <td>${patient.lastName}</td>
                             <td>${patient.email}</td>
