@@ -11,9 +11,12 @@ class PhysioPatientDetails extends LitElement {
             treatments: { type: Array },
             measurements: { type: Array },
             selectedTreatment: { type: Object },
+            selectedMeasurement: { type: Object },
             isPopupAddTreatmentVisible: { type: Boolean },
             isPopupAddMeasurementVisible: { type: Boolean },
-            isUploading: { type: Boolean }
+            isUploading: { type: Boolean },
+            sortOrder: { type: String },
+            sortMeasurementOrder: { type: String }
         };
     }
 
@@ -24,9 +27,12 @@ class PhysioPatientDetails extends LitElement {
         this.treatments = null;
         this.measurements = null;
         this.selectedTreatment = null;
+        this.selectedMeasurement = null;
         this.isPopupAddTreatmentVisible = false;
         this.isPopupAddMeasurementVisible = false;
         this.isUploading = false;
+        this.sortOrder = 'asc';
+        this.sortMeasurementOrder = 'asc';
     }
 
     async connectedCallback() {
@@ -34,6 +40,8 @@ class PhysioPatientDetails extends LitElement {
         this.patientId = this.location.params.patientId;
         this.patient = await this.loadPatientDetails(this.patientId);
         this.treatments = await this.loadTreatmentsOfPatient(this.patientId);
+        this.sortTreatmentsByStartDate();
+        this.sortMeasurementByDate();
     }
 
     async loadPatientDetails(patientId) {
@@ -65,6 +73,11 @@ class PhysioPatientDetails extends LitElement {
         this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, treatment.id);
     }
 
+    async selectMeasurement(measurement){
+        this.selectedMeasurement = measurement;
+        this.handleMeasurementsClick(measurement.id, measurement.activity)
+    }
+
     showAddTreatmentOverlay(container) {
         this.isPopupAddTreatmentVisible = true;
     }
@@ -80,6 +93,30 @@ class PhysioPatientDetails extends LitElement {
     hideAddMeasurementOverlay() {
         this.isPopupAddMeasurementVisible = false;
     }
+
+    sortTreatmentsByStartDate() {
+        const sortedTreatments = [...this.treatments];
+        if (this.sortOrder === 'asc') {
+            sortedTreatments.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+            this.sortOrder = 'desc';
+        } else {
+            sortedTreatments.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+            this.sortOrder = 'asc';
+        }
+        this.treatments = sortedTreatments;
+    }
+
+    sortMeasurementByDate() {
+        const sortedMeasurements = [...this.measurements];
+        if (this.sortMeasurementOrder === 'asc') {
+            sortedMeasurements.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
+            this.sortMeasurementOrder = 'desc';
+        } else {
+            sortedMeasurements.sort((a,b) => new Date(b.startDate) - new Date(a.startDate))
+        }
+        this.measurements = sortedMeasurements;
+    }
+
 
     static get styles() {
         return css`
@@ -132,7 +169,7 @@ class PhysioPatientDetails extends LitElement {
                 top: 0; 
                 z-index: 1;
             }
-            .treatment-history tr:hover {
+            .treatment-history tr:hover, .measurement-panel tr:hover {
                 background: rgb(50, 151, 223, 0.8);
                 cursor: pointer;
             }
@@ -144,6 +181,12 @@ class PhysioPatientDetails extends LitElement {
             
             .add-treatment-button, .add-measurement-button {
                 float: right;
+                padding: 0.5em 1em;
+                cursor: pointer;
+                background-color: rgb(50, 151, 223);
+                color: white;
+                border: none;
+                border-radius: 3px;
             }
 
             .add-treatment-button:hover, .add-measurement-button:hover {
@@ -260,6 +303,25 @@ class PhysioPatientDetails extends LitElement {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+          .sortable {
+            cursor: pointer;
+            position: relative;
+          }
+
+          .sortable::after {
+            content: '';
+            display: inline-block;
+            margin-left: 5px;
+          }
+
+          .sortable.asc::after {
+            content: ' &#9650;';
+          }
+
+          .sortable.desc::after {
+            content: ' &#9660;';
+          }
+
         `;
     }
 
@@ -284,7 +346,7 @@ class PhysioPatientDetails extends LitElement {
                     <div>
                         <table>
                             <tr>
-                                <th>Begindatum</th>
+                                <th class="sortable" @click="${this.sortTreatmentsByStartDate}">Begindatum ${this.sortOrder === 'asc' ? html`&#9650;` : html`&#9660;`}</th>
                                 <th>Einddatum</th>
                                 <th>Conditie</th>
                             </tr>
@@ -339,14 +401,14 @@ class PhysioPatientDetails extends LitElement {
                     <table>
                         <tr>
                             <th>Meting</th>
-                            <th>Datum</th>
+                            <th class="sortable" @click="${this.sortMeasurementByDate}">Datum ${this.sortMeasurementOrder === 'asc' ? html`&#9650;` : html`&#9660;`}</th>
                             <th>Tijd</th>
                             <th>Activiteit</th>
                         </tr>
                         ${this.measurements ? html`
                             ${this.measurements.map(measurement => html`
-                                <tr>
-                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id, measurement.activity)}">${measurement.id}</a></td>
+                                <tr class="${this.selectedMeasurement === measurement ? 'selected' : ''}" @click="${() => this.selectMeasurement(measurement)}">
+                                    <td>${measurement.id}</td>
                                     <td>${measurement.date}</td>
                                     <td>${measurement.time}</td>
                                     <td>${measurement.activity}</td>
