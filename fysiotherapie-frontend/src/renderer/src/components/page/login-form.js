@@ -1,7 +1,7 @@
 import {css, html, LitElement} from "lit";
-import AuthService from "../service/auth-service.js";
-import {ROLE_ADMIN, ROLE_USER} from "../assets/userRoles.js";
-import RunningManLogo from '../assets/RunningMan.png'
+import AuthService from "../../service/auth-service.js";
+import {ROLE_ADMIN, ROLE_USER} from "../../assets/userRoles.js";
+import RunningManLogo from '../../assets/RunningMan.png'
 
 class LoginForm extends LitElement {
     static properties = {
@@ -200,11 +200,11 @@ class LoginForm extends LitElement {
         const role = await AuthService.getRole();
         const sidebar = document.querySelector("sidebar-component");
         if (role === ROLE_ADMIN) {
-            window.location.href = "physio-main-page";
+            window.location.href = "physio-dashboard";
         }
 
         if (role === ROLE_USER) {
-            window.location.href = "physio-main-page";
+            window.location.href = "patient-dashboard";
         }
     }
 

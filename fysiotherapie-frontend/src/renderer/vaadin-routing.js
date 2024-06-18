@@ -1,11 +1,12 @@
-import "./src/components/patient-main-page.js";
-import "./src/components/patient-details-page.js";
-import "./src/components/patient-history.js";
-import "./src/components/login-form.js";
-import "./src/components/physio-main-page.js";
-import "./src/components/physio-patient-overview.js";
-import "./src/components/physio-patient-details.js";
-import "./src/components/physio-measurement-graphs.js";
+import "./src/components/page/patient-dashboard.js";
+import "./src/components/page/patient-details.js";
+import "./src/components/page/patient-history.js";
+import "./src/components/page/login-form.js";
+import "./src/components/page/physio-dashboard.js";
+import "./src/components/page/physio-patient-overview.js";
+import "./src/components/page/physio-patient-details.js";
+import "./src/components/page/physio-measurement-graphs.js";
+import "./src/components/page/patient-measurement-graphs.js";
 
 import {Router} from "@vaadin/router";
 import AuthService from "./src/service/auth-service.js";
@@ -24,15 +25,15 @@ router.setRoutes([
     //    PATIENT = INGELOGD                                              //
     ////////////////////////////////////////////////////////////////////////
     {
-        path: "/patient-main-page",
-        component: "patient-main-page",
+        path: "/patient-dashboard",
+        component: "patient-dashboard",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
     },
     {
-        path: "/patient-details-page",
-        component: "patient-details-page",
+        path: "/patient-details",
+        component: "patient-details",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
@@ -44,12 +45,19 @@ router.setRoutes([
             return await protectedContentRedirect(commands, [ROLE_ADMIN, ROLE_USER]);
         },
     },
+    {
+        path: '/patient-measurement-graphs/treatments/:treatmentId/measurements/:measurementId',
+        component: "patient-measurement-graphs",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_USER]);
+        },
+    },
     ////////////////////////////////////////////////////////////////////////
     //    ADMIN = INGELOGD                                                //
     ////////////////////////////////////////////////////////////////////////
     {
-        path: "/physio-main-page",
-        component: "physio-main-page",
+        path: "/physio-dashboard",
+        component: "physio-dashboard",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         }
@@ -118,7 +126,7 @@ async function protectedContentRedirect(commands, allowedRoles) {
         }
     } catch (error) {
         console.error("Authentication error:", error);
-        return commands.redirect("./login");
+        return commands.redirect("/login");
     }
 }
 

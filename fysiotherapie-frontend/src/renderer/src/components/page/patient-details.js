@@ -1,8 +1,8 @@
 import { html, css, LitElement } from "lit";
-import PatientService from "../service/patient-service.js";
-import './patient-details-table.js';
+import PatientService from "../../service/patient-service.js";
+import '../table/details-patient-table.js';
 
-class PatientDetailsPage extends LitElement {
+class PatientDetails extends LitElement {
     static properties = {
         patient: { type: Object },
         error: { type: String }
@@ -47,9 +47,9 @@ class PatientDetailsPage extends LitElement {
 
         return html`
             <h2>Uw persoonlijke gegevens</h2>
-            <patient-details-table .patient="${this.patient}"></patient-details-table>
+            <details-patient-table .patient="${this.patient}"></details-patient-table>
         `;
     }
 }
 
-customElements.define("patient-details-page", PatientDetailsPage);
+customElements.define("patient-details", PatientDetails);

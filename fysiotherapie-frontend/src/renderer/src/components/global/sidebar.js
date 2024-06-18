@@ -127,7 +127,7 @@ class SidebarComponent extends LitElement {
                     <!--PATIËNT-->
                     <!-- en dan hier moet iets komen van als je patient bent dan zie je deze links-->
                     <div ?hidden="${!this._isUser}">
-                        <a href="/patient-information" @click="${this.handleLinkClick}">Mijn gegevens</a>
+                        <a href="/patient-details" @click="${this.handleLinkClick}">Mijn gegevens</a>
                         <a href="/patient-history" @click="${this.handleLinkClick}">Historie</a>
                     </div>
                     <!--FYSIOTHERAPEUT-->
@@ -149,9 +149,9 @@ class SidebarComponent extends LitElement {
     handleDashboardClick(event) {
         event.preventDefault();
         if (this._isUser) {
-            window.location.href = '/patient-main-page';
+            window.location.href = '/patient-dashboard';
         } else if (this._isAdmin) {
-            window.location.href = '/patient-main-page';
+            window.location.href = '/physio-dashboard';
         }
     }
 

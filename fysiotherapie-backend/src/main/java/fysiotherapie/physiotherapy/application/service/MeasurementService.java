@@ -6,6 +6,7 @@ import fysiotherapie.physiotherapy.application.exception.MeasurementNotFoundExce
 import fysiotherapie.physiotherapy.data.MeasurementRepository;
 import fysiotherapie.physiotherapy.domain.Joint;
 import fysiotherapie.physiotherapy.domain.Measurement;
+import fysiotherapie.physiotherapy.domain.Patient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,10 +115,21 @@ public class MeasurementService {
     }
 
 
-    public List<JointInfo> getMeasurementForPatient(String physiotherapistUsername, long patientId, long treatmentId,
+    public List<JointInfo> getMeasurementForPhysio(String physiotherapistUsername, long patientId, long treatmentId,
                                                 long measurementId) {
         physiotherapistService.checkIfPatientIsAssignedToPhysiotherapist(physiotherapistUsername, patientId);
         patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
+        Measurement measurement = tryFindingMeasurementById(measurementId);
+        List<Joint> joints = measurement.getJoints();
+        List<Joint> sortedJoints = sortJointsByTime(joints);
+        return sortedJoints.stream()
+                .map(JointInfo::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<JointInfo> getMeasurementForPatient(String email, long treatmentId, long measurementId) {
+        Patient patient = patientService.tryFindingPatientByEmail(email);
+        patientService.checkTreatmentBelongsToPatient(patient.getId(), treatmentId);
         Measurement measurement = tryFindingMeasurementById(measurementId);
         List<Joint> joints = measurement.getJoints();
         List<Joint> sortedJoints = sortJointsByTime(joints);

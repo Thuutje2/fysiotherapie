@@ -1,6 +1,6 @@
 import { html, css, LitElement } from "lit";
 
-class PatientDetailsTable extends LitElement {
+class DetailsPatientTable extends LitElement {
     static properties = {
         patient: { type: Object }
     };
@@ -58,4 +58,4 @@ class PatientDetailsTable extends LitElement {
     }
 }
 
-customElements.define('patient-details-table', PatientDetailsTable);
+customElements.define('details-patient-table', DetailsPatientTable);

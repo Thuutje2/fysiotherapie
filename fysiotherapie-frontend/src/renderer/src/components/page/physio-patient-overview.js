@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import PatientService from "../service/patient-service.js";
+import PatientService from "../../service/patient-service.js";
 import {Router} from "@vaadin/router";
 
 class PhysioPatientOverview extends LitElement {
@@ -54,6 +54,11 @@ class PhysioPatientOverview extends LitElement {
             .add-button {
                 cursor: pointer;
             }
+            
+            .patients-table {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
 
             table {
                 border-collapse: collapse;
@@ -70,6 +75,9 @@ class PhysioPatientOverview extends LitElement {
 
             th {
                 background-color: #f2f2f2;
+                position: sticky;
+                top: 0;
+                z-index: 1;
             }
 
             .overlay {
@@ -100,7 +108,6 @@ class PhysioPatientOverview extends LitElement {
                 transform: translate(-50%, -50%);
             }
 
-
             .popup form {
                 display: flex;
                 flex-direction: column;
@@ -112,7 +119,6 @@ class PhysioPatientOverview extends LitElement {
                 margin-right: 10px; 
             }
 
-
             .popup form input {
                 margin-bottom: 1em;
                 padding: 0.5em;
@@ -120,7 +126,6 @@ class PhysioPatientOverview extends LitElement {
                 border-radius: 3px;
                 width: calc(100% - 16px);
             }
-
 
             .popup form button {
                 padding: 0.5em;
@@ -130,7 +135,6 @@ class PhysioPatientOverview extends LitElement {
                 border-radius: 3px;
                 cursor: pointer;
             }
-
 
             .close-button {
                 position: absolute;
@@ -176,30 +180,32 @@ class PhysioPatientOverview extends LitElement {
             <div class="container">
                 <h2>Patiëntenoverzicht</h2>
                 <button @click="${this.togglePopup}" class="add-button">Voeg patiënt toe</button>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Voornaam</th>
-                        <th>Achternaam</th>
-                        <th>Email</th>
-                        <th>Geboortedatum</th>
-                        <th>Leeftijd</th>
-                        <th>Lengte</th>
-                        <th>Gewicht</th>
-                    </tr>
-                    ${this.patients.map(patient => html`
+                <div class="patients-table">
+                    <table>
                         <tr>
-                            <td><a href="#" @click="${() => this.handlePatientClick(patient.id)}">${patient.id}</a></td>
-                            <td>${patient.firstName}</td>
-                            <td>${patient.lastName}</td>
-                            <td>${patient.email}</td>
-                            <td>${patient.dateOfBirth}</td>
-                            <td>${patient.age}</td>
-                            <td>${patient.height}</td>
-                            <td>${patient.weight}</td>
+                            <th>ID</th>
+                            <th>Voornaam</th>
+                            <th>Achternaam</th>
+                            <th>Email</th>
+                            <th>Geboortedatum</th>
+                            <th>Leeftijd</th>
+                            <th>Lengte</th>
+                            <th>Gewicht</th>
                         </tr>
-                    `)}
-                </table>
+                        ${this.patients.map(patient => html`
+                            <tr>
+                                <td><a href="#" @click="${() => this.handlePatientClick(patient.id)}">${patient.id}</a></td>
+                                <td>${patient.firstName}</td>
+                                <td>${patient.lastName}</td>
+                                <td>${patient.email}</td>
+                                <td>${patient.dateOfBirth}</td>
+                                <td>${patient.age}</td>
+                                <td>${patient.height}</td>
+                                <td>${patient.weight}</td>
+                            </tr>
+                        `)}
+                    </table>
+                </div>
             </div>
             <div class="overlay" ?visible="${this.isPopupVisible}">
                 <div class="popup">

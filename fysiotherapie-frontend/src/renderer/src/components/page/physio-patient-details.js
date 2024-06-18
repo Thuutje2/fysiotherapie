@@ -1,6 +1,8 @@
 import { html, css, LitElement } from "lit";
-import PatientService from "../service/patient-service.js";
-import './patient-details-table.js';
+import PatientService from "../../service/patient-service.js";
+import '../table/details-patient-table.js';
+import '../table/treatments-table.js';
+import '../table/measurements-table.js';
 import { Router } from "@vaadin/router";
 
 class PhysioPatientDetails extends LitElement {
@@ -18,7 +20,6 @@ class PhysioPatientDetails extends LitElement {
     }
 
     constructor() {
-        debugger;
         super();
         this.patient = null;
         this.treatments = null;
@@ -53,16 +54,11 @@ class PhysioPatientDetails extends LitElement {
     }
 
     async loadMeasurementsOfTreatment(patientId, treatmentId) {
-        const result = await PatientService.getMeasurementsByTreatmentId(patientId, treatmentId);
+        const result = await PatientService.getMeasurements(patientId, treatmentId);
         if (result.success) {
             return result.measurements;
         }
         return null;
-    }
-
-    async selectTreatment(treatment) {
-        this.selectedTreatment = treatment;
-        this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, treatment.id);
     }
 
     showAddTreatmentOverlay(container) {
@@ -95,40 +91,21 @@ class PhysioPatientDetails extends LitElement {
                 justify-content: space-between;
             }
 
-            .patient-and-treatments {
+            .patient-and-treatments-tables {
                 flex: 1;
             }
-
+            
             .treatment-history {
-                max-height: 400px;
+                max-height: 28vh;
                 overflow-y: auto;
             }
 
-            .treatment-history table, .measurement-panel table {
-                border-collapse: collapse;
-                width: 100%;
+            .measurement-history {
+                max-height: 65vh;
+                overflow-y: auto;
             }
-
-            .treatment-history th, td, .measurement-panel th, td {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-                width: 150px;
-                position: relative;
-            }
-
-            .treatment-history th, .measurement-panel th {
-                background-color: #f2f2f2;
-                position: sticky;
-                top: 0; 
-                z-index: 1;
-            }
-            .treatment-history tr:hover {
-                background: rgb(50, 151, 223, 0.8);
-                cursor: pointer;
-            }
-
-            .measurement-panel {
+            
+            .measurement-table {
                 flex: 0 0 auto;
                 margin-left: 100px;
             }
@@ -258,120 +235,93 @@ class PhysioPatientDetails extends LitElement {
         return html`
         <h2>Patiënt ${this.patient ? this.patient.id : ""}</h2>
         <div class="container">
-            <div class="patient-and-treatments">
+            <div class="patient-and-treatments-tables">
                 ${this.patient ? html`
                     <h3>Persoonlijke gegevens</h3>
                     <div>
-                        <patient-details-table .patient="${this.patient}"></patient-details-table>
+                        <details-patient-table .patient="${this.patient}"></details-patient-table>
+                    </div>
+                    <h3>Behandelhistorie
+                        <button class="add-treatment-button" @click="${this.showAddTreatmentOverlay}">Behandeling toevoegen</button>
+                    </h3>
+                    <div class="treatment-history">
+                        <treatments-table   .treatments="${this.treatments}"
+                                                    @treatment-selected="${this.handleTreatmentSelected}">
+                        </treatments-table>
                     </div>`
             : ''}
-                <h3>Behandelhistorie
-                    <button class="add-treatment-button" @click="${this.showAddTreatmentOverlay}">Behandeling toevoegen</button>
+            </div>
+            <div class="measurement-table">
+                <h3>Meethistorie ${this.selectedTreatment
+                        ? html`<button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
+                        : ''}
                 </h3>
-                <div class="treatment-history">
+                <div class="measurement-history">
+                    <measurements-table   .measurements="${this.measurements}"
+                                                  .selectedTreatment="${this.selectedTreatment}"
+                                                  @measurement-clicked="${this.handleMeasurementClicked}">
+                    </measurements-table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="add-treatment-overlay" ?visible="${this.isPopupAddTreatmentVisible}" @click="${this.handleAddTreatmentOverlayClick}">
+            <div class="add-treatment">
+                <button class="close-button" @click="${this.hideAddTreatmentOverlay}">&times;</button>
+                <h3>Voeg een nieuwe behandeling toe</h3>
+                <form @submit="${this.handleSubmitTreatment}">
                     <div>
-                        <table>
-                            <tr>
-                                <th>Begindatum</th>
-                                <th>Einddatum</th>
-                                <th>Conditie</th>
-                            </tr>
-                            ${this.treatments !== null ? html`
-                                ${this.treatments.map(treatment => html`
-                                    <tr class="${this.selectedTreatment === treatment ? 'selected' : ''}" @click="${() => this.selectTreatment(treatment)}">
-                                        <td>${treatment.startDate}</td>
-                                        <td>${treatment.endDate}</td>
-                                        <td>${treatment.condition}</td>
-                                    </tr>
-                                `)}`
-            : html`
-                                <tr><td colspan="3">Geen behandelingen bekend</td></tr>
-                            `}
-                        </table>
+                        <label for="startDate">Begindatum:</label>
+                        <input type="date" id="startDate" name="startDate" placeholder="Begindatum" required>
                     </div>
-                </div>
+                    <div>
+                        <label for="endDate">Einddatum:</label>
+                        <input type="date" id="endDate" name="endDate" placeholder="Einddatum" required>
+                    </div>
+                    <div>
+                        <label for="condition">Conditie:</label>
+                        <input type="text" id="condition" name="condition" placeholder="Conditie" required>
+                    </div>
+                    <button id="submit-button" type="submit">Opslaan</button>
+                    <div id="error-message" style="display: none;">
+                        <div></div>
+                    </div>
+                </form>
             </div>
-            <div class="add-treatment-overlay" ?visible="${this.isPopupAddTreatmentVisible}" @click="${this.handleAddTreatmentOverlayClick}">
-                <div class="add-treatment">
-                    <button class="close-button" @click="${this.hideAddTreatmentOverlay}">&times;</button>
-                    <h3>Voeg een nieuwe behandeling toe</h3>
-                    <form @submit="${this.handleSubmitTreatment}">
-                        <div>
-                            <label for="startDate">Begindatum:</label>
-                            <input type="date" id="startDate" name="startDate" placeholder="Begindatum" required>
-                        </div>
-                        <div>
-                            <label for="endDate">Einddatum:</label>
-                            <input type="date" id="endDate" name="endDate" placeholder="Einddatum" required>
-                        </div>
-                        <div>
-                            <label for="condition">Conditie:</label>
-                            <input type="text" id="condition" name="condition" placeholder="Conditie" required>
-                        </div>
-                        <button id="submit-button" type="submit">Opslaan</button>
-                        <div id="error-message" style="display: none;">
-                            <div></div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            
-            
-            <div class="measurement-panel">
-                <h3>Meethistorie
-                    ${this.selectedTreatment ? html`
-                            <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
-                            : ''}
-                </h3>
-                ${this.selectedTreatment ? html`
-                    <table>
-                        <tr>
-                            <th>Meting</th>
-                            <th>Datum</th>
-                            <th>Tijd</th>
-                            <th>Activiteit</th>
-                        </tr>
-                        ${this.measurements ? html`
-                            ${this.measurements.map(measurement => html`
-                                <tr>
-                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id, measurement.activity)}">${measurement.id}</a></td>
-                                    <td>${measurement.date}</td>
-                                    <td>${measurement.time}</td>
-                                    <td>${measurement.activity}</td>
-                                </tr>
-                            `)}`
-                : html`
-                                <tr><td colspan="4">Geen metingen bekend</td></tr>
-                            `}
-                    </table>`
-            : html`<p>Selecteer eerst een behandeling</p>`
-        }
-            </div>
-            <div class="add-measurement-overlay" ?visible="${this.isPopupAddMeasurementVisible}" @click="${this.handleAddMeasurementOverlayClick}">
-                <div class="add-measurement">
-                    <button class="close-button" @click="${this.hideAddMeasurementOverlay}">&times;</button>
-                    <h3>Voeg een nieuwe meting toe</h3>
-                    <form @submit="${this.handleSubmitMeasurement}">
-                        <div>
-                            <label for="activity">Activiteit:</label>
-                            <input type="text" id="activity" name="activity" placeholder="Lopen" required>
-                        </div>
-                        <div>
-                            <label for="file">Bestand:</label>
-                            <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
-                        </div>
-                        <button id="submit-button" type="submit">Opslaan</button>
-                        <div id="error-message" style="display: none;">
-                            <div></div>
-                        </div>
-                    </form>
-                </div>
+        </div>
+        <div class="add-measurement-overlay" ?visible="${this.isPopupAddMeasurementVisible}" @click="${this.handleAddMeasurementOverlayClick}">
+            <div class="add-measurement">
+                <button class="close-button" @click="${this.hideAddMeasurementOverlay}">&times;</button>
+                <h3>Voeg een nieuwe meting toe</h3>
+                <form @submit="${this.handleSubmitMeasurement}">
+                    <div>
+                        <label for="activity">Activiteit:</label>
+                        <input type="text" id="activity" name="activity" placeholder="Lopen" required>
+                    </div>
+                    <div>
+                        <label for="file">Bestand:</label>
+                        <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
+                    </div>
+                    <button id="submit-button" type="submit">Opslaan</button>
+                    <div id="error-message" style="display: none;">
+                </form>
             </div>
         </div>
         <div class="loader-overlay" ?visible="${this.isUploading}">
             <div class="loader" ?visible="${this.isUploading}"></div>
         </div>
     `;
+    }
+
+    async handleTreatmentSelected(event) {
+        this.selectedTreatment = event.detail.treatment;
+        this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, this.selectedTreatment.id);
+    }
+
+    handleMeasurementClicked(event) {
+        const { id: measurementId, activity } = event.detail.measurement;
+        const treatmentId = this.selectedTreatment.id;
+        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
     }
 
     handleAddTreatmentOverlayClick(event) {
@@ -427,11 +377,6 @@ class PhysioPatientDetails extends LitElement {
             errorMessage.innerText = result.error;
             errorMessage.style.display = "block";
         }
-    }
-
-    handleMeasurementsClick(measurementId, activity) {
-        const treatmentId = this.selectedTreatment.id;
-        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
     }
 }
 
