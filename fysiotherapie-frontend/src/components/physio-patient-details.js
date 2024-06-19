@@ -13,12 +13,12 @@ class PhysioPatientDetails extends LitElement {
             selectedTreatment: { type: Object },
             isPopupAddTreatmentVisible: { type: Boolean },
             isPopupAddMeasurementVisible: { type: Boolean },
-            isUploading: { type: Boolean }
+            isUploading: { type: Boolean },
+            compareMode: { type: Boolean }
         };
     }
 
     constructor() {
-        debugger;
         super();
         this.patient = null;
         this.treatments = null;
@@ -27,6 +27,8 @@ class PhysioPatientDetails extends LitElement {
         this.isPopupAddTreatmentVisible = false;
         this.isPopupAddMeasurementVisible = false;
         this.isUploading = false;
+        this.compareMode = false;
+        this.selectedMeasurements = new Set();
     }
 
     async connectedCallback() {
@@ -63,6 +65,8 @@ class PhysioPatientDetails extends LitElement {
     async selectTreatment(treatment) {
         this.selectedTreatment = treatment;
         this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, treatment.id);
+        this.compareMode = false;
+
     }
 
     showAddTreatmentOverlay(container) {
@@ -120,7 +124,7 @@ class PhysioPatientDetails extends LitElement {
             .treatment-history th, .measurement-panel th {
                 background-color: #f2f2f2;
                 position: sticky;
-                top: 0; 
+                top: 0;
                 z-index: 1;
             }
             .treatment-history tr:hover {
@@ -131,13 +135,15 @@ class PhysioPatientDetails extends LitElement {
             .measurement-panel {
                 flex: 0 0 auto;
                 margin-left: 100px;
-            }
-            
-            .add-treatment-button, .add-measurement-button {
-                float: right;
+                position: relative;
             }
 
-            .add-treatment-button:hover, .add-measurement-button:hover {
+            .add-treatment-button, .add-measurement-button, .compare-measurement-button {
+                float: right;
+                margin-left: 10px;
+            }
+
+            .add-treatment-button:hover, .add-measurement-button:hover, .compare-measurement-button:hover {
                 cursor: pointer;
             }
 
@@ -169,7 +175,7 @@ class PhysioPatientDetails extends LitElement {
                 width: 120px;
                 margin-right: 10px;
             }
-            
+
             .add-treatment-overlay form input, .add-measurement-overlay form input {
                 margin-bottom: 1em;
                 padding: 0.5em;
@@ -177,7 +183,7 @@ class PhysioPatientDetails extends LitElement {
                 border-radius: 3px;
                 width: calc(100% - 16px);
             }
-            
+
             .add-treatment-overlay form button, .add-measurement-overlay form button {
                 padding: 0.5em;
                 border: none;
@@ -211,7 +217,7 @@ class PhysioPatientDetails extends LitElement {
                 font-size: 1.5em;
                 cursor: pointer;
             }
-            
+
             #error-message {
                 color: #ff0000;
                 font-weight: bold;
@@ -315,37 +321,41 @@ class PhysioPatientDetails extends LitElement {
                     </form>
                 </div>
             </div>
-            
-            
+
             <div class="measurement-panel">
                 <h3>Meethistorie
                     ${this.selectedTreatment ? html`
-                            <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
-                            : ''}
+                        <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>
+                        <button class="compare-measurement-button" @click="${this.toggleCompareMode}">
+                            ${this.compareMode ? html`Annuleer vergelijking` : html`Vergelijk metingen`}
+                        </button>
+                    ` : ''}
                 </h3>
-                ${this.selectedTreatment ? html`
-                    <table>
-                        <tr>
-                            <th>Meting</th>
-                            <th>Datum</th>
-                            <th>Tijd</th>
-                            <th>Activiteit</th>
-                        </tr>
-                        ${this.measurements ? html`
-                            ${this.measurements.map(measurement => html`
-                                <tr>
-                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id)}">${measurement.id}</a></td>
-                                    <td>${measurement.date}</td>
-                                    <td>${measurement.time}</td>
-                                    <td>${measurement.activity}</td>
-                                </tr>
-                            `)}`
-                : html`
-                                <tr><td colspan="4">Geen metingen bekend</td></tr>
-                            `}
-                    </table>`
-            : html`<p>Selecteer eerst een behandeling</p>`
-        }
+                <table>
+                    <tr>
+                        ${this.compareMode ? html`<th>Selecteer</th>` : ''}
+                        <th>Meting</th>
+                        <th>Datum</th>
+                        <th>Tijd</th>
+                        <th>Activiteit</th>
+                    </tr>
+                    ${this.measurements ? html`
+                        ${this.measurements.map(measurement => html`
+                            <tr>
+                                ${this.compareMode ? html`
+                                    <td><input type="checkbox" data-measurement-id="${measurement.id}" .checked="${this.selectedMeasurements.has(measurement.id)}" @change="${(event) => this.toggleMeasurementSelection(event, measurement.id)}"></td>
+                                ` : ''}
+                                <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id)}">${measurement.id}</a></td>
+                                <td>${measurement.date}</td>
+                                <td>${measurement.time}</td>
+                                <td>${measurement.activity}</td>
+                            </tr>
+                        `)}
+                    ` : html`
+                        <tr><td colspan="4">Geen metingen bekend</td></tr>
+                    `}
+                </table>
+                <button @click="${this.compareMeasurements}" ?hidden="${!this.compareMode}">Vergelijk</button>
             </div>
             <div class="add-measurement-overlay" ?visible="${this.isPopupAddMeasurementVisible}" @click="${this.handleAddMeasurementOverlayClick}">
                 <div class="add-measurement">
@@ -373,6 +383,7 @@ class PhysioPatientDetails extends LitElement {
         </div>
     `;
     }
+
 
     handleAddTreatmentOverlayClick(event) {
         if (event.target.classList.contains('add-treatment-overlay')) {
@@ -432,6 +443,38 @@ class PhysioPatientDetails extends LitElement {
     handleMeasurementsClick(measurementId) {
         const treatmentId = this.selectedTreatment.id;
         Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}`);
+    }
+
+    toggleCompareMode() {
+        this.compareMode = !this.compareMode;
+        this.selectedMeasurements.clear();
+        this.requestUpdate();
+    }
+
+    toggleMeasurementSelection(event, measurementId) {
+        if (event.target.checked) {
+            if (this.selectedMeasurements.size < 2) {
+                this.selectedMeasurements.add(measurementId);
+            } else {
+                event.target.checked = false;
+            }
+        } else {
+            this.selectedMeasurements.delete(measurementId);
+        }
+        this.requestUpdate();
+    }
+
+    compareMeasurements(){
+        const selectedMeasurements = Array.from(this.selectedMeasurements);
+        if (selectedMeasurements.length !== 2){
+            return;
+        }
+        const treatmentId = this.selectedTreatment.id;
+        const measurementId1 = selectedMeasurements[0];
+        const measurementId2 = selectedMeasurements[1];
+
+        Router.go(`/physio-measurement-compare/patients/${this.patientId}/treatments/${treatmentId}/compare/${measurementId1}/${measurementId2}`);
+
     }
 }
 

@@ -23,7 +23,6 @@ class PhysioMeasurementGraphs extends LitElement {
     }
 
     async connectedCallback() {
-        debugger;
         super.connectedCallback();
         this.patientId = this.location.params.patientId;
         this.treatmentId = this.location.params.treatmentId;

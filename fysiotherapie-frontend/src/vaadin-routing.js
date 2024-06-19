@@ -9,6 +9,8 @@ import "./components/physio-measurement.js";
 import "./components/physio-patient-overview.js";
 import "./components/physio-patient-details.js";
 import "./components/physio-measurement-graphs.js";
+import "./components/physio-measurement-compare.js";
+
 
 
 import {Router} from "@vaadin/router";
@@ -100,6 +102,14 @@ router.setRoutes([
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },
     },
+    {
+        path: '/physio-measurement-compare/patients/:patientId/treatments/:treatmentId/compare/:measurementId1/:measurementId2',
+        component: "physio-measurement-compare",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
+
 
 
     ////////////////////////////////////////////////////////////////////////
