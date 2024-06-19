@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/components/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/components/physio-measurement-graphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/components/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/components/physio-patient-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/vaadin-routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/vaadin-routing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,19 +34,15 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.FysioApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;FE-dev&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/fh192/IdeaProjects/fysiotherapie/fysiotherapie-frontend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
-    ]
   }
 }</component>
   <component name="RunManager">
@@ -65,8 +58,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-19.0.2-corretto-19.0.2-4caba194b151-48ba4555" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
       </set>
     </attachedChunks>
   </component>
@@ -83,12 +75,26 @@
       <workItem from="1718623757131" duration="54000" />
       <workItem from="1718623923003" duration="16000" />
       <workItem from="1718623984745" duration="610000" />
-      <workItem from="1718696266133" duration="4313000" />
-      <workItem from="1718778924966" duration="616000" />
+      <workItem from="1718648692699" duration="1850000" />
+      <workItem from="1718694614460" duration="2094000" />
+      <workItem from="1718708070697" duration="2420000" />
     </task>
+    <task id="LOCAL-00001" summary="Return to login-page after expiration JWT">
+      <option name="closed" value="true" />
+      <created>1718647647703</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718647647703</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Return to login-page after expiration JWT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Return to login-page after expiration JWT" />
   </component>
 </project>

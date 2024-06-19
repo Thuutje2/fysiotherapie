@@ -90,14 +90,12 @@ class PhysioMeasurementCompare extends LitElement {
     }
 
     renderChart() {
-        const ctx1 = this.shadowRoot.getElementById('chart1').getContext('2d');
-        const ctx2 = this.shadowRoot.getElementById('chart2').getContext('2d');
+        const ctx = this.shadowRoot.getElementById('chart').getContext('2d');
 
         const datasets1 = Object.keys(this.checkedValues)
             .filter(jointType => this.checkedValues[jointType])
             .map(jointType => {
                 const {seconds, positions} = this.getSecondsAndPositions(this.measurement1, jointType);
-                console.log('Datasets1:', jointType, seconds, positions);
                 return {
                     label: `${jointType} - Meting ${this.measurementId1}`,
                     data: seconds.map((second, index) => ({x: second, y: positions[index]})),
@@ -111,7 +109,6 @@ class PhysioMeasurementCompare extends LitElement {
             .filter(jointType => this.checkedValues[jointType])
             .map(jointType => {
                 const {seconds, positions} = this.getSecondsAndPositions(this.measurement2, jointType);
-                console.log('Datasets2:', jointType, seconds, positions);
                 return {
                     label: `${jointType} - Meting ${this.measurementId2}`,
                     data: seconds.map((second, index) => ({x: second, y: positions[index]})),
@@ -121,47 +118,16 @@ class PhysioMeasurementCompare extends LitElement {
                 };
             });
 
-        console.log('Final datasets for chart1:', datasets1);
-        console.log('Final datasets for chart2:', datasets2);
+        const combinedDatasets = [...datasets1, ...datasets2];
 
-        if (this.chart1) {
-            this.chart1.destroy();
+        if (this.chart) {
+            this.chart.destroy();
         }
 
-        if (this.chart2) {
-            this.chart2.destroy();
-        }
-
-        this.chart1 = new Chart(ctx1, {
+        this.chart = new Chart(ctx, {
             type: 'line',
             data: {
-                datasets: datasets1
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'linear',
-                        position: 'bottom',
-                        title: {
-                            display: true,
-                            text: 'Seconds'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Position'
-                        }
-                    }
-                }
-            }
-        });
-
-        this.chart2 = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                datasets: datasets2
+                datasets: combinedDatasets
             },
             options: {
                 scales: {
@@ -184,6 +150,7 @@ class PhysioMeasurementCompare extends LitElement {
             }
         });
     }
+
 
 
     getColorForJointType(jointType, isSecondChart = false) {
@@ -272,37 +239,37 @@ class PhysioMeasurementCompare extends LitElement {
     render() {
         if (!this.measurement1 || !this.measurement2) {
             return html`
-                <div class="container">
-                    <h2>Meting ${this.measurementId1} en ${this.measurementId2}</h2>
-                    <div class="loader"></div>
-                </div>
-            `;
+            <div class="container">
+                <h2>Meting ${this.measurementId1} en ${this.measurementId2}</h2>
+                <div class="loader"></div>
+            </div>
+        `;
         }
 
         return html`
-            <div class="container">
-                <div class="checkboxContainer">
-                    <h2>Meting ${this.measurementId1} en ${this.measurementId2}</h2>
-                    ${this.jointTypes.map(jointType => html`
-                        <input
-                                class="checkbox"
-                                type="checkbox"
-                                id="${jointType}"
-                                name="${jointType}"
-                                value="${jointType}"
-                                @change="${this.handleCheckboxChange}"
-                                ?checked="${this.checkedValues[jointType]}"
-                        >
-                        <label for="${jointType}">${jointType}</label><br>
-                    `)}
-                </div>
-                <div class="chartContainer">
-                    <canvas id="chart1"></canvas>
-                    <canvas id="chart2"></canvas>
-                </div>
+        <div class="container">
+            <div class="checkboxContainer">
+                <h2>Meting ${this.measurementId1} en ${this.measurementId2}</h2>
+                ${this.jointTypes.map(jointType => html`
+                    <input
+                            class="checkbox"
+                            type="checkbox"
+                            id="${jointType}"
+                            name="${jointType}"
+                            value="${jointType}"
+                            @change="${this.handleCheckboxChange}"
+                            ?checked="${this.checkedValues[jointType]}"
+                    >
+                    <label for="${jointType}">${jointType}</label><br>
+                `)}
             </div>
-        `;
+            <div class="chartContainer">
+                <canvas id="chart"></canvas>
+            </div>
+        </div>
+    `;
     }
+
 }
 
 
