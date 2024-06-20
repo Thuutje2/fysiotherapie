@@ -33,12 +33,13 @@ class PhysioMeasurementGraphs extends LitElement {
 
         this.requestUpdate();
         this.measurement = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId);
+        console.log("measurement: ", this.measurement)
         this.jointTypes = this.measurement.map(jointData => jointData.jointType);
     }
 
     async loadMeasurement(patientId, treatmentId, measurementId) {
         const result = await PatientService.getMeasurementById(patientId, treatmentId, measurementId);
-        console.log(result)
+        console.log("loadMeasurement: ", result)
         if (result.success) {
             return result.measurement;
         }
@@ -123,7 +124,7 @@ class PhysioMeasurementGraphs extends LitElement {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Position'
+                            text: 'Angles'
                         }
                     }
                 }
@@ -152,6 +153,15 @@ class PhysioMeasurementGraphs extends LitElement {
               flex-direction: column;
               padding: 1em;
               position: relative; 
+            }
+
+            .header-container {
+              display: flex;
+              align-items: center;
+            }
+    
+            .header-container button {
+              margin-right: 10px;
             }
           
             .container {
@@ -196,7 +206,10 @@ class PhysioMeasurementGraphs extends LitElement {
     render() {
         if (!this.measurement) {
             return html`
-                <h2>Meting ${this.measurementId}</h2>
+                <h2 class="header-container">
+                    <button @click="${this.goBack}">&larr;</button>
+                    Meting ${this.measurementId}
+                </h2>
                 <p><b>Patiëntnummer</b>: ${this.patientId}</p>
                 <p><b>Activiteit</b>: ${this.activity}</p>
                 <div class="container">
@@ -206,7 +219,10 @@ class PhysioMeasurementGraphs extends LitElement {
         }
 
         return html`
-            <h2>Meting ${this.measurementId}</h2>
+            <h2 class="header-container">
+                <button @click="${this.goBack}">&larr;</button>
+                Meting ${this.measurementId}
+            </h2>
             <p><b>Patiëntnummer</b>: ${this.patientId}</p>
             <p><b>Activiteit</b>: ${this.activity}</p>
             <div class="container">
@@ -227,6 +243,10 @@ class PhysioMeasurementGraphs extends LitElement {
                 <canvas id="chart"></canvas>
             </div>
         `;
+    }
+
+    goBack() {
+        history.back();
     }
 }
 customElements.define('physio-measurement-graphs', PhysioMeasurementGraphs);

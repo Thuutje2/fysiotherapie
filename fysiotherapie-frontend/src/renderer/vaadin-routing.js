@@ -6,6 +6,7 @@ import "./src/components/physio-main-page.js";
 import "./src/components/physio-patient-overview.js";
 import "./src/components/physio-patient-details.js";
 import "./src/components/physio-measurement-graphs.js";
+import "./src/components/sports2d-test.js"
 
 import {Router} from "@vaadin/router";
 import AuthService from "./src/service/auth-service.js";
@@ -71,6 +72,13 @@ router.setRoutes([
     {
         path: '/physio-measurement-graphs/patients/:patientId/treatments/:treatmentId/measurements/:measurementId',
         component: "physio-measurement-graphs",
+        action: async (context, commands) => {
+            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
+        },
+    },
+    {
+        path: "/physio-sports2d-test",
+        component: "sports2d-test",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },
