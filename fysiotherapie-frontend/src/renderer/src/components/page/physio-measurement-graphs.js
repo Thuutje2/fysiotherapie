@@ -9,8 +9,9 @@ class PhysioMeasurementGraphs extends LitElement {
             patientId: { type: String },
             treatmentId: { type: String },
             measurementId: { type: String },
-            measurement: { type: Object },
+
             activity: { type: String },
+
             compareMode: { type: Boolean },
             measurementId1: { type: String },
             measurementId2: { type: String },
@@ -21,7 +22,6 @@ class PhysioMeasurementGraphs extends LitElement {
 
     constructor() {
         super();
-        this.measurement = null;
         this.compareMode = false;
     }
 
@@ -39,15 +39,21 @@ class PhysioMeasurementGraphs extends LitElement {
             this.compareMode = true;
             this.measurement1 = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId1);
             this.measurement2 = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId2);
+            this.allJointTypes = await this.loadJointTypes(this.patientId, this.treatmentId, this.measurementId1);
             return;
         }
-
         this.measurementId = this.location.params.measurementId;
-        this.measurement = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId);
     }
 
-    async loadMeasurement(patientId, treatmentId, measurementId) {
-        const result = await PatientService.getMeasurementForPhysio(patientId, treatmentId, measurementId);
+    async loadJointTypes() {
+        const result = await PatientService.getJointTypesForPhysio(this.patientId, this.treatmentId, this.measurementId);
+        if (result.success) {
+            return result.jointTypes;
+        }
+    }
+
+    async loadMeasurementPerJoint(jointType) {
+        const result = await PatientService.getMeasurementForPhysioPerJoint(jointType);
         if (result.success) {
             return result.measurement;
         }
@@ -94,31 +100,24 @@ class PhysioMeasurementGraphs extends LitElement {
         <p><b>Patiëntnummer</b>: ${this.patientId}</p>
         ${this.compareMode
             ? html`
-                <div>
-                    ${!this.measurement1 || !this.measurement2 ? html`
-                        <div class="loader"></div>
-                    ` : html`
                         <measurement-compare-graphs
                             .measurement1="${this.measurement1}"
                             .measurement2="${this.measurement2}"
                             .measurementId1="${this.measurementId1}"
                             .measurementId2="${this.measurementId2}"
                         ></measurement-compare-graphs>
-                    `}
-                </div>
             `
             : html`
-                ${!this.measurement ? html`
-                    <p><b>Activiteit</b>: ${this.activity}</p>
-                    <div class="loader"></div>
-                ` : html`
-                    <measurement-graphs .measurement="${this.measurement}"></measurement-graphs>
-                `}
+                        <p><b>Activiteit</b>: ${this.activity}</p>
+                        <measurement-graphs
+                                .patientId="${this.patientId}"
+                                .treatmentId="${this.treatmentId}"
+                                .measurementId="${this.measurementId}">
+                        </measurement-graphs>
             `
         }
     `;
     }
-
 
     goBack() {
         history.back();

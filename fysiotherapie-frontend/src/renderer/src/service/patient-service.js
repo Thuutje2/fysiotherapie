@@ -113,12 +113,48 @@ export default class PatientService {
         }
     }
 
+    static async getMeasurementForPhysioPerJoint(patientId, treatmentId, measurementId, jointType) {
+        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}/joints/${jointType}`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
+        if (response.ok) {
+            const measurement = await response.json();
+            return { success: true, measurement: measurement }
+        }
+    }
+
+    static async getMeasurementForPatientPerJoint(treatmentId, measurementId, jointType) {
+        const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}/joints/${jointType}`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
+        if (response.ok) {
+            const measurement = await response.json();
+            return { success: true, measurement: measurement }
+        }
+    }
+
     static async getMeasurementForPatient(treatmentId, measurementId) {
         const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
         this.handleTokenExpiration(response);
         if (response.ok) {
             const measurement = await response.json();
             return { success: true, measurement: measurement }
+        }
+    }
+
+    static async getJointTypesForPhysio(patientId, treatmentId, measurementId) {
+        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}/joints`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
+        if (response.ok) {
+            const jointTypes = await response.json();
+            return { success: true, jointTypes: jointTypes }
+        }
+    }
+
+    static async getJointTypesForPatient(treatmentId, measurementId) {
+        const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}/joints`, this.getFetchOptionsGet());
+        this.handleTokenExpiration(response);
+        if (response.ok) {
+            const jointTypes = await response.json();
+            return { success: true, jointTypes: jointTypes }
         }
     }
 

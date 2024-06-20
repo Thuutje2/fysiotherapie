@@ -1,6 +1,7 @@
 package fysiotherapie.physiotherapy.application.service;
 
 import fysiotherapie.physiotherapy.application.dto.response.JointInfo;
+import fysiotherapie.physiotherapy.application.dto.response.JointTypesInfo;
 import fysiotherapie.physiotherapy.application.dto.response.MeasurementInfo;
 import fysiotherapie.physiotherapy.application.exception.MeasurementNotFoundException;
 import fysiotherapie.physiotherapy.data.MeasurementRepository;
@@ -74,7 +75,7 @@ public class MeasurementService {
         for(int i = 2; i < dataList.get(0).length; i++) {
             Map<Double, Double> secondsToPoints = new LinkedHashMap<>();
             Joint newJoint = new Joint();
-            newJoint.setJointType(dataList.get(0)[i]);
+            newJoint.setType(dataList.get(0)[i]);
             for(int j = 2; j < dataList.size() - 4; j++) {
                 double time = Double.parseDouble(seconds.get(j));
                 double point = Double.parseDouble(dataList.get(j)[i]);
@@ -92,10 +93,14 @@ public class MeasurementService {
                 new MeasurementNotFoundException("Measurement does not exist by given id"));
     }
 
+    private void sortJointByTime(Joint joint) {
+        TreeMap<Double, Double> sortedSecondsToPosition = new TreeMap<>(joint.getSecondsToPosition());
+        joint.setSecondsToPosition(sortedSecondsToPosition);
+    }
+
     private List<Joint> sortJointsByTime(List<Joint> joints) {
         for (Joint joint : joints) {
-            TreeMap<Double, Double> sortedSecondsToPosition = new TreeMap<>(joint.getSecondsToPosition());
-            joint.setSecondsToPosition(sortedSecondsToPosition);
+            sortJointByTime(joint);
         }
         return joints;
     }
@@ -143,6 +148,49 @@ public class MeasurementService {
         List<Measurement> measurements = measurementRepository.findAllByTreatmentId(treatmentId);
         return measurements.stream()
                 .map(MeasurementInfo::new)
+                .collect(Collectors.toList());
+    }
+
+    public JointInfo getMeasurementForPhysioPerJoint(String physiotherapistUsername, long patientId, long treatmentId,
+                                                           long measurementId, String jointType) {
+        physiotherapistService.checkIfPatientIsAssignedToPhysiotherapist(physiotherapistUsername, patientId);
+        patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
+        Measurement measurement = tryFindingMeasurementById(measurementId);
+        List<Joint> joints = measurement.getJoints();
+        Joint joint = jointService.getJointByTypeFromList(joints, jointType);
+        sortJointByTime(joint);
+        return new JointInfo(joint);
+    }
+
+    public JointInfo getMeasurementForPatientPerJoint(String email, long treatmentId, long measurementId,
+                                                     String jointType) {
+        Patient patient = patientService.tryFindingPatientByEmail(email);
+        patientService.checkTreatmentBelongsToPatient(patient.getId(), treatmentId);
+        Measurement measurement = tryFindingMeasurementById(measurementId);
+        List<Joint> joints = measurement.getJoints();
+        Joint joint = jointService.getJointByTypeFromList(joints, jointType);
+        sortJointByTime(joint);
+        return new JointInfo(joint);
+    }
+
+    public List<JointTypesInfo> getJointTypesForPhysio(String physiotherapistUsername, long patientId, long treatmentId,
+                                                        long measurementId) {
+        physiotherapistService.checkIfPatientIsAssignedToPhysiotherapist(physiotherapistUsername, patientId);
+        patientService.checkTreatmentBelongsToPatient(patientId, treatmentId);
+        Measurement measurement = tryFindingMeasurementById(measurementId);
+        List<Joint> joints = measurement.getJoints();
+        return joints.stream()
+                .map(JointTypesInfo::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<JointTypesInfo> getJointTypesForPatient(String email, long treatmentId, long measurementId) {
+        Patient patient = patientService.tryFindingPatientByEmail(email);
+        patientService.checkTreatmentBelongsToPatient(patient.getId(), treatmentId);
+        Measurement measurement = tryFindingMeasurementById(measurementId);
+        List<Joint> joints = measurement.getJoints();
+        return joints.stream()
+                .map(JointTypesInfo::new)
                 .collect(Collectors.toList());
     }
 }

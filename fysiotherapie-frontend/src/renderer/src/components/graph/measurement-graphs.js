@@ -1,83 +1,129 @@
 import { css, html, LitElement } from "lit";
 import Chart from 'chart.js/auto';
+import PatientService from "../../service/patient-service.js";
+import AuthService from "../../service/auth-service.js";
 
-class MeasurementGraphs extends LitElement {a
+class MeasurementGraphs extends LitElement {
+    a
+
     static get properties() {
         return {
-            measurement: { type: Object },
-            jointTypes: { type: Array },
-            jointPairs: { type: Object },
-            checkedValues: { type: Object }
+            _isAdmin: {type: Boolean},
+            _isUser: {type: Boolean},
+
+            patientId: {type: String},
+            treatmentId: {type: String},
+            measurementId: {type: String},
+            measurement: {type: Array},
+
+            allJointTypes: {type: Array},
+            allJointPairs: {type: Object},
+            checkedJoints: {type: Object}
         };
     }
 
     constructor() {
         super();
-        this.measurement = null;
-        this.jointTypes = [];
-        this.jointPairs = [];
-        this.checkedValues = {};
+        this._isAdmin = AuthService.isAdmin();
+        this._isUser = AuthService.isUser();
+
+        this.patientId = null;
+        this.treatmentId = null;
+        this.measurementId = null;
+        this.measurement = [];
+
+        this.allJointTypes = [];
+        this.allJointPairs = {};
+        this.checkedJoints = {};
         this.chart = null;
     }
 
     async connectedCallback() {
-        super.connectedCallback()
-        this.jointTypes = this.measurement.map(jointData => jointData.jointType);
-        this.jointPairs = this.groupJointTypes(this.jointTypes);
-        await this.updateComplete;
+        super.connectedCallback();
+        this.allJointTypes = await this.loadJointTypes();
+        this.allJointPairs = this.groupJointTypes(this.allJointTypes);
         this.renderChart();
+    }
+
+    async loadJointTypes() {
+        let result = [];
+        if (this._isAdmin) {
+            result = await PatientService.getJointTypesForPhysio(this.patientId, this.treatmentId, this.measurementId);
+        }
+        else if (this._isUser) {
+            result = await PatientService.getJointTypesForPatient(this.treatmentId, this.measurementId);
+        }
+        if (result.success) {
+            return result.jointTypes;
+        }
+    }
+
+    async loadMeasurementForPhysioPerJoint(jointType) {
+        const result = await PatientService.getMeasurementForPhysioPerJoint(this.patientId, this.treatmentId, this.measurementId, jointType);
+        if (result.success) {
+            return result.measurement;
+        }
+    }
+
+    async loadMeasurementForPatientPerJoint(jointType) {
+        const result = await PatientService.getMeasurementForPatientPerJoint(this.treatmentId, this.measurementId, jointType);
+        if (result.success) {
+            return result.measurement;
+        }
     }
 
     groupJointTypes(jointTypes) {
         const groupedJoints = {};
         jointTypes.forEach(joint => {
-            const key = joint.replace(/\b(left|right)\b/i, "").trim();
-            if (!groupedJoints[key]) {
-                groupedJoints[key] = [];
+            let type = joint.type.replace(/\b(left|right)\b/i, "").trim();
+            type = type.charAt(0).toUpperCase() + type.slice(1);
+
+            if (!groupedJoints[type]) {
+                groupedJoints[type] = [];
             }
-            groupedJoints[key].push(joint);
+            groupedJoints[type].push(joint.type);
         });
         return groupedJoints;
     }
 
-    handleCheckboxChange(event) {
-        const { id, checked } = event.target;
-        const checkedCount = Object.values(this.checkedValues).filter(val => val).length;
-
-        if (checked && checkedCount >= 2) {
-            event.target.checked = false;
-            return;
-        }
-
-        this.checkedValues = { ...this.checkedValues, [id]: checked };
-        this.renderChart();
-    }
-
-    getAllSecondsAndPositions(jointType) {
+    getAllSecondsAndAngles(jointType) {
+        debugger;
         if (!Array.isArray(this.measurement)) {
-            console.error("Measurements data is not available or is not an array.");
-            return { seconds: [], positions: [] };
+            return {seconds: [], angles: []};
         }
 
-        const data = this.measurement.find(item => item.jointType === jointType);
+        const data = this.measurement[jointType];
         if (data) {
             const seconds = Object.keys(data.secondsToPosition).map(parseFloat);
-            const positions = Object.values(data.secondsToPosition).map(parseFloat);
-            return { seconds, positions };
+            const angles = Object.values(data.secondsToPosition).map(parseFloat);
+            console.log({seconds, angles});
+            return {seconds, angles};
         }
-        return { seconds: [], positions: [] };
+        return {seconds: [], angles: []};
+    }
+
+    getColorForJointType(jointType) {
+        const colors = {};
+        const selectedJointTypes = Object.keys(this.checkedJoints).filter(jt => this.checkedJoints[jt]);
+        const index = selectedJointTypes.indexOf(jointType);
+        if (index !== -1) {
+            const defaultColors = ['rgb(75, 192, 192)', 'rgb(192, 75, 75)'];
+            return defaultColors[index % defaultColors.length];
+        } else {
+            return 'rgb(75, 75, 192)';
+        }
     }
 
     renderChart() {
         const ctx = this.shadowRoot.getElementById('chart').getContext('2d');
 
-        const datasets = Object.keys(this.checkedValues)
-            .filter(jointType => this.checkedValues[jointType])
+        const datasets = Object.keys(this.checkedJoints)
+            .filter(jointType => this.checkedJoints[jointType])
             .map(jointType => {
-                const { seconds, positions } = this.getAllSecondsAndPositions(jointType);
+                const {seconds, angles} = this.getAllSecondsAndAngles(jointType);
                 return {
                     label: jointType,
-                    data: seconds.map((second, index) => ({ x: second, y: positions[index] })),
+                    data: seconds.map((second, index) => ({x: second, y: angles[index]})),
                     borderColor: this.getColorForJointType(jointType),
                     borderWidth: 1,
                     fill: false
@@ -113,19 +159,6 @@ class MeasurementGraphs extends LitElement {a
                 }
             }
         });
-    }
-
-    getColorForJointType(jointType) {
-        const colors = {
-        };
-        const selectedJointTypes = Object.keys(this.checkedValues).filter(jt => this.checkedValues[jt]);
-        const index = selectedJointTypes.indexOf(jointType);
-        if (index !== -1) {
-            const defaultColors = ['rgb(75, 192, 192)', 'rgb(192, 75, 75)'];
-            return defaultColors[index % defaultColors.length];
-        } else {
-            return 'rgb(75, 75, 192)';
-        }
     }
 
     static get styles() {
@@ -171,40 +204,74 @@ class MeasurementGraphs extends LitElement {a
     }
 
     render() {
+        console.log(this.allJointPairs)
         return html`
-        <div class="joint-checkboxes">
-        ${Object.entries(this.jointPairs).map(([key, value]) => html`
-            <div class="joint-pairs">
-            ${value[1] ? html`
-                <div class="joint-left">
-                    <input 
-                        class="checkbox" 
-                        type="checkbox" 
-                        id="${value[1]}" 
-                        name="${value[1]}" 
-                        value="${value[1]}"
-                        @change="${this.handleCheckboxChange}"
-                        ?checked="${this.checkedValues[value[1]]}">
-                    <label class="joint-name" for="${value[1]}">${value[1]}</label>
-                </div>` : ''}
-                
-                ${value[0] ? html`
-                <div class="joint-right">
-                    <input 
-                        class="checkbox" 
-                        type="checkbox" 
-                        id="${value[0]}" 
-                        name="${value[0]}" 
-                        value="${value[0]}"
-                        @change="${this.handleCheckboxChange}"
-                        ?checked="${this.checkedValues[value[0]]}">
-                    <label class="joint-name" for="${value[0]}">${value[0]}</label>
-                </div>` : ''}
+            <div class="joint-checkboxes">
+                ${Object.entries(this.allJointPairs).map(([key, value]) => html`
+                    <div class="joint-pairs">
+                        ${value[1] ? html`
+                            <div class="joint-left">
+                                <input
+                                        class="checkbox"
+                                        type="checkbox"
+                                        id="${value[1]}"
+                                        name="${value[1]}"
+                                        value="${value[1]}"
+                                        @change="${this.handleCheckboxChange}"
+                                        ?checked="${this.checkedJoints[value[1]]}">
+                                <label class="joint-name" for="${value[1]}">${value[1]}</label>
+                            </div>` : ''}
+
+                        ${value[0] ? html`
+                            <div class="joint-right">
+                                <input
+                                        class="checkbox"
+                                        type="checkbox"
+                                        id="${value[0]}"
+                                        name="${value[0]}"
+                                        value="${value[0]}"
+                                        @change="${this.handleCheckboxChange}"
+                                        ?checked="${this.checkedJoints[value[0]]}">
+                                <label class="joint-name" for="${value[0]}">${value[0]}</label>
+                            </div>` : ''}
+                    </div>
+                `)}
+                <canvas id="chart"></canvas>
             </div>
-        `)}
-            <canvas id="chart"></canvas>
-        </div> 
-    `;
+        `;
+    }
+
+    async handleCheckboxChange(event) {
+        debugger;
+        const {id, checked} = event.target;
+        const checkedJointCount = Object.values(this.checkedJoints).filter(val => val).length;
+
+        if (checked && checkedJointCount >= 2) {
+            event.target.checked = false;
+            return;
+        }
+
+        this.checkedJoints = {...this.checkedJoints, [id]: checked};
+        await this.handleJointTypeChange();
+        this.renderChart();
+    }
+
+    async handleJointTypeChange() {
+        for (const [id, isChecked] of Object.entries(this.checkedJoints)) {
+            if (isChecked && !this.measurement[id]) {
+                let measurement = null;
+                if (this._isAdmin) {
+                    measurement = await this.loadMeasurementForPhysioPerJoint(id);
+                }
+                else if (this._isUser) {
+                    measurement = await this.loadMeasurementForPatientPerJoint(id);
+                }
+                if (measurement) {
+                    this.measurement[id] = measurement;
+                }
+            }
+        }
+        this.requestUpdate();
     }
 }
 customElements.define('measurement-graphs', MeasurementGraphs);

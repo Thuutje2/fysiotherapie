@@ -2,20 +2,20 @@ import { css, html, LitElement } from "lit";
 import PatientService from "../../service/patient-service.js";
 import "../graph/measurement-graphs.js";
 
-class PatientMeasurementGraphs extends LitElement {a
+class PatientMeasurementGraphs extends LitElement {
     static get properties() {
         return {
             patientId: { type: String },
             treatmentId: { type: String },
             measurementId: { type: String },
-            measurement: { type: Object },
-            activity: { type: String }
+            activity: { type: String },
+            renderComplete: { type: Boolean }
         };
     }
 
     constructor() {
         super();
-        this.measurement = null;
+        this.renderComplete = false;
     }
 
     async connectedCallback() {
@@ -25,24 +25,16 @@ class PatientMeasurementGraphs extends LitElement {a
         this.measurementId = this.location.params.measurementId;
         const urlParams = new URLSearchParams(window.location.search);
         this.activity = urlParams.get("activity");
-        this.measurement = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId);
+        this.renderComplete = true;
     }
 
     async loadPatientDetails() {
         const result = await PatientService.getPatientDetails();
         if (result.success) {
-            this.patientId = result.patient.id;
+            this.patientId = String(result.patient.id);
         } else {
             this.error = result.error;
         }
-    }
-
-    async loadMeasurement(patientId, treatmentId, measurementId) {
-        const result = await PatientService.getMeasurementForPatient(treatmentId, measurementId);
-        if (result.success) {
-            return result.measurement;
-        }
-        return null;
     }
 
     static get styles() {
@@ -75,22 +67,27 @@ class PatientMeasurementGraphs extends LitElement {a
     }
 
     render() {
+        if (!this.renderComplete) {
+            return html``;
+        }
+
         return html`
-        <h2>
-            <button class="back-button" @click="${this.goBack}">&#8249;</button>
-            Meting ${this.measurementId}
-        </h2>
-        <p><b>Activiteit</b>: ${this.activity}</p>
-        ${!this.measurement ? html`
-            <div class="loader"></div>
-        ` : html`
-            <measurement-graphs .measurement="${this.measurement}"></measurement-graphs>
-        `}
-    `;
+            <h2>
+                <button class="back-button" @click="${this.goBack}">&#8249;</button>
+                Meting ${this.measurementId}
+            </h2>
+            <p><b>Activiteit</b>: ${this.activity}</p>
+            <measurement-graphs 
+                .patientId="${this.patientId}"
+                .treatmentId="${this.treatmentId}"
+                .measurementId="${this.measurementId}">
+            </measurement-graphs>
+        `;
     }
 
     goBack() {
         history.back();
     }
 }
+
 customElements.define('patient-measurement-graphs', PatientMeasurementGraphs);

@@ -5,11 +5,11 @@ import fysiotherapie.physiotherapy.domain.Joint;
 import java.util.Map;
 
 public class JointInfo {
-    public String jointType;
+    public String type;
     public Map<Double, Double> secondsToPosition;
 
     public JointInfo(Joint joint) {
-        this.jointType = joint.getJointType();
+        this.type = joint.getType();
         this.secondsToPosition = joint.getSecondsToPosition();
     }
 }
