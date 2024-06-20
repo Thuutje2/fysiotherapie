@@ -16,7 +16,9 @@ class PhysioPatientDetails extends LitElement {
             isPopupAddTreatmentVisible: { type: Boolean },
             isPopupAddMeasurementVisible: { type: Boolean },
             isUploading: { type: Boolean },
-            sortOrder: { type: String }
+            sortOrder: { type: String },
+            compareMode: { type: Boolean },
+            selectedMeasurements: { type: Object }
         };
     }
 
@@ -30,6 +32,8 @@ class PhysioPatientDetails extends LitElement {
         this.isPopupAddMeasurementVisible = false;
         this.isUploading = false;
         this.sortOrder = 'desc';
+        this.compareMode = false;
+        this.selectedMeasurements = new Set();
     }
 
     async connectedCallback() {
@@ -64,6 +68,12 @@ class PhysioPatientDetails extends LitElement {
         return null;
     }
 
+    toggleCompareMode() {
+        this.compareMode = !this.compareMode;
+        this.selectedMeasurements.clear();
+        this.requestUpdate();
+    }
+
     showAddTreatmentOverlay(container) {
         this.isPopupAddTreatmentVisible = true;
     }
@@ -90,6 +100,12 @@ class PhysioPatientDetails extends LitElement {
             this.sortOrder = 'asc';
         }
         this.treatments = sortedTreatments;
+    }
+
+    async selectTreatment(treatment) {
+        this.selectedTreatment = treatment;
+        this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, treatment.id);
+        this.compareMode = false;
     }
 
     static get styles() {
@@ -129,17 +145,22 @@ class PhysioPatientDetails extends LitElement {
                 margin-left: 100px;
             }
             
-            .add-treatment-button, .add-measurement-button {
+            .add-treatment-button, .add-measurement-button, .compare-measurement-button, .compare-measurement-finished-button {
                 float: right;
                 background-color: rgb(50, 151, 223);
                 color: white;
                 border: none;
                 border-radius: 3px;
                 padding: 0.5em 1em;
+                cursor: pointer;
             }
 
-            .add-treatment-button:hover, .add-measurement-button:hover {
-                cursor: pointer;
+            .compare-measurement-button {
+                margin-right: 5px;
+            }
+            
+            .compare-measurement-finished-button {
+                margin-top: 5px;
             }
 
             .add-treatment-overlay, .add-measurement-overlay {
@@ -281,16 +302,26 @@ class PhysioPatientDetails extends LitElement {
             : ''}
             </div>
             <div class="measurement-table">
-                <h3>Meethistorie ${this.selectedTreatment
-            ? html`<button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
-            : ''}
+                <h3>Meethistorie
+                    ${this.selectedTreatment ? html`
+                        <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>
+                        ${this.measurements && this.measurements.length > 1 ? html`
+                            <button class="compare-measurement-button" @click="${this.toggleCompareMode}">
+                                ${this.compareMode ? html`Annuleer vergelijking` : html`Vergelijk metingen`}
+                            </button>
+                        ` : ''}
+                    ` : ''}
                 </h3>
                 <div class="measurement-history">
                     <measurements-table   .measurements="${this.measurements}"
                                           .selectedTreatment="${this.selectedTreatment}"
+                                          .selectedMeasurements="${this.selectedMeasurements}"
+                                          .compareMode="${this.compareMode}"
                                           @measurement-clicked="${this.handleMeasurementClicked}">
                     </measurements-table>
                 </div>
+                <button class="compare-measurement-finished-button"
+                        @click="${this.handleCompareMeasurements}" ?hidden="${!this.compareMode}">Vergelijk</button>
             </div>
         </div>
         
@@ -351,6 +382,18 @@ class PhysioPatientDetails extends LitElement {
         const { id: measurementId, activity } = event.detail.measurement;
         const treatmentId = this.selectedTreatment.id;
         Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
+    }
+
+    handleCompareMeasurements(){
+        const selectedMeasurements = Array.from(this.selectedMeasurements);
+        if (selectedMeasurements.length !== 2){
+            return;
+        }
+        const treatmentId = this.selectedTreatment.id;
+        const measurementId1 = selectedMeasurements[0];
+        const measurementId2 = selectedMeasurements[1];
+
+        Router.go(`/physio-measurement-compare/patients/${this.patientId}/treatments/${treatmentId}/compare/${measurementId1}/${measurementId2}`);
     }
 
     handleAddTreatmentOverlayClick(event) {

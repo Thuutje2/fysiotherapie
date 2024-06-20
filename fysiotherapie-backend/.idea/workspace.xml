@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/out/main/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/out/main/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/out/preload/preload.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/out/preload/preload.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/table/measurements-table.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/table/measurements-table.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +36,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.FysioApplication.executor": "Run",
-    "git-widget-placeholder": "FE-dev",
+    "git-widget-placeholder": "72-grafieken-vergelijken-mergen-met-fe",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend",
     "node.js.detected.package.eslint": "true",
