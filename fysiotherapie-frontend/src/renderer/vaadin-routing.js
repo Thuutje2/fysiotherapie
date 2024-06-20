@@ -7,7 +7,6 @@ import "./src/components/page/physio-patient-overview.js";
 import "./src/components/page/physio-patient-details.js";
 import "./src/components/page/physio-measurement-graphs.js";
 import "./src/components/page/patient-measurement-graphs.js";
-import "./src/components/page/physio-measurement-compare.js";
 
 import {Router} from "@vaadin/router";
 import AuthService from "./src/service/auth-service.js";
@@ -78,15 +77,8 @@ router.setRoutes([
         },
     },
     {
-        path: '/physio-measurement-graphs/patients/:patientId/treatments/:treatmentId/measurements/:measurementId',
+        path: "/physio-measurement-graphs/patients/:patientId/treatments/:treatmentId/measurements/:measurementId",
         component: "physio-measurement-graphs",
-        action: async (context, commands) => {
-            return await protectedContentRedirect(commands, [ROLE_ADMIN]);
-        },
-    },
-    {
-        path: '/physio-measurement-compare/patients/:patientId/treatments/:treatmentId/compare/:measurementId1/:measurementId2',
-        component: "physio-measurement-compare",
         action: async (context, commands) => {
             return await protectedContentRedirect(commands, [ROLE_ADMIN]);
         },

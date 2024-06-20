@@ -1,15 +1,10 @@
 import { css, html, LitElement } from "lit";
-import PatientService from "../service/patient-service.js";
-import { Router } from "@vaadin/router";
+import PatientService from "../../service/patient-service.js";
 import Chart from 'chart.js/auto';
 
-class PhysioMeasurementCompare extends LitElement {
+class MeasurementCompareGraphs extends LitElement {
     static get properties() {
         return {
-            patientId: {type: String},
-            treatmentId: {type: String},
-            measurementId1: {type: String},
-            measurementId2: {type: String},
             measurement1: {type: Object},
             measurement2: {type: Object},
             jointTypes: {type: Array},
@@ -21,29 +16,38 @@ class PhysioMeasurementCompare extends LitElement {
         super();
         this.measurement1 = null;
         this.measurement2 = null;
+        this.jointTypes = [];
+        this.jointPairs = [];
         this.checkedValues = {};
-        this.chart1 = null;
-        this.chart2 = null;
+        this.chart = null;
     }
 
     async connectedCallback() {
-        super.connectedCallback();
-        this.patientId = this.location.params.patientId;
-        this.treatmentId = this.location.params.treatmentId;
-        this.measurementId1 = this.location.params.measurementId1;
-        this.measurementId2 = this.location.params.measurementId2;
+        super.connectedCallback()
+        if (this.measurement1 && this.measurement2) {
+            if (Array.isArray(this.measurement1)) {
+                this.jointTypes = this.measurement1.map(jointData => jointData.jointType);
+                this.jointPairs = this.groupJointTypes(this.jointTypes);
+                await this.updateComplete;
+                this.renderChart();
+            }
+        }
+    }
 
-        this.requestUpdate();
-        this.measurement1 = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId1);
-        console.log('Loaded measurement1:', this.measurement1);
-        this.measurement2 = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId2);
-        console.log('Loaded measurement2:', this.measurement2);
-        this.jointTypes = this.measurement1.map(jointData => jointData.jointType);
-        console.log('Joint types:', this.jointTypes);
+    groupJointTypes(jointTypes) {
+        const groupedJoints = {};
+        jointTypes.forEach(joint => {
+            const key = joint.replace(/\b(left|right)\b/i, "").trim();
+            if (!groupedJoints[key]) {
+                groupedJoints[key] = [];
+            }
+            groupedJoints[key].push(joint);
+        });
+        return groupedJoints;
     }
 
     async loadMeasurement(patientId, treatmentId, measurementId) {
-        const result = await PatientService.getMeasurementById(patientId, treatmentId, measurementId);
+        const result = await PatientService.getMeasurementForPhysio(patientId, treatmentId, measurementId);
         console.log('Result for measurementId', measurementId, ':', result);
         if (result.success) {
             console.log(result.measurement)
@@ -62,13 +66,7 @@ class PhysioMeasurementCompare extends LitElement {
         }
 
         this.checkedValues = {...this.checkedValues, [id]: checked};
-        this.renderChart(); // Roep renderChart aan om alle geselecteerde datasets te tonen
-    }
-
-    destroyChart() {
-        if (this.chart) {
-            this.chart.destroy();
-        }
+        this.renderChart();
     }
 
     getSecondsAndPositions(measurement, jointType) {
@@ -96,7 +94,7 @@ class PhysioMeasurementCompare extends LitElement {
             .map(jointType => {
                 const {seconds, positions} = this.getSecondsAndPositions(this.measurement1, jointType);
                 return {
-                    label: `${jointType} - Meting ${this.measurementId1}`,
+                    label: `${jointType} - Meting ${this.measurement1.id}`,
                     data: seconds.map((second, index) => ({x: second, y: positions[index]})),
                     borderColor: this.getColorForJointType(jointType),
                     borderWidth: 1,
@@ -109,7 +107,7 @@ class PhysioMeasurementCompare extends LitElement {
             .map(jointType => {
                 const {seconds, positions} = this.getSecondsAndPositions(this.measurement2, jointType);
                 return {
-                    label: `${jointType} - Meting ${this.measurementId2}`,
+                    label: `${jointType} - Meting ${this.measurement2.id}`,
                     data: seconds.map((second, index) => ({x: second, y: positions[index]})),
                     borderColor: this.getColorForJointType(jointType, true),
                     borderWidth: 1,
@@ -142,7 +140,7 @@ class PhysioMeasurementCompare extends LitElement {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Position'
+                            text: 'Angles'
                         }
                     }
                 }
@@ -150,12 +148,7 @@ class PhysioMeasurementCompare extends LitElement {
         });
     }
 
-
-
     getColorForJointType(jointType, isSecondChart = false) {
-        const colors = {
-            // Define colors for each jointType
-        };
         const selectedJointTypes = Object.keys(this.checkedValues).filter(jt => this.checkedValues[jt]);
         const index = selectedJointTypes.indexOf(jointType);
         if (index !== -1) {
@@ -168,108 +161,83 @@ class PhysioMeasurementCompare extends LitElement {
 
     static get styles() {
         return css`
-            :host {
-                display: flex;
-                flex-direction: column;
-                padding: 1em;
-                position: relative;
-            }
-
             .container {
                 display: flex;
-                flex-direction: row; 
+                flex-direction: column;
                 align-items: flex-start;
-                justify-content: space-between; 
-                flex-wrap: wrap; 
+                width: 100%;
             }
 
-            .checkboxContainer {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin-right: 20px;
-                width: 150px;
-                flex-shrink: 0; 
+            .joint-title {
+                width: 100%;
+                margin-bottom: 0;
+                padding: 0;
+            }
+
+            .joint-checkboxes {
+                font-size: 11px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+
+            .joint-pairs {
+                width: 105px;
+                margin-right: 10px;
+                margin-bottom: 10px;
             }
 
             .checkbox {
                 margin-right: 10px;
             }
 
-            .loader {
-                width: 20px;
-                aspect-ratio: 4;
-                background: radial-gradient(circle closest-side, #000 90%, #0000) 0/calc(100% / 3) 100% space;
-                clip-path: inset(0 100% 0 0);
-                animation: l1 1s steps(4) infinite;
-            }
-
-            @keyframes l1 {
-                to {
-                    clip-path: inset(0 -34% 0 0)
-                }
-            }
-
-            .chartContainer {
-                display: flex;
-                flex-direction: column;
-                flex-grow: 1; /* Laat de grafiekcontainer meegroeien met beschikbare ruimte */
-                margin-left: 20px; /* Voeg wat ruimte toe tussen checkboxContainer en charts */
-            }
-
             canvas {
-                width: 100%; /* Laat de grafieken de volledige breedte van de container gebruiken */
-                height: 500px; /* Pas de hoogte aan naar wens */
-                margin-top: 20px;
-            }
-
-            @media (min-width: 768px) {
-                .container {
-                    flex-wrap: nowrap; /* Voorkom dat items op een nieuwe rij gaan bij grotere schermen */
-                }
-
-                .checkboxContainer {
-                    width: 300px; /* Maak de checkbox container breder op grotere schermen */
-                }
+                max-height: 90.5%;
+                max-width: 90%;
+                margin-top: 5px;
+                flex: 2;
+                padding: 0;
             }
         `;
     }
-
 
     render() {
-        if (!this.measurement1 || !this.measurement2) {
-            return html`
-            <div class="container">
-                <h2>Meting ${this.measurementId1} en ${this.measurementId2}</h2>
-                <div class="loader"></div>
-            </div>
-        `;
-        }
-
         return html`
-        <div class="container">
-            <div class="checkboxContainer">
-                <h2>Meting ${this.measurementId1} en ${this.measurementId2}</h2>
-                ${this.jointTypes.map(jointType => html`
-                    <input
-                            class="checkbox"
-                            type="checkbox"
-                            id="${jointType}"
-                            name="${jointType}"
-                            value="${jointType}"
-                            @change="${this.handleCheckboxChange}"
-                            ?checked="${this.checkedValues[jointType]}"
-                    >
-                    <label for="${jointType}">${jointType}</label><br>
-                `)}
+            <div class="joint-checkboxes">
+                ${Object.entries(this.jointPairs).map(([key, value]) => html`
+            <div class="joint-pairs">
+            ${value[1] ? html`
+                <div class="joint-left">
+                    <input 
+                        class="checkbox" 
+                        type="checkbox" 
+                        id="${value[1]}" 
+                        name="${value[1]}" 
+                        value="${value[1]}"
+                        @change="${this.handleCheckboxChange}"
+                        ?checked="${this.checkedValues[value[1]]}">
+                    <label class="joint-name" for="${value[1]}">${value[1]}</label>
+                </div>` : ''}
+                
+                ${value[0] ? html`
+                <div class="joint-right">
+                    <input 
+                        class="checkbox" 
+                        type="checkbox" 
+                        id="${value[0]}" 
+                        name="${value[0]}" 
+                        value="${value[0]}"
+                        @change="${this.handleCheckboxChange}"
+                        ?checked="${this.checkedValues[value[0]]}">
+                    <label class="joint-name" for="${value[0]}">${value[0]}</label>
+                </div>` : ''}
             </div>
-            <div class="chartContainer">
+        `)}
                 <canvas id="chart"></canvas>
             </div>
-        </div>
-    `;
+        `;
     }
-
 }
 
 
-customElements.define('physio-measurement-compare', PhysioMeasurementCompare);
+customElements.define('measurement-compare-graphs', MeasurementCompareGraphs);

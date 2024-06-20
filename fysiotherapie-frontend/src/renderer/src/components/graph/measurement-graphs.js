@@ -21,7 +21,6 @@ class MeasurementGraphs extends LitElement {a
     }
 
     async connectedCallback() {
-        debugger;
         super.connectedCallback()
         this.jointTypes = this.measurement.map(jointData => jointData.jointType);
         this.jointPairs = this.groupJointTypes(this.jointTypes);

@@ -91,7 +91,7 @@ class MeasurementsTable extends LitElement {
     render() {
         return html`
             ${this.selectedTreatment
-                    ? html`
+            ? html`
                         <table>
                             <thead>
                             <tr>
@@ -104,13 +104,13 @@ class MeasurementsTable extends LitElement {
                             </thead>
                             <tbody>
                             ${this.measurements && this.measurements.length > 0
-                                    ? html`
+                ? html`
                                         ${this.measurements.map(measurement => html`
                                             <tr @click="${this.compareMode
-                                                    ? () => this.toggleCheckboxOnClickRow
-                                                    : () => this.handleMeasurementClick(measurement)}">
+                    ? () => this.toggleCheckboxOnClickRow
+                    : () => this.handleMeasurementClick(measurement)}">
                                                 ${this.compareMode
-                                                        ? html`
+                    ? html`
                                                             <td class="select-column-data">
                                                                 <div @click="${(event) => event.stopPropagation()}">
                                                                     <input type="checkbox"
@@ -119,7 +119,7 @@ class MeasurementsTable extends LitElement {
                                                                            @change="${(event) => this.toggleMeasurementSelection(event, measurement.id)}">
                                                                 </div>
                                                             </td>`
-                                                        : ''}
+                    : ''}
                                                 <td>${measurement.id}</td>
                                                 <td>${measurement.date}</td>
                                                 <td>${measurement.time}</td>
@@ -127,16 +127,16 @@ class MeasurementsTable extends LitElement {
                                             </tr>
                                         `)}
                                     `
-                                    : html`
+                : html`
                                         <tr>
                                             <td colspan="5">Geen metingen beschikbaar</td>
                                         </tr>
                                     `
-                            }
+            }
                             </tbody>
                         </table>`
-                    : html`<p>Selecteer eerst een behandeling</p>`
-            }
+            : html`<p>Selecteer eerst een behandeling</p>`
+        }
         `;
     }
 }

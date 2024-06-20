@@ -393,7 +393,7 @@ class PhysioPatientDetails extends LitElement {
         const measurementId1 = selectedMeasurements[0];
         const measurementId2 = selectedMeasurements[1];
 
-        Router.go(`/physio-measurement-compare/patients/${this.patientId}/treatments/${treatmentId}/compare/${measurementId1}/${measurementId2}`);
+        Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId1}?compare=${encodeURIComponent(measurementId2)}`);
     }
 
     handleAddTreatmentOverlayClick(event) {
