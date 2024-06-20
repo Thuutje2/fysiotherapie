@@ -4,10 +4,12 @@ import Chart from 'chart.js/auto';
 class MeasurementCompareGraphs extends LitElement {
     static get properties() {
         return {
-            measurement1: {type: Object},
-            measurement2: {type: Object},
-            jointTypes: {type: Array},
-            checkedValues: {type: Object}
+            measurement1: { type: Object },
+            measurement2: { type: Object },
+            measurementId1: { type: String },
+            measurementId2: { type: String },
+            jointTypes: { type: Array },
+            checkedValues: { type: Object }
         };
     }
 
@@ -22,7 +24,9 @@ class MeasurementCompareGraphs extends LitElement {
     }
 
     async connectedCallback() {
-        super.connectedCallback()
+        super.connectedCallback();
+        console.log('MeasurementCompareGraphs - measurementId1:', this.measurementId1);
+        console.log('MeasurementCompareGraphs - measurementId2:', this.measurementId2);
         if (this.measurement1 && this.measurement2) {
             if (Array.isArray(this.measurement1)) {
                 this.jointTypes = this.measurement1.map(jointData => jointData.jointType);
@@ -59,9 +63,7 @@ class MeasurementCompareGraphs extends LitElement {
     }
 
     getSecondsAndPositions(measurement, jointType) {
-        console.log('Getting seconds and positions for jointType:', jointType);
         if (!Array.isArray(measurement)) {
-            console.error("Measurement data is not available or is not an array.");
             return {seconds: [], positions: []};
         }
 
@@ -69,7 +71,6 @@ class MeasurementCompareGraphs extends LitElement {
         if (data) {
             const seconds = Object.keys(data.secondsToPosition).map(parseFloat);
             const positions = Object.values(data.secondsToPosition).map(parseFloat);
-            console.log('Seconds:', seconds, 'Positions:', positions);
             return {seconds, positions};
         }
         return {seconds: [], positions: []};
@@ -83,7 +84,7 @@ class MeasurementCompareGraphs extends LitElement {
             .map(jointType => {
                 const {seconds, positions} = this.getSecondsAndPositions(this.measurement1, jointType);
                 return {
-                    label: `${jointType} - Meting ${this.measurement1.id}`,
+                    label: `${jointType} - Meting ${this.measurementId1}`,
                     data: seconds.map((second, index) => ({x: second, y: positions[index]})),
                     borderColor: this.getColorForJointType(jointType),
                     borderWidth: 1,
@@ -96,7 +97,7 @@ class MeasurementCompareGraphs extends LitElement {
             .map(jointType => {
                 const {seconds, positions} = this.getSecondsAndPositions(this.measurement2, jointType);
                 return {
-                    label: `${jointType} - Meting ${this.measurement2.id}`,
+                    label: `${jointType} - Meting ${this.measurementId2}`,
                     data: seconds.map((second, index) => ({x: second, y: positions[index]})),
                     borderColor: this.getColorForJointType(jointType, true),
                     borderWidth: 1,

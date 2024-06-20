@@ -101,6 +101,8 @@ class PhysioMeasurementGraphs extends LitElement {
                         <measurement-compare-graphs
                             .measurement1="${this.measurement1}"
                             .measurement2="${this.measurement2}"
+                            .measurementId1="${this.measurementId1}"
+                            .measurementId2="${this.measurementId2}"
                         ></measurement-compare-graphs>
                     `}
                 </div>
