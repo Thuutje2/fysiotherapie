@@ -1,5 +1,4 @@
 import { css, html, LitElement } from "lit";
-import PatientService from "../../service/patient-service.js";
 import Chart from 'chart.js/auto';
 
 class MeasurementCompareGraphs extends LitElement {
@@ -44,16 +43,6 @@ class MeasurementCompareGraphs extends LitElement {
             groupedJoints[key].push(joint);
         });
         return groupedJoints;
-    }
-
-    async loadMeasurement(patientId, treatmentId, measurementId) {
-        const result = await PatientService.getMeasurementForPhysio(patientId, treatmentId, measurementId);
-        console.log('Result for measurementId', measurementId, ':', result);
-        if (result.success) {
-            console.log(result.measurement)
-            return result.measurement;
-        }
-        return null;
     }
 
     handleCheckboxChange(event) {
