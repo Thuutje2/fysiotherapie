@@ -173,7 +173,7 @@ class MeasurementGraphs extends LitElement {a
     }
 
     render() {
-    return html`
+        return html`
         <div class="joint-checkboxes">
         ${Object.entries(this.jointPairs).map(([key, value]) => html`
             <div class="joint-pairs">
