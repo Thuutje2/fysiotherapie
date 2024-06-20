@@ -415,7 +415,6 @@ class PhysioPatientDetails extends LitElement {
         const result = await PatientService.postTreatment(this.patientId, treatment);
 
         if (result.success === true) {
-            debugger;
             this.sortOrder = 'asc';
             this.sortTreatmentsByStartDate();
             this.treatments = [...this.treatments, result.treatment];

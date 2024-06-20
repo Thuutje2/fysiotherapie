@@ -29,7 +29,6 @@ class MeasurementGraphs extends LitElement {a
     }
 
     groupJointTypes(jointTypes) {
-        debugger;
         const groupedJoints = {};
         jointTypes.forEach(joint => {
             const key = joint.replace(/\b(left|right)\b/i, "").trim();

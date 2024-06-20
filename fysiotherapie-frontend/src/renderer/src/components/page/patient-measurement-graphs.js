@@ -19,7 +19,6 @@ class PatientMeasurementGraphs extends LitElement {a
     }
 
     async connectedCallback() {
-        debugger;
         super.connectedCallback();
         await this.loadPatientDetails();
         this.treatmentId = this.location.params.treatmentId;
@@ -39,7 +38,6 @@ class PatientMeasurementGraphs extends LitElement {a
     }
 
     async loadMeasurement(patientId, treatmentId, measurementId) {
-        debugger;
         const result = await PatientService.getMeasurementForPatient(treatmentId, measurementId);
         if (result.success) {
             return result.measurement;

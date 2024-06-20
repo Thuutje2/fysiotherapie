@@ -7,7 +7,6 @@ class TreatmentsTable extends LitElement {
     };
 
     handleSelectTreatment(treatment) {
-        debugger;
         const event = new CustomEvent("treatment-selected", {
             detail: { treatment },
             bubbles: true,
@@ -17,7 +16,6 @@ class TreatmentsTable extends LitElement {
     }
 
     sortTreatmentsByStartDate() {
-        debugger;
         const event = new CustomEvent("treatment-sorted", {
             bubbles: true,
             composed: true
