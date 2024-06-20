@@ -61,7 +61,7 @@ class PhysioPatientDetails extends LitElement {
     }
 
     async loadMeasurementsOfTreatment(patientId, treatmentId) {
-        const result = await PatientService.getMeasurements(patientId, treatmentId);
+        const result = await PatientService.getMeasurements(patientId, String(treatmentId));
         if (result.success) {
             return result.measurements;
         }

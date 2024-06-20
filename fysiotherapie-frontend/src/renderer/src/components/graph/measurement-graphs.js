@@ -4,8 +4,6 @@ import PatientService from "../../service/patient-service.js";
 import AuthService from "../../service/auth-service.js";
 
 class MeasurementGraphs extends LitElement {
-    a
-
     static get properties() {
         return {
             _isAdmin: {type: Boolean},
@@ -96,7 +94,6 @@ class MeasurementGraphs extends LitElement {
         if (data) {
             const seconds = Object.keys(data.secondsToPosition).map(parseFloat);
             const angles = Object.values(data.secondsToPosition).map(parseFloat);
-            console.log({seconds, angles});
             return {seconds, angles};
         }
         return {seconds: [], angles: []};
