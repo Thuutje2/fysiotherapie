@@ -33,7 +33,7 @@ class PatientHistory extends LitElement {
     async loadPatientDetails() {
         const result = await PatientService.getPatientDetails();
         if (result.success) {
-            this.patient = result.patient;
+            this.patient = result.data;
         } else {
             this.error = result.error;
         }
@@ -42,7 +42,7 @@ class PatientHistory extends LitElement {
     async loadTreatmentsOfPatient(patientId) {
         const result = await PatientService.getTreatmentsByPatientId(patientId);
         if (result.success) {
-            return result.treatments;
+            return result.data;
         }
         return null;
     }
@@ -50,7 +50,7 @@ class PatientHistory extends LitElement {
     async loadMeasurementsOfTreatment(patientId, treatmentId) {
         const result = await PatientService.getMeasurements(patientId, treatmentId);
         if (result.success) {
-            return result.measurements;
+            return result.data;
         }
         return null;
     }

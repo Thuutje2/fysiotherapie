@@ -57,21 +57,21 @@ class MeasurementCompareGraphs extends LitElement {
             result = await PatientService.getJointTypesForPatient(this.treatmentId, measurementId);
         }
         if (result.success) {
-            return result.jointTypes;
+            return result.data;
         }
     }
 
     async loadMeasurementForPhysioPerJoint(measurementId, jointType) {
         const result = await PatientService.getMeasurementForPhysioPerJoint(this.patientId, this.treatmentId, measurementId, jointType);
         if (result.success) {
-            return result.measurement;
+            return result.data;
         }
     }
 
     async loadMeasurementForPatientPerJoint(measurementId, jointType) {
         const result = await PatientService.getMeasurementForPatientPerJoint(this.treatmentId, measurementId, jointType);
         if (result.success) {
-            return result.measurement;
+            return result.data;
         }
     }
 

@@ -1,17 +1,37 @@
 export default class PatientService {
-    static getFetchOptionsGet(){
-        return {
-            method: "GET",
-            headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("myToken")}
-        }
+    static getBaseUrl() {
+        return 'http://localhost:8080';
     }
 
-    static getFetchOptionsPost(dataPatient){
-       return {
-           method: "POST",
-           headers: {"Content-Type": "application/json", "Authorization": "Bearer " + sessionStorage.getItem("myToken")},
-           body: JSON.stringify(dataPatient)
-       };
+    static getFetchOptionsGet() {
+        return {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + sessionStorage.getItem("myToken")
+            }
+        };
+    }
+
+    static getFetchOptionsPost(data) {
+        return {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + sessionStorage.getItem("myToken")
+            },
+            body: JSON.stringify(data)
+        };
+    }
+
+    static getFetchOptionsPostFormData(data) {
+        return {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + sessionStorage.getItem("myToken")
+            },
+            body: data
+        };
     }
 
     static handleTokenExpiration(response) {
@@ -20,161 +40,88 @@ export default class PatientService {
         }
     }
 
-    static async getAllPatientsOfPhysio() {
-        const response= await fetch("http://localhost:8080/patients", this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const patients = await response.json();
-            return { success: true, patients: patients }
-        }
-        else {
-            return { success: false }
+    static async fetchData(url, options) {
+        try {
+            const response = await fetch(url, options);
+            this.handleTokenExpiration(response);
+            if (response.ok) {
+                return { success: true, data: await response.json() };
+            } else {
+                return { success: false, error: response.statusText };
+            }
+        } catch (error) {
+            return { success: false, error: error.message };
         }
     }
 
-    static async getPatientById(id) {
-        const response= await fetch(`http://localhost:8080/patients/${id}`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const patient = await response.json();
-            return { success: true, patient: patient }
-        }
-        else {
-            return { success: false }
-        }
+    static async getAllPatientsOfPhysio() {
+        debugger;
+        const url = `${this.getBaseUrl()}/patients`;
+        return this.fetchData(url, this.getFetchOptionsGet());
+    }
+
+    static async getPatientById(patientId) {
+        const url = `${this.getBaseUrl()}/patients/${patientId}`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getPatientDetails() {
-        const response= await fetch("http://localhost:8080/patients/details", this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const patient = await response.json();
-            return { success: true, patient: patient }
-        }
-        else {
-            return { success: false, error: "Uw patientgegevens kunnen niet gevonden worden" }
-        }
+        const url = `${this.getBaseUrl()}/patients/details`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async postPatient(dataPatient) {
-        const response= await fetch(`http://localhost:8080/patients`, this.getFetchOptionsPost(dataPatient));
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const patient = await response.json();
-            return { success: true, patient: patient }
-        }
-        else if (response.status === 409) {
-            return { success: false, error: "Er is al een patient bekend met dit e-mailadres" }
-        }
-        else {
-            return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
-        }
+        const url = `${this.getBaseUrl()}/patients`;
+        return this.fetchData(url, this.getFetchOptionsPost(dataPatient));
     }
 
     static async postTreatment(patientId, dataTreatment) {
-        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments`, this.getFetchOptionsPost(dataTreatment));
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const treatment = await response.json();
-            return { success: true, treatment: treatment }
-        }
-        else if (response.status === 409) {
-            return { success: false, error: "De behandeling overlapt met datum van een andere behandeling" }
-        }
-        else {
-            return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
-        }
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments`;
+        return this.fetchData(url, this.getFetchOptionsPost(dataTreatment));
     }
 
-    static async getTreatmentsByPatientId(id) {
-        const response= await fetch(`http://localhost:8080/patients/${id}/treatments`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const treatments = await response.json();
-            return { success: true, treatments: treatments }
-        }
+    static async getTreatmentsByPatientId(patientId) {
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getMeasurements(patientId, treatmentId) {
-        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const measurements = await response.json();
-            return { success: true, measurements: measurements }
-        }
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments/${treatmentId}/measurements`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getMeasurementForPhysio(patientId, treatmentId, measurementId) {
-        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const measurement = await response.json();
-            return { success: true, measurement: measurement }
-        }
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getMeasurementForPhysioPerJoint(patientId, treatmentId, measurementId, jointType) {
-        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}/joints/${jointType}`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const measurement = await response.json();
-            return { success: true, measurement: measurement }
-        }
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}/joints/${jointType}`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getMeasurementForPatientPerJoint(treatmentId, measurementId, jointType) {
-        const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}/joints/${jointType}`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const measurement = await response.json();
-            return { success: true, measurement: measurement }
-        }
+        const url = `${this.getBaseUrl()}/treatments/${treatmentId}/measurements/${measurementId}/joints/${jointType}`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getMeasurementForPatient(treatmentId, measurementId) {
-        const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const measurement = await response.json();
-            return { success: true, measurement: measurement }
-        }
+        const url = `${this.getBaseUrl()}/treatments/${treatmentId}/measurements/${measurementId}`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getJointTypesForPhysio(patientId, treatmentId, measurementId) {
-        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}/joints`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const jointTypes = await response.json();
-            return { success: true, jointTypes: jointTypes }
-        }
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments/${treatmentId}/measurements/${measurementId}/joints`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async getJointTypesForPatient(treatmentId, measurementId) {
-        const response= await fetch(`http://localhost:8080/treatments/${treatmentId}/measurements/${measurementId}/joints`, this.getFetchOptionsGet());
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const jointTypes = await response.json();
-            return { success: true, jointTypes: jointTypes }
-        }
+        const url = `${this.getBaseUrl()}/treatments/${treatmentId}/measurements/${measurementId}/joints`;
+        return this.fetchData(url, this.getFetchOptionsGet());
     }
 
     static async postMeasurement(patientId, treatmentId, dataMeasurement) {
-        const fetchOptionsPost =
-        {
-            method: "POST",
-            headers: {"Authorization": "Bearer " + sessionStorage.getItem("myToken")},
-            body: dataMeasurement
-        };
-
-        const response= await fetch(`http://localhost:8080/patients/${patientId}/treatments/${treatmentId}/measurements`, fetchOptionsPost);
-        this.handleTokenExpiration(response);
-        if (response.ok) {
-            const measurement = await response.json();
-            return { success: true, measurement: measurement }
-        }
-        else {
-            return { success: false, error: "Opslaan mislukt, probeer opnieuw" }
-        }
+        const url = `${this.getBaseUrl()}/patients/${patientId}/treatments/${treatmentId}/measurements`;
+        return this.fetchData(url, this.getFetchOptionsPostFormData(dataMeasurement));
     }
 }
-

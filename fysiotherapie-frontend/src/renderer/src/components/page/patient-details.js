@@ -22,7 +22,7 @@ class PatientDetails extends LitElement {
     async loadPatientData() {
         const result = await PatientService.getPatientDetails();
         if (result.success) {
-            this.patient = result.patient;
+            this.patient = result.data;
         } else {
             this.error = result.error;
         }

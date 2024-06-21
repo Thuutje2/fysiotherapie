@@ -31,7 +31,7 @@ class PatientMeasurementGraphs extends LitElement {
     async loadPatientDetails() {
         const result = await PatientService.getPatientDetails();
         if (result.success) {
-            this.patientId = String(result.patient.id);
+            this.patientId = result.data.id;
         } else {
             this.error = result.error;
         }

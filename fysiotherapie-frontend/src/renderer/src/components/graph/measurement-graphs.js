@@ -52,21 +52,21 @@ class MeasurementGraphs extends LitElement {
             result = await PatientService.getJointTypesForPatient(this.treatmentId, this.measurementId);
         }
         if (result.success) {
-            return result.jointTypes;
+            return result.data;
         }
     }
 
     async loadMeasurementForPhysioPerJoint(jointType) {
         const result = await PatientService.getMeasurementForPhysioPerJoint(this.patientId, this.treatmentId, this.measurementId, jointType);
         if (result.success) {
-            return result.measurement;
+            return result.data;
         }
     }
 
     async loadMeasurementForPatientPerJoint(jointType) {
         const result = await PatientService.getMeasurementForPatientPerJoint(this.treatmentId, this.measurementId, jointType);
         if (result.success) {
-            return result.measurement;
+            return result.data;
         }
     }
 
