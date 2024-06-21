@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-compare-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-compare-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/FysioApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/FysioApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/application/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/application/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/presentation/controller/RegistrationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fysiotherapie/security/presentation/controller/RegistrationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/graph/measurement-graphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-overview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/service/patient-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/service/patient-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-measurement-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +46,7 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "Spring Boot.FysioApplication.executor": "Debug",
+    "Spring Boot.FysioApplication.executor": "Run",
     "git-widget-placeholder": "75-de-hoekenseconden-per-joint-ophalen-efficientie-beoordelen-hiervan",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend",
@@ -96,7 +96,8 @@
       <workItem from="1718648692699" duration="1850000" />
       <workItem from="1718694614460" duration="2094000" />
       <workItem from="1718708070697" duration="2420000" />
-      <workItem from="1718955130868" duration="3236000" />
+      <workItem from="1718955130868" duration="3847000" />
+      <workItem from="1718963821175" duration="4012000" />
     </task>
     <task id="LOCAL-00001" summary="Return to login-page after expiration JWT">
       <option name="closed" value="true" />
@@ -115,21 +116,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Return to login-page after expiration JWT" />
     <option name="LAST_COMMIT_MESSAGE" value="Return to login-page after expiration JWT" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/MeasurementService.java</url>
-          <line>124</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/fysiotherapie/physiotherapy/application/service/MeasurementService.java</url>
-          <line>109</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

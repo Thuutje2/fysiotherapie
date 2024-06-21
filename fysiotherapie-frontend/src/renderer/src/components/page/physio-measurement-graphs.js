@@ -51,9 +51,11 @@ class PhysioMeasurementGraphs extends LitElement {
                 position: relative;
             }
 
-            .back-button {
+            button.back-button {
                 cursor: pointer;
+                align-content: center;
             }
+            
             
             p {
                 margin: 2px;

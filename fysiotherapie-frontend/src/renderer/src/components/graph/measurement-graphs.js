@@ -201,7 +201,6 @@ class MeasurementGraphs extends LitElement {
     }
 
     render() {
-        console.log(this.allJointPairs)
         return html`
             <div class="joint-checkboxes">
                 ${Object.entries(this.allJointPairs).map(([key, value]) => html`
