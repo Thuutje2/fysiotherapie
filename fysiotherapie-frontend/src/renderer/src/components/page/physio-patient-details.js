@@ -115,9 +115,15 @@ class PhysioPatientDetails extends LitElement {
                 padding: 1em;
                 position: relative;
             }
+          
+            .header {
+              display: flex;
+              align-items: center;
+            }
             
             .back-button {
-                cursor: pointer;
+              cursor: pointer;
+              margin-right: 10px;
             }
 
             .container {
@@ -278,10 +284,10 @@ class PhysioPatientDetails extends LitElement {
 
     render() {
         return html`
-        <h2 class="header-container">
+        <div class="header">
             <button class="back-button" @click="${this.goBack}">&#8249;</button>
-            Patiënt ${this.patient ? this.patient.id : ""}
-        </h2>
+            <h2>Patiënt ${this.patient ? this.patient.id : ""}</h2>
+        </div>
         <div class="container">
             <div class="patient-and-treatments-tables">
                 ${this.patient ? html`

@@ -63,8 +63,14 @@ class PhysioMeasurementGraphs extends LitElement {
                 position: relative;
             }
 
+            .header {
+              display: flex;
+              align-items: center;
+            }
+
             .back-button {
-                cursor: pointer;
+              cursor: pointer;
+              margin-right: 10px;
             }
             
             p {
@@ -85,12 +91,14 @@ class PhysioMeasurementGraphs extends LitElement {
 
     render() {
         return html`
-        <h2>
-            <button class="back-button" @click="${this.goBack}">&#8249;</button>
-            ${this.compareMode
-            ? `Vergelijking van metingen ${this.measurementId1} en ${this.measurementId2}`
-            : `Meting ${this.measurementId}`}
-        </h2>
+            <div class="header">
+                <button class="back-button" @click="${this.goBack}">&#8249;</button>
+                <h2>
+                    ${this.compareMode
+                            ? `Vergelijking van metingen ${this.measurementId1} en ${this.measurementId2}`
+                            : `Meting ${this.measurementId}`}
+                </h2>
+            </div>
         <p><b>Patiëntnummer</b>: ${this.patientId}</p>
         ${this.compareMode
             ? html`
