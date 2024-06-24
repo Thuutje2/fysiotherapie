@@ -46,8 +46,14 @@ class PatientMeasurementGraphs extends LitElement {
                 position: relative;
             }
 
+            .header {
+                display: flex;
+                align-items: center;
+            }
+
             .back-button {
                 cursor: pointer;
+                margin-right: 10px;
             }
             
             p {
@@ -72,10 +78,12 @@ class PatientMeasurementGraphs extends LitElement {
         }
 
         return html`
-            <h2>
-                <button class="back-button" @click="${this.goBack}">&#8249;</button>
-                Meting ${this.measurementId}
-            </h2>
+            <div class="header">
+                <h2>
+                    <button class="back-button" @click="${this.goBack}">&#8249;</button>
+                    Meting ${this.measurementId}
+                </h2>
+            </div>
             <p><b>Activiteit</b>: ${this.activity}</p>
             <measurement-graphs 
                 .patientId="${this.patientId}"
