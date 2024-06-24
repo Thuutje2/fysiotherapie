@@ -390,18 +390,14 @@ class PhysioPatientDetails extends LitElement {
                             <th>Tijd</th>
                             <th>Activiteit</th>
                         </tr>
-                        ${this.measurements ? html`
-                            ${this.measurements.map(measurement => html`
-                                <tr>
-                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id, measurement.activity)}">${measurement.id}</a></td>
-                                    <td>${measurement.date}</td>
-                                    <td>${measurement.time}</td>
-                                    <td>${measurement.activity}</td>
-                                </tr>
-                            `)}`
-                : html`
-                                <tr><td colspan="4">Geen metingen bekend</td></tr>
-                            `}
+                       ${this.measurements ? this.measurements.map(measurement => html`
+                        <tr>
+                            <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id, measurement.activity)}">${measurement.id}</a></td>
+                            <td>${measurement.date}</td>
+                            <td>${measurement.time}</td>
+                            <td>${measurement.activity}</td>
+                        </tr>
+                    `) : html`<tr><td colspan="4">Geen metingen bekend</td></tr>`}
                     </table>`
             : html`<p>Selecteer eerst een behandeling</p>`
         }
@@ -417,7 +413,7 @@ class PhysioPatientDetails extends LitElement {
                         </div>
                         <!--
                         <div>
-                            <label for="file">Bestand:</label>
+                            <label for="file">Video:</label>
                             <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
                         </div>
                         -->
@@ -504,7 +500,7 @@ class PhysioPatientDetails extends LitElement {
         this.isUploading = true;
 
         try {
-            const fileInput = this.shadowRoot.querySelector('#videoFile');
+            const fileInput = this.shadowRoot.querySelector('#file');
             const file = fileInput.files[0];
 
             console.log(file);
@@ -530,10 +526,14 @@ class PhysioPatientDetails extends LitElement {
             if (result.success) {
                 this.measurements = [...this.measurements, result.measurement];
                 this.hideAddMeasurementOverlay();
+
+                window.location.reload();
             } else {
                 const errorMessage = this.shadowRoot.getElementById("error-message");
                 errorMessage.innerText = result.error;
                 errorMessage.style.display = "block";
+
+                
             }
         } catch (error) {
             console.error('Upload or processing failed:', error);
