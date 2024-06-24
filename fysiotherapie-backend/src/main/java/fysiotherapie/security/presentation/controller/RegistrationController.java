@@ -1,16 +1,11 @@
 package fysiotherapie.security.presentation.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import fysiotherapie.security.application.service.UserService;
 import fysiotherapie.security.presentation.dto.request.Registration;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 

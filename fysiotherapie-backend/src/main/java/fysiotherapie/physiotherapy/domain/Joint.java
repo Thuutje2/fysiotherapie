@@ -9,7 +9,7 @@ public class Joint {
     @Id
     @GeneratedValue
     private Long id;
-    private String jointType;
+    private String type;
 
     @ElementCollection
     @OrderColumn
@@ -26,9 +26,13 @@ public class Joint {
     public String toString() {
         return "Joint{" +
                 "id=" + id +
-                ", jointType='" + getJointType() + '\'' +
+                ", jointType='" + getType() + '\'' +
                 ", secondsToPosition=" + getSecondsToPosition() +
                 '}';
+    }
+
+    public long getId() {
+        return id;
     }
 
     public Map<Double, Double> getSecondsToPosition() {
@@ -39,11 +43,11 @@ public class Joint {
         this.secondsToPosition = secondsToPosition;
     }
 
-    public String getJointType() {
-        return jointType;
+    public String getType() {
+        return type;
     }
 
-    public void setJointType(String jointType) {
-        this.jointType = jointType;
+    public void setType(String jointType) {
+        this.type = jointType;
     }
 }

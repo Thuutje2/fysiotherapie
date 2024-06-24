@@ -20,31 +20,31 @@ class PhysioPatientOverview extends LitElement {
         this.selectedPatient = null;
     }
 
+    async connectedCallback() {
+        super.connectedCallback();
+        await this.loadPatients();
+    }
+
     updateSearchTerm(event) {
         this.searchTerm = event.target.value.toLowerCase();
     }
 
     get filteredPatients() {
-        return this.patients.filter(patient => {
+        return this.patients ? this.patients.filter(patient => {
             return Object.values(patient).some(value =>
-            String(value).toLowerCase().includes(this.searchTerm)
+                String(value).toLowerCase().includes(this.searchTerm)
             );
-        });
+        }) : [];
     }
 
     togglePopup() {
         this.isPopupVisible = !this.isPopupVisible;
     }
 
-    async connectedCallback() {
-        super.connectedCallback();
-        await this.loadPatients();
-    }
-
     async loadPatients() {
         const result = await PatientService.getAllPatientsOfPhysio();
         if (result.success === true ) {
-            this.patients = result.patients;
+            this.patients = result.data;
         }
     }
 
@@ -295,7 +295,7 @@ class PhysioPatientOverview extends LitElement {
         const result = await PatientService.postPatient(patient);
 
         if (result.success === true) {
-            this.patients = [...this.patients, result.patient];
+            this.patients = [...this.patients, result.data];
             this.togglePopup();
         }
         else {

@@ -30,6 +30,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 
+    @ExceptionHandler(JointNotFoundException.class)
+    public ResponseEntity<String> handleJointNotFoundException(JointNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
     @ExceptionHandler(PatientNotAssignedToPhysiotherapistException.class)
     public ResponseEntity<String> handlePatientNotAssignedToPhysiotherapistException(
             PatientNotAssignedToPhysiotherapistException exception) {

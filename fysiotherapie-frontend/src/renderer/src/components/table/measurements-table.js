@@ -17,7 +17,6 @@ class MeasurementsTable extends LitElement {
     }
 
     handleMeasurementClick(measurement) {
-        debugger;
         const event = new CustomEvent("measurement-clicked", {
             detail: {measurement},
             bubbles: true,
@@ -40,7 +39,6 @@ class MeasurementsTable extends LitElement {
     }
 
     toggleCheckboxOnClickRow(e) {
-        debugger;
         if (e.target.matches('input[type=checkbox]')) return;
 
         const checkbox = e.target.closest('tr').querySelector('input[type=checkbox]');

@@ -1,5 +1,4 @@
 import { css, html, LitElement } from "lit";
-import PatientService from "../../service/patient-service.js";
 import "../graph/measurement-graphs.js";
 import "../graph/measurement-compare-graphs.js";
 
@@ -9,8 +8,9 @@ class PhysioMeasurementGraphs extends LitElement {
             patientId: { type: String },
             treatmentId: { type: String },
             measurementId: { type: String },
-            measurement: { type: Object },
+
             activity: { type: String },
+
             compareMode: { type: Boolean },
             measurementId1: { type: String },
             measurementId2: { type: String },
@@ -21,7 +21,6 @@ class PhysioMeasurementGraphs extends LitElement {
 
     constructor() {
         super();
-        this.measurement = null;
         this.compareMode = false;
     }
 
@@ -37,21 +36,9 @@ class PhysioMeasurementGraphs extends LitElement {
             this.measurementId1 = this.location.params.measurementId;
             this.measurementId2 = urlParams.get("compare");
             this.compareMode = true;
-            this.measurement1 = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId1);
-            this.measurement2 = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId2);
             return;
         }
-
         this.measurementId = this.location.params.measurementId;
-        this.measurement = await this.loadMeasurement(this.patientId, this.treatmentId, this.measurementId);
-    }
-
-    async loadMeasurement(patientId, treatmentId, measurementId) {
-        const result = await PatientService.getMeasurementForPhysio(patientId, treatmentId, measurementId);
-        if (result.success) {
-            return result.measurement;
-        }
-        return null;
     }
 
     static get styles() {
@@ -62,7 +49,7 @@ class PhysioMeasurementGraphs extends LitElement {
                 padding: 1em;
                 position: relative;
             }
-
+            
             .header {
               display: flex;
               align-items: center;
@@ -71,6 +58,10 @@ class PhysioMeasurementGraphs extends LitElement {
             .back-button {
               cursor: pointer;
               margin-right: 10px;
+
+            button.back-button {
+                cursor: pointer;
+                align-content: center;
             }
             
             p {
@@ -102,31 +93,24 @@ class PhysioMeasurementGraphs extends LitElement {
         <p><b>Patiëntnummer</b>: ${this.patientId}</p>
         ${this.compareMode
             ? html`
-                <div>
-                    ${!this.measurement1 || !this.measurement2 ? html`
-                        <div class="loader"></div>
-                    ` : html`
                         <measurement-compare-graphs
-                            .measurement1="${this.measurement1}"
-                            .measurement2="${this.measurement2}"
-                            .measurementId1="${this.measurementId1}"
-                            .measurementId2="${this.measurementId2}"
+                                .patientId="${this.patientId}"
+                                .treatmentId="${this.treatmentId}"
+                                .measurementId1="${this.measurementId1}"
+                                .measurementId2="${this.measurementId2}"
                         ></measurement-compare-graphs>
-                    `}
-                </div>
             `
             : html`
-                ${!this.measurement ? html`
-                    <p><b>Activiteit</b>: ${this.activity}</p>
-                    <div class="loader"></div>
-                ` : html`
-                    <measurement-graphs .measurement="${this.measurement}"></measurement-graphs>
-                `}
+                        <p><b>Activiteit</b>: ${this.activity}</p>
+                        <measurement-graphs
+                                .patientId="${this.patientId}"
+                                .treatmentId="${this.treatmentId}"
+                                .measurementId="${this.measurementId}">
+                        </measurement-graphs>
             `
         }
     `;
     }
-
 
     goBack() {
         history.back();

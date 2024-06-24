@@ -38,6 +38,7 @@ class PhysioPatientDetails extends LitElement {
 
     async connectedCallback() {
         super.connectedCallback();
+        debugger;
         this.patientId = this.location.params.patientId;
         this.patient = await this.loadPatientDetails(this.patientId);
         this.treatments = await this.loadTreatmentsOfPatient(this.patientId);
@@ -47,7 +48,7 @@ class PhysioPatientDetails extends LitElement {
     async loadPatientDetails(patientId) {
         const result = await PatientService.getPatientById(patientId);
         if (result.success) {
-            return result.patient;
+            return result.data;
         }
         return null;
     }
@@ -55,7 +56,7 @@ class PhysioPatientDetails extends LitElement {
     async loadTreatmentsOfPatient(patientId) {
         const result = await PatientService.getTreatmentsByPatientId(patientId);
         if (result.success) {
-            return result.treatments;
+            return result.data;
         }
         return null;
     }
@@ -63,7 +64,7 @@ class PhysioPatientDetails extends LitElement {
     async loadMeasurementsOfTreatment(patientId, treatmentId) {
         const result = await PatientService.getMeasurements(patientId, treatmentId);
         if (result.success) {
-            return result.measurements;
+            return result.data;
         }
         return null;
     }
@@ -423,7 +424,7 @@ class PhysioPatientDetails extends LitElement {
         if (result.success === true) {
             this.sortOrder = 'asc';
             this.sortTreatmentsByStartDate();
-            this.treatments = [...this.treatments, result.treatment];
+            this.treatments = [...this.treatments, result.data];
             this.hideAddTreatmentOverlay();
         }
         else {
@@ -447,7 +448,7 @@ class PhysioPatientDetails extends LitElement {
         const result = await PatientService.postMeasurement(this.patientId, this.selectedTreatment.id, formData);
 
         if (result.success === true) {
-            this.measurements = [...this.measurements, result.measurement];
+            this.measurements = [...this.measurements, result.data];
             this.isUploading = false;
             this.hideAddMeasurementOverlay();
         }

@@ -21,8 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import fysiotherapie.security.presentation.filter.JwtAuthenticationFilter;
 import fysiotherapie.security.presentation.filter.JwtAuthorizationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -34,9 +33,13 @@ public class SecurityConfig {
     private static final String LOGOUT_PATH = "/auth/logout";
     private static final String REGISTER_USER_PATH = "/auth/register/user";
     private static final String REGISTER_ADMIN_PATH = "/auth/register/admin";
-    private static final String GET_ROLE_PATH = "/auth/role";
-    private static final String ADD_PATIENT = "/patients";
-    private static final String GET_PATIENT_INFO = "/patients/details";
+    private static final String ROLE_PATH = "/auth/role";
+    private static final String PATIENTS_PATH = "/patients";
+    private static final String PATIENT_INFO_PATH = "/patients/details";
+    private static final String TREATMENTS_PATH = "/patients/{patientId}/treatments";
+    private static final String PATIENTS_MEASUREMENTS_PATH = "treatments/{treatmentId}/measurements/{measurementId}/joints/{jointType}";
+    private static final String PHYSIO_MEASUREMENTS_PATH = "patients/{patientId}/treatments/{treatmentId}/measurements/{measurementId}/joints/{jointType}";
+
     @Value("${security.jwt.expiration-in-ms}")
     private Integer jwtExpirationInMs;
     @Value("${security.jwt.secret}")
@@ -60,11 +63,19 @@ public class SecurityConfig {
                 .authorizeHttpRequests(r -> r
                         .requestMatchers(antMatcher(POST, LOGIN_PATH)).permitAll()
                         .requestMatchers(antMatcher(POST, LOGOUT_PATH)).permitAll()
-                        .requestMatchers(antMatcher(POST, REGISTER_USER_PATH)).permitAll()
-                        .requestMatchers(antMatcher(POST, REGISTER_ADMIN_PATH)).permitAll()
-                        .requestMatchers(antMatcher(GET, GET_ROLE_PATH)).permitAll()
-                        .requestMatchers(antMatcher(POST, ADD_PATIENT)).hasAuthority(Role.ROLE_ADMIN.toString())
-                        .requestMatchers(antMatcher(GET, GET_PATIENT_INFO)).hasAuthority(Role.ROLE_USER.toString())
+                        .requestMatchers(antMatcher(POST, REGISTER_USER_PATH)).hasAuthority(Role.ROLE_ADMIN.toString())
+                        .requestMatchers(antMatcher(POST, REGISTER_ADMIN_PATH)).hasAuthority(Role.ROLE_ADMIN.toString())
+                        .requestMatchers(antMatcher(GET, ROLE_PATH)).authenticated()
+
+                        .requestMatchers(antMatcher(POST, PATIENTS_PATH)).hasAuthority(Role.ROLE_ADMIN.toString())
+                        .requestMatchers(antMatcher(GET, PATIENTS_PATH)).hasAuthority(Role.ROLE_ADMIN.toString())
+                        .requestMatchers(antMatcher(GET, PATIENT_INFO_PATH)).authenticated()
+                        .requestMatchers(antMatcher(GET, TREATMENTS_PATH)).authenticated()
+                        .requestMatchers(antMatcher(POST, TREATMENTS_PATH)).authenticated()
+                        .requestMatchers(antMatcher(DELETE, TREATMENTS_PATH)).authenticated()
+                        .requestMatchers(antMatcher(GET, PATIENTS_MEASUREMENTS_PATH)).authenticated()
+                        .requestMatchers(antMatcher(GET, PHYSIO_MEASUREMENTS_PATH)).hasAuthority(Role.ROLE_ADMIN.toString())
+                        .requestMatchers(antMatcher(POST, PHYSIO_MEASUREMENTS_PATH)).hasAuthority(Role.ROLE_ADMIN.toString())
                         .requestMatchers(antMatcher("/error")).anonymous()
                         .anyRequest().authenticated()
                 )

@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
     private void register(String username, String password, String firstName, String lastName, Role role) {
         String encodedPassword = this.passwordEncoder.encode(password);
 
-        if (this.userRepository.findByUsername(username).isPresent()) {
+        if (existsByUsername(username)) {
             throw new UsernameNotUniqueException("Username already exists, choose another one");
         }
 
@@ -49,5 +49,9 @@ public class UserService implements UserDetailsService {
     public User loadUserByUsername(String username) {
         return this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    public Boolean existsByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 }
