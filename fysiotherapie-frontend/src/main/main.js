@@ -49,7 +49,7 @@ app.whenReady().then(() => {
         });
     });
 
-    ipcMain.on("upload-file-to-sports2d", (event, { fileName, fileBuffer }) => {
+    ipcMain.on("upload-file-to-sports2d", (event, { fileName, fileBuffer, pId, sId, activity }) => {
         const uploadPath = path.join(currentWorkingDirectory, 'uploads', fileName);
 
         fs.mkdirSync(path.dirname(uploadPath), { recursive: true });
@@ -79,70 +79,30 @@ app.whenReady().then(() => {
         });
 
         createAndUploadFile.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
-            event.sender.send('powershell-exit', code.toString());
+            console.log(`File process exited with code ${code}`);
+
+            if (code === 0) {
+                const csvFileName = 'video_BLAZEPOSE_person0_angles.csv';
+                const csvFilePath = path.join(currentWorkingDirectory, 'uploads', csvFileName);
+
+                fs.readFile(csvFilePath, (err, csvBuffer) => {
+                    if (err) {
+                        console.error('Failed to read CSV file:', err);
+                        event.sender.send('upload-file-to-sports2d-response', { success: false, message: 'Failed to read CSV file.' });
+                        return;
+                    }
+
+                    event.sender.send('upload-file-to-sports2d-response', {
+                        success: true,
+                        message: 'File processed successfully.',
+                        csvBuffer: csvBuffer // De buffer van de CSV
+                    });
+                });
+            } else {
+                event.sender.send('upload-file-to-sports2d-response', { success: false, message: `Batch process failed with code ${code}` });
+            }
         });
     });
-
-
-    // ipcMain.on("upload-file-to-sports2d", (event, { fileName, fileBuffer }) => {
-    //     // Bepaal waar je het bestand wilt opslaan
-    //     const uploadPath = path.join(currentWorkingDirectory, 'uploads', fileName);
-
-    //     // Zorg ervoor dat de uploads map bestaat
-    //     fs.mkdirSync(path.dirname(uploadPath), { recursive: true });
-
-    //     // Schrijf het bestand naar de schijf
-    //     fs.writeFile(uploadPath, fileBuffer, (err) => {
-    //         if (err) {
-    //             console.error('Fout bij het opslaan van het bestand:', err);
-    //             event.sender.send('upload-file-to-sports2d-response', { success: false, message: 'Failed to save file.' });
-    //             return;
-    //         }
-
-    //         console.log(`Bestand opgeslagen op ${uploadPath}`);
-
-    //         const condaActivate = "C:\\Users\\daanf\\miniconda3\\Scripts\\activate.bat";
-    //         const videoDirectory = path.dirname(uploadPath);
-    //         const configPath = join(currentWorkingDirectory, 'uploads', 'Config_demo.toml')
-
-    //         const pythonScriptPath = path.join(currentWorkingDirectory, 'python', 'main.py');
-
-    //         const escapedConfigPath = configPath.replace(/\\/g, '\\\\'); 
-
-    //         const powershellCommands = [
-    //             `cd "${videoDirectory}"`,
-    //             `& "${condaActivate}"`,
-    //             `conda activate Sports2D`,
-    //             `pip install sports2d`,
-    //             `pip install opencv-python==4.5.5.64`,
-    //             `python "${pythonScriptPath}" "${configPath}"` ,
-    //             // `ipython -c "from Sports2D import Sports2D"`,
-    //             // `ipython -c "Sports2D.detect_pose(r'${escapedConfigPath}')"`, 
-    //             // `ipython -c "Sports2D.compute_angles(r'${escapedConfigPath}');"`
-    //         ].join(' ; ');
-
-    //         const processFile = spawn("powershell.exe", ["-Command", powershellCommands]);
-
-    //         processFile.stdout.on('data', (data) => {
-    //             console.log(`stdout: ${data}`);
-    //             event.sender.send('powershell-stdout', data.toString());
-    //         });
-
-    //         processFile.stderr.on('data', (data) => {
-    //             console.error(`stderr: ${data}`);
-    //             event.sender.send('powershell-stderr', data.toString());
-    //         });
-
-    //         processFile.on('close', (code) => {
-    //             console.log(`Process exited with code ${code}`);
-    //             event.sender.send('powershell-exit', code.toString());
-    //         });
-
-    //         // Geef een succesvolle reactie terug naar de frontend
-    //         event.sender.send('upload-file-to-sports2d-response', { success: true, message: 'File uploaded and processed successfully.' });
-    //     });
-    // });
 });
 
 app.on('window-all-closed', () => {
