@@ -177,9 +177,6 @@ class LoginForm extends LitElement {
                             <div></div>
                         </div>
                     </form>
-
-                    <button @click=${this.runPythonSports2D}>run python script</button>
-
                 </div>
             </div>
         `;
