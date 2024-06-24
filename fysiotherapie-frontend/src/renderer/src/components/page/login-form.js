@@ -177,6 +177,9 @@ class LoginForm extends LitElement {
                             <div></div>
                         </div>
                     </form>
+
+                    <button @click=${this.runPythonSports2D}>run python script</button>
+
                 </div>
             </div>
         `;
@@ -195,6 +198,12 @@ class LoginForm extends LitElement {
             await this.redirectToMainPageBasedOnRole(event)
         }
     }
+
+    runPythonSports2D() {
+        window.api.runPython();
+    }
+
+
 
     async redirectToMainPageBasedOnRole() {
         const role = await AuthService.getRole();

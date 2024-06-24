@@ -4,6 +4,7 @@ import '../table/details-patient-table.js';
 import '../table/treatments-table.js';
 import '../table/measurements-table.js';
 import { Router } from "@vaadin/router";
+import fs from 'fs';
 
 class PhysioPatientDetails extends LitElement {
     static get properties() {
@@ -23,6 +24,7 @@ class PhysioPatientDetails extends LitElement {
     }
 
     constructor() {
+        debugger;
         super();
         this.patient = null;
         this.treatments = null;
@@ -372,6 +374,63 @@ class PhysioPatientDetails extends LitElement {
                     <button id="submit-button" type="submit">Opslaan</button>
                     <div id="error-message" style="display: none;">
                 </form>
+            
+            
+            <div class="measurement-panel">
+                <h3>Meethistorie
+                    ${this.selectedTreatment ? html`
+                            <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
+                            : ''}
+                </h3>
+                ${this.selectedTreatment ? html`
+                    <table>
+                        <tr>
+                            <th>Meting</th>
+                            <th>Datum</th>
+                            <th>Tijd</th>
+                            <th>Activiteit</th>
+                        </tr>
+                        ${this.measurements ? html`
+                            ${this.measurements.map(measurement => html`
+                                <tr>
+                                    <td><a href="#" @click="${() => this.handleMeasurementsClick(measurement.id, measurement.activity)}">${measurement.id}</a></td>
+                                    <td>${measurement.date}</td>
+                                    <td>${measurement.time}</td>
+                                    <td>${measurement.activity}</td>
+                                </tr>
+                            `)}`
+                : html`
+                                <tr><td colspan="4">Geen metingen bekend</td></tr>
+                            `}
+                    </table>`
+            : html`<p>Selecteer eerst een behandeling</p>`
+        }
+            </div>
+            <div class="add-measurement-overlay" ?visible="${this.isPopupAddMeasurementVisible}" @click="${this.handleAddMeasurementOverlayClick}">
+                <div class="add-measurement">
+                    <button class="close-button" @click="${this.hideAddMeasurementOverlay}">&times;</button>
+                    <h3>Voeg een nieuwe meting toe</h3>
+                    <form @submit="${this.handleSubmitMeasurement}">
+                        <div>
+                            <label for="activity">Activiteit:</label>
+                            <input type="text" id="activity" name="activity" placeholder="Lopen" required>
+                        </div>
+                        <!--
+                        <div>
+                            <label for="file">Bestand:</label>
+                            <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
+                        </div>
+                        -->
+                        <div>
+                            <label for="videoFile">Video:</label>
+                            <input type="file" id="videoFile" name="videoFile" required>
+                        </div>
+                        <button id="submit-button" type="submit">Opslaan</button>
+                        <div id="error-message" style="display: none;">
+                            <div></div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="loader-overlay" ?visible="${this.isUploading}">
@@ -401,6 +460,12 @@ class PhysioPatientDetails extends LitElement {
         const measurementId2 = selectedMeasurements[1];
 
         Router.go(`/physio-measurement-graphs/patients/${this.patientId}/treatments/${treatmentId}/measurements/${measurementId1}?compare=${encodeURIComponent(measurementId2)}`);
+    }
+
+    handleVideoUpload(event) {
+        console.log(event.target.files);
+        const uploadedVideo = event.target.files[0];
+        window.api.onUploadFileToSports2D(uploadedVideo);
     }
 
     handleAddTreatmentOverlayClick(event) {
@@ -438,30 +503,57 @@ class PhysioPatientDetails extends LitElement {
         event.preventDefault();
         this.isUploading = true;
 
-        const formData = new FormData();
-        const fileInput = this.shadowRoot.querySelector('#file');
-        const file = fileInput.files[0];
-        formData.append('file', file);
-        const activityInput = this.shadowRoot.querySelector('#activity');
-        const activity = activityInput.value;
-        formData.append('activity', activity);
-        const result = await PatientService.postMeasurement(this.patientId, this.selectedTreatment.id, formData);
+        try {
+            const fileInput = this.shadowRoot.querySelector('#videoFile');
+            const file = fileInput.files[0];
 
-        if (result.success === true) {
-            this.measurements = [...this.measurements, result.data];
-            this.isUploading = false;
-            this.hideAddMeasurementOverlay();
-        }
-        else {
-            this.isUploading = false;
+            console.log(file);
+
+            const test = await window.api.onUploadFileToSports2D(file);
+            const testCsvString = this.uint8ArrayToCSV(test);
+            const testBlob = new Blob([testCsvString], { type: 'text/csv' }, 'test.csv');
+            const testFile = new File([testBlob], 'test.csv', { type: 'text/csv' });
+
+            console.log(testFile);
+
+
+            const formData = new FormData();
+            formData.append('file', testFile);
+
+
+            const activityInput = this.shadowRoot.querySelector('#activity');
+            const activity = activityInput.value;
+            formData.append('activity', activity);
+
+            const result = await PatientService.postMeasurement(this.patientId, this.selectedTreatment.id, formData);
+
+            if (result.success) {
+                this.measurements = [...this.measurements, result.measurement];
+                this.hideAddMeasurementOverlay();
+            } else {
+                const errorMessage = this.shadowRoot.getElementById("error-message");
+                errorMessage.innerText = result.error;
+                errorMessage.style.display = "block";
+            }
+        } catch (error) {
+            console.error('Upload or processing failed:', error);
             const errorMessage = this.shadowRoot.getElementById("error-message");
-            errorMessage.innerText = result.error;
+            errorMessage.innerText = error;
             errorMessage.style.display = "block";
+        } finally {
+            this.isUploading = false;
         }
     }
 
     goBack() {
         history.back();
+    }
+
+    uint8ArrayToCSV(uint8Array) {
+        const textDecoder = new TextDecoder('utf-8');
+        const csvString = textDecoder.decode(uint8Array);
+
+        return csvString;
     }
 }
 
