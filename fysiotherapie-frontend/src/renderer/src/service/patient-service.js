@@ -50,7 +50,7 @@ export default class PatientService {
                 return { success: false, error: response.statusText };
             }
         } catch (error) {
-            return { success: false, error: error.message };
+            return { success: false, error: "Er ging iets fout. Probeer opnieuw" };
         }
     }
 

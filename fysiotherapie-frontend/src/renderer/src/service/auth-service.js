@@ -50,7 +50,7 @@ export default class AuthService {
         }
         else {
             const errorText = await response.text();
-            return { success: false, error: errorText || "Logout failed" }
+            return { success: false, error: errorText || "Uitloggen mislukt" }
         }
     }
 
