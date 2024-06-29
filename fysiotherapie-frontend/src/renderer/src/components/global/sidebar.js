@@ -135,8 +135,6 @@ class SidebarComponent extends LitElement {
                     <div ?hidden="${!this._isAdmin}">
                         <a href="/physio-patient-overview" @click="${this.handleLinkClick}">Patiënten</a>
                     </div>
-                    <div ?hidden="${!this._isAdmin}">
-                       <a href="/physio-sports2d-test" @click="${this.handleLinkClick}">Sports2D</a>                    
                 </div>
 
                 <a id="logout-btn" href="#" @click="${this.handleLogout}">

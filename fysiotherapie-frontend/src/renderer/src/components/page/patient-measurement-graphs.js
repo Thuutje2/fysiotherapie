@@ -9,23 +9,37 @@ class PatientMeasurementGraphs extends LitElement {
             treatmentId: { type: String },
             measurementId: { type: String },
             activity: { type: String },
-            renderComplete: { type: Boolean }
+            renderComplete: { type: Boolean },
+
+            compareMode: { type: Boolean },
+            measurementId1: { type: String },
+            measurementId2: { type: String },
+            measurement1: { type: Object },
+            measurement2: { type: Object }
         };
     }
 
     constructor() {
         super();
         this.renderComplete = false;
+        this.compareMode = false;
     }
 
     async connectedCallback() {
         super.connectedCallback();
         await this.loadPatientDetails();
         this.treatmentId = this.location.params.treatmentId;
-        this.measurementId = this.location.params.measurementId;
         const urlParams = new URLSearchParams(window.location.search);
         this.activity = urlParams.get("activity");
         this.renderComplete = true;
+
+        if (urlParams.get("compare") !== null) {
+            this.measurementId1 = this.location.params.measurementId;
+            this.measurementId2 = urlParams.get("compare");
+            this.compareMode = true;
+            return;
+        }
+        this.measurementId = this.location.params.measurementId;
     }
 
     async loadPatientDetails() {
@@ -79,17 +93,32 @@ class PatientMeasurementGraphs extends LitElement {
 
         return html`
             <div class="header">
+                <button class="back-button" @click="${this.goBack}">&#8249;</button>
                 <h2>
-                    <button class="back-button" @click="${this.goBack}">&#8249;</button>
-                    Meting ${this.measurementId}
+                    ${this.compareMode
+                            ? `Vergelijking van metingen ${this.measurementId1} en ${this.measurementId2}`
+                            : `Meting ${this.measurementId}`}
                 </h2>
             </div>
             <p><b>Activiteit</b>: ${this.activity}</p>
-            <measurement-graphs 
-                .patientId="${this.patientId}"
-                .treatmentId="${this.treatmentId}"
-                .measurementId="${this.measurementId}">
-            </measurement-graphs>
+            ${this.compareMode
+                    ? html`
+                        <measurement-compare-graphs
+                                .patientId="${this.patientId}"
+                                .treatmentId="${this.treatmentId}"
+                                .measurementId1="${this.measurementId1}"
+                                .measurementId2="${this.measurementId2}"
+                        ></measurement-compare-graphs>
+            `
+                    : html`
+                        <p><b>Activiteit</b>: ${this.activity}</p>
+                        <measurement-graphs
+                                .patientId="${this.patientId}"
+                                .treatmentId="${this.treatmentId}"
+                                .measurementId="${this.measurementId}">
+                        </measurement-graphs>
+            `
+            }
         `;
     }
 

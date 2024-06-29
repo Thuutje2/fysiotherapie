@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT" />
+    <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/batch/main.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/batch/main.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/sports2d-test.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +46,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.FysioApplication.executor": "Run",
-    "git-widget-placeholder": "FE-dev",
+    "git-widget-placeholder": "77-vergelijken-van-grafieken-voor-patiënt-en-opruimen-code",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend",
     "node.js.detected.package.eslint": "true",

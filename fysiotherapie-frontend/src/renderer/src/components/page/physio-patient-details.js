@@ -4,7 +4,6 @@ import '../table/details-patient-table.js';
 import '../table/treatments-table.js';
 import '../table/measurements-table.js';
 import { Router } from "@vaadin/router";
-import fs from 'fs';
 
 class PhysioPatientDetails extends LitElement {
     static get properties() {
@@ -40,7 +39,6 @@ class PhysioPatientDetails extends LitElement {
 
     async connectedCallback() {
         super.connectedCallback();
-        debugger;
         this.patientId = this.location.params.patientId;
         this.patient = await this.loadPatientDetails(this.patientId);
         this.treatments = await this.loadTreatmentsOfPatient(this.patientId);
@@ -380,7 +378,7 @@ class PhysioPatientDetails extends LitElement {
                 <h3>Meethistorie
                     ${this.selectedTreatment ? html`
                             <button class="add-measurement-button" @click="${this.showAddMeasurementOverlay}">Meting toevoegen</button>`
-                            : ''}
+            : ''}
                 </h3>
                 ${this.selectedTreatment ? html`
                     <table>
@@ -411,12 +409,6 @@ class PhysioPatientDetails extends LitElement {
                             <label for="activity">Activiteit:</label>
                             <input type="text" id="activity" name="activity" placeholder="Lopen" required>
                         </div>
-                        <!--
-                        <div>
-                            <label for="file">Video:</label>
-                            <input type="file" id="file" name="file" @change="${this.handleFileSelect}" required>
-                        </div>
-                        -->
                         <div>
                             <label for="videoFile">Video:</label>
                             <input type="file" id="videoFile" name="videoFile" required>
@@ -533,7 +525,7 @@ class PhysioPatientDetails extends LitElement {
                 errorMessage.innerText = result.error;
                 errorMessage.style.display = "block";
 
-                
+
             }
         } catch (error) {
             console.error('Upload or processing failed:', error);

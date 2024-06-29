@@ -9,7 +9,9 @@ class PatientHistory extends LitElement {
         measurements: { type: Array },
         selectedTreatment: { type: Object },
         error: { type: String },
-        sortOrder: { type: String }
+        sortOrder: { type: String },
+        compareMode: { type: Boolean },
+        selectedMeasurements: { type: Object }
     };
 
     constructor() {
@@ -20,6 +22,8 @@ class PatientHistory extends LitElement {
         this.selectedTreatment = null;
         this.error = "";
         this.sortOrder = 'desc';
+        this.compareMode = false;
+        this.selectedMeasurements = new Set();
     }
 
     async connectedCallback() {
@@ -53,6 +57,12 @@ class PatientHistory extends LitElement {
             return result.data;
         }
         return null;
+    }
+
+    toggleCompareMode() {
+        this.compareMode = !this.compareMode;
+        this.selectedMeasurements.clear();
+        this.requestUpdate();
     }
 
     sortTreatmentsByStartDate() {
@@ -93,6 +103,24 @@ class PatientHistory extends LitElement {
                 max-height: 65vh;
                 overflow-y: auto;
             }
+
+            .compare-measurement-button, .compare-measurement-finished-button {
+                float: right;
+                background-color: rgb(50, 151, 223);
+                color: white;
+                border: none;
+                border-radius: 3px;
+                padding: 0.5em 1em;
+                cursor: pointer;
+            }
+
+            .compare-measurement-button {
+                margin-right: 5px;
+            }
+
+            .compare-measurement-finished-button {
+                margin-top: 5px;
+            }
         `;
     }
 
@@ -119,13 +147,24 @@ class PatientHistory extends LitElement {
                     </div>
                 </div>
                 <div class="measurements-history">
-                    <h3>Meethistorie</h3>
+                    <h3>Meethistorie
+                        ${this.measurements && this.measurements.length > 1 ? html`
+                            <button class="compare-measurement-button" @click="${this.toggleCompareMode}">
+                                ${this.compareMode ? html`Annuleer vergelijking` : html`Vergelijk metingen`}
+                            </button>
+                        ` : ''}
+                    </h3>
                     <div class="measurements-table">
                         <measurements-table   .measurements="${this.measurements}"
                                               .selectedTreatment="${this.selectedTreatment}"
+                                              .selectedMeasurements="${this.selectedMeasurements}"
+                                              .compareMode="${this.compareMode}"
                                               @measurement-clicked="${this.handleMeasurementClicked}">
                         </measurements-table>
                     </div>
+                    <button class="compare-measurement-finished-button"
+                            @click="${this.handleCompareMeasurements}" ?hidden="${!this.compareMode}">Vergelijk
+                    </button>
                 </div>
             </div>
         `;
@@ -134,12 +173,25 @@ class PatientHistory extends LitElement {
     async handleTreatmentSelected(event) {
         this.selectedTreatment = event.detail.treatment;
         this.measurements = await this.loadMeasurementsOfTreatment(this.patientId, this.selectedTreatment.id);
+        this.compareMode = false;
     }
 
     handleMeasurementClicked(event) {
         const { id: measurementId, activity } = event.detail.measurement;
         const treatmentId = this.selectedTreatment.id;
         Router.go(`/patient-measurement-graphs/treatments/${treatmentId}/measurements/${measurementId}?activity=${encodeURIComponent(activity)}`);
+    }
+
+    handleCompareMeasurements(){
+        const selectedMeasurements = Array.from(this.selectedMeasurements);
+        if (selectedMeasurements.length !== 2){
+            return;
+        }
+        const treatmentId = this.selectedTreatment.id;
+        const measurementId1 = selectedMeasurements[0];
+        const measurementId2 = selectedMeasurements[1];
+
+        Router.go(`/patient-measurement-graphs/treatments/${treatmentId}/measurements/${measurementId1}?compare=${encodeURIComponent(measurementId2)}`);
     }
 }
 
