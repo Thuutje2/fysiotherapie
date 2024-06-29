@@ -271,7 +271,6 @@ class MeasurementCompareGraphs extends LitElement {
     }
 
     async handleJointTypeChange(measurement, measurementId) {
-        debugger;
         for (const [id, isChecked] of Object.entries(this.checkedJoints)) {
             if (isChecked && !measurement[id]) {
                 let result = null;

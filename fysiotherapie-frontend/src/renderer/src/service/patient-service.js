@@ -55,7 +55,6 @@ export default class PatientService {
     }
 
     static async getAllPatientsOfPhysio() {
-        debugger;
         const url = `${this.getBaseUrl()}/patients`;
         return this.fetchData(url, this.getFetchOptionsGet());
     }

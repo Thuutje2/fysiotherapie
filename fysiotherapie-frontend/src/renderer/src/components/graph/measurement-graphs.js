@@ -85,7 +85,6 @@ class MeasurementGraphs extends LitElement {
     }
 
     getAllSecondsAndAngles(jointType) {
-        debugger;
         if (!Array.isArray(this.measurement)) {
             return {seconds: [], angles: []};
         }
@@ -238,7 +237,6 @@ class MeasurementGraphs extends LitElement {
     }
 
     async handleCheckboxChange(event) {
-        debugger;
         const {id, checked} = event.target;
         const checkedJointCount = Object.values(this.checkedJoints).filter(val => val).length;
 

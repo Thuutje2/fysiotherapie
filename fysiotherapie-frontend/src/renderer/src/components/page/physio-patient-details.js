@@ -23,7 +23,6 @@ class PhysioPatientDetails extends LitElement {
     }
 
     constructor() {
-        debugger;
         super();
         this.patient = null;
         this.treatments = null;
