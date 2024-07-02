@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67890e38-305b-469d-936b-d50de736ff1e" name="Changes" comment="Return to login-page after expiration JWT">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/batch/main.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/batch/main.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/global/sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-history.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/patient-measurement-graphs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/page/physio-patient-details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/physio-measurement-graphs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fysiotherapie-frontend/src/renderer/src/components/sports2d-test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,9 +39,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.FysioApplication.executor": "Run",
-    "git-widget-placeholder": "77-vergelijken-van-grafieken-voor-patiënt-en-opruimen-code",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-frontend",
+    "last_opened_file_path": "C:/Users/marit/Documents/GitHub/fysiotherapie/fysiotherapie-backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -97,6 +90,7 @@
       <workItem from="1718708070697" duration="2420000" />
       <workItem from="1718955130868" duration="3847000" />
       <workItem from="1718963821175" duration="4012000" />
+      <workItem from="1719928426561" duration="306000" />
     </task>
     <task id="LOCAL-00001" summary="Return to login-page after expiration JWT">
       <option name="closed" value="true" />
