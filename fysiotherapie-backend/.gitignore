@@ -40,3 +40,4 @@ build/
 ### Application Properties ###
 src/main/resources/application.properties
 src/main/resources/admin.properties
+src/main/resources/patient.properties
